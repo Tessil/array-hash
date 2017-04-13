@@ -2,7 +2,9 @@
 
 Cache consious hash map for string based on the "Cache-conscious collision resolution in string hash tables." (Askitis Nikolas and Justin Zobel, 2005) paper.
 
-
+<p align="center">
+  <img src="https://tessil.github.io/images/array_hash.png" width="500px" />
+</p>
 
 The library provides two classes: `tsl::array_map` and `tsl::array_set`.
 
