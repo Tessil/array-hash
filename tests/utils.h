@@ -2,7 +2,6 @@
 #define TSL_UTILS_H
 
 #include <cctype>
-#include <codecvt>
 #include <functional>
 #include <locale>
 #include <memory>
@@ -10,41 +9,6 @@
 #include <string>
 
 #include <boost/numeric/conversion/cast.hpp>
-
-
-class copy_only_test {
-public:
-    explicit copy_only_test(int64_t value) : m_value(value) {
-    }
-    
-    copy_only_test(const copy_only_test&) = default;
-    copy_only_test(copy_only_test&&) = delete;
-    copy_only_test& operator=(const copy_only_test&) = default;
-    copy_only_test& operator=(copy_only_test&&) = delete;
-    
-    friend std::ostream& operator<<(std::ostream& stream, const copy_only_test& value) {
-        stream << value.m_value;
-        return stream;
-    }
-    
-    friend bool operator==(const copy_only_test& lhs, const copy_only_test& rhs) { 
-        return lhs.m_value == rhs.m_value;
-    }
-    
-    friend bool operator!=(const copy_only_test& lhs, const copy_only_test& rhs) { 
-        return !(lhs == rhs); 
-    }
-    
-    friend bool operator<(const copy_only_test& lhs, const copy_only_test& rhs) {
-        return lhs.m_value < rhs.m_value;
-    }
-    
-    int64_t value() const {
-        return m_value;
-    }
-private:    
-    int64_t m_value;
-};
 
 class move_only_test {
 public:
@@ -195,14 +159,28 @@ inline std::basic_string<wchar_t, std::char_traits<wchar_t>> utils::get_key<wcha
 
 template<>
 inline std::basic_string<char16_t, std::char_traits<char16_t>> utils::get_key<char16_t, std::char_traits<char16_t>>(size_t counter) {
-    std::wstring_convert<std::codecvt_utf8<char16_t>, char16_t> convert;
-    return convert.from_bytes(utils::get_key<char, std::char_traits<char>>(counter));
+    std::string num = std::to_string(counter);
+    std::u16string key = u"Key ";
+    
+    // We know that num is an ASCII string
+    for(char c: num) {
+        key += static_cast<char16_t>(c);
+    }
+    
+    return key;
 }
 
 template<>
 inline std::basic_string<char32_t, std::char_traits<char32_t>> utils::get_key<char32_t, std::char_traits<char32_t>>(size_t counter) {
-    std::wstring_convert<std::codecvt_utf8<char32_t>, char32_t> convert;
-    return convert.from_bytes(utils::get_key<char, std::char_traits<char>>(counter));
+    std::string num = std::to_string(counter);
+    std::u32string key = U"Key ";
+    
+    // We know that num is an ASCII string
+    for(char c: num) {
+        key += static_cast<char32_t>(c);
+    }
+    
+    return key;
 }
 
 
