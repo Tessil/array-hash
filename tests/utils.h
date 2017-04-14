@@ -10,41 +10,6 @@
 
 #include <boost/numeric/conversion/cast.hpp>
 
-
-class copy_only_test {
-public:
-    explicit copy_only_test(int64_t value) : m_value(value) {
-    }
-    
-    copy_only_test(const copy_only_test&) = default;
-    copy_only_test(copy_only_test&&) = delete;
-    copy_only_test& operator=(const copy_only_test&) = default;
-    copy_only_test& operator=(copy_only_test&&) = delete;
-    
-    friend std::ostream& operator<<(std::ostream& stream, const copy_only_test& value) {
-        stream << value.m_value;
-        return stream;
-    }
-    
-    friend bool operator==(const copy_only_test& lhs, const copy_only_test& rhs) { 
-        return lhs.m_value == rhs.m_value;
-    }
-    
-    friend bool operator!=(const copy_only_test& lhs, const copy_only_test& rhs) { 
-        return !(lhs == rhs); 
-    }
-    
-    friend bool operator<(const copy_only_test& lhs, const copy_only_test& rhs) {
-        return lhs.m_value < rhs.m_value;
-    }
-    
-    int64_t value() const {
-        return m_value;
-    }
-private:    
-    int64_t m_value;
-};
-
 class move_only_test {
 public:
     explicit move_only_test(int64_t value) : m_value(new int64_t(value)) {

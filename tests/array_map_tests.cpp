@@ -112,20 +112,6 @@ BOOST_AUTO_TEST_CASE(test_insert_with_too_long_string) {
     BOOST_CHECK_THROW(map.insert(too_long_string, utils::get_value<int64_t>(11)), std::length_error);
 }
 
-BOOST_AUTO_TEST_CASE(test_insert_copy_constructible_only) {
-    tsl::array_map<char, copy_only_test> map;
-    copy_only_test val1(1);
-    copy_only_test val2(2);
-    
-    BOOST_CHECK(map.insert("val1", val1).second);
-    BOOST_CHECK(map.insert("val2", val2).second);
-    
-    BOOST_CHECK(!map.insert("val2", val1).second);
-    
-    
-    BOOST_CHECK_EQUAL(map.erase("val2"), 1);
-}
-
 
 /**
  * erase
