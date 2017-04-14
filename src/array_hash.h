@@ -696,7 +696,7 @@ private:
             m_array_bucket_iterator(array_bucket_iterator),
             m_array_hash(array_hash_p)
         {
-            assert(m_array_hash != nullptr);
+            tsl_assert(m_array_hash != nullptr);
         }
         
     public:
