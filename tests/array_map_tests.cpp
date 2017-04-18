@@ -323,17 +323,21 @@ BOOST_AUTO_TEST_CASE(test_move) {
     tsl::array_map<char, int64_t> map2 = std::move(map);
     
     BOOST_CHECK(map.empty());
+    BOOST_CHECK(map.begin() == map.end());
     BOOST_CHECK_EQUAL(map2.size(), 2);
     BOOST_CHECK(map2 == (tsl::array_map<char, int64_t>{{"test1", 10}, {"test2", 20}}));
     
     
-    tsl::array_map<char, int64_t> map3 = {{"test1", 10}, {"test2", 20}, {"test3", 30}};
-    tsl::array_map<char, int64_t> map4;
-    map4 = std::move(map3);
+    tsl::array_map<char, int64_t> map3;
+    map3 = std::move(map2);
     
-    BOOST_CHECK(map3.empty());
-    BOOST_CHECK_EQUAL(map4.size(), 3);
-    BOOST_CHECK(map4 == (tsl::array_map<char, int64_t>{{"test1", 10}, {"test2", 20}, {"test3", 30}}));
+    BOOST_CHECK(map2.empty());
+    BOOST_CHECK(map2.begin() == map2.end());
+    BOOST_CHECK_EQUAL(map3.size(), 2);
+    BOOST_CHECK(map3 == (tsl::array_map<char, int64_t>{{"test1", 10}, {"test2", 20}}));
+    
+    map2 = {{"test1", 10}};
+    BOOST_CHECK(map2 == (tsl::array_map<char, int64_t>{{"test1", 10}}));
 }
 
 /**
