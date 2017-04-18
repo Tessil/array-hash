@@ -594,7 +594,7 @@ private:
     CharT* m_buffer;
     
 public:
-    static const key_size_type MAX_KEY_SIZE = std::numeric_limits<key_size_type>::max() - KEY_EXTRA_SIZE - 1;
+    static const key_size_type MAX_KEY_SIZE = key_size_type(std::numeric_limits<key_size_type>::max() - KEY_EXTRA_SIZE - 1);
 };
 
 
