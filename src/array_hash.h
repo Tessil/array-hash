@@ -185,11 +185,6 @@ private:
     }
     
 public:
-    static size_type max_key_size() {
-        // -1 for the reserved END_OF_BUCKET value
-        return std::numeric_limits<key_size_type>::max() - KEY_EXTRA_SIZE - 1;
-    }
-    
     /**
      * Return the size required for an entry with a key of size 'key_size'.
      */
@@ -495,7 +490,7 @@ public:
     
 private:
     key_size_type as_key_size_type(size_type key_size) const {
-        if(key_size > max_key_size()) {
+        if(key_size > MAX_KEY_SIZE) {
             throw std::length_error("Key is too long.");
         }
         
@@ -593,6 +588,9 @@ private:
     static const key_size_type KEY_EXTRA_SIZE = StoreNullTerminator?1:0;
     
     CharT* m_buffer;
+    
+public:
+    static const key_size_type MAX_KEY_SIZE = std::numeric_limits<key_size_type>::max() - KEY_EXTRA_SIZE - 1;
 };
 
 
@@ -986,7 +984,7 @@ public:
     }
     
     size_type max_key_size() const noexcept {
-        return array_bucket::max_key_size();
+        return MAX_KEY_SIZE;
     }
     
     template<class U = T, typename std::enable_if<!has_value<U>::value>::type* = nullptr>
@@ -1450,6 +1448,7 @@ private:
 public:    
     static const size_type DEFAULT_INIT_BUCKET_COUNT = 16;
     static constexpr float DEFAULT_MAX_LOAD_FACTOR = 2.0f;
+    static const size_type MAX_KEY_SIZE = array_bucket::MAX_KEY_SIZE;
     
 private:
     static constexpr float DEFAULT_CLEAR_OLD_ERASED_VALUE_THRESHOLD = 0.6f;

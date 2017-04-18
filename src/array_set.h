@@ -373,6 +373,9 @@ public:
         lhs.swap(rhs);
     }
     
+public:
+    static const size_type MAX_KEY_SIZE = ht::MAX_KEY_SIZE;
+    
 private:
     ht m_ht;
 };
