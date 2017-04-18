@@ -68,12 +68,16 @@
  */
 namespace tsl {
     
+/**
+ * FNV-1a hash
+ */    
 template<class CharT>
 struct str_hash {
     std::size_t operator()(const CharT* key, std::size_t key_size) const {
-        std::size_t hash = 0;
+        std::size_t hash = static_cast<std::size_t>((sizeof(std::size_t) == 8)?0xcbf29ce484222325:0x811c9dc5);
         for (unsigned int i = 0; i < key_size; ++i) {
-            hash = key[i] + (hash * 31);
+            const std::size_t multiplier = static_cast<std::size_t>((sizeof(std::size_t) == 8)?0x100000001b3:0x1000193);
+            hash = (hash ^ key[i]) + (hash * multiplier);
         }
         
         return hash;
