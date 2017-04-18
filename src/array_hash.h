@@ -1342,7 +1342,8 @@ private:
          * We can't just check m_nb_elements as they may be some elements which were
          * deleted from the map but still present in m_values (see quick_erase).
          */
-        if(this->m_values.size() > std::numeric_limits<array_bucket_value_type>::max()-1) {
+        static_assert(std::is_unsigned<array_bucket_value_type>::value, "");
+        if(this->m_values.size() > static_cast<std::size_t>(std::numeric_limits<array_bucket_value_type>::max()-1)) {
             throw std::length_error("Can't insert value, too much values in the map.");
         }
         static_assert(std::is_same<decltype(m_nb_elements), array_bucket_value_type>::value, "");
