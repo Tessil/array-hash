@@ -321,7 +321,7 @@ public:
         return m_ht.equal_range(key, key_size);
     }
     
-    std::pair<const_iterator, const_iterator> equal_range_ls(const CharT* key, size_type key_size) const {
+    std::pair<const_iterator, const_iterator> equal_range_ks(const CharT* key, size_type key_size) const {
         return m_ht.equal_range(key, key_size);
     }
     

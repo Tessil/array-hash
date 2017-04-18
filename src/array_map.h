@@ -197,9 +197,7 @@ public:
        
        
        
-    template<class InputIt, 
-             // Avoid to participate in overload if InputIt is not an iterator.
-             typename std::enable_if<!std::is_same<typename std::iterator_traits<InputIt>::iterator_category, void>::value>::type* = nullptr>
+    template<class InputIt>
     void insert(InputIt first, InputIt last) {
         if(std::is_base_of<std::forward_iterator_tag, typename std::iterator_traits<InputIt>::iterator_category>::value) {
             reserve(std::distance(first, last));
@@ -396,7 +394,7 @@ public:
         return m_ht.equal_range(key, key_size);
     }
     
-    std::pair<const_iterator, const_iterator> equal_range_ls(const CharT* key, size_type key_size) const {
+    std::pair<const_iterator, const_iterator> equal_range_ks(const CharT* key, size_type key_size) const {
         return m_ht.equal_range(key, key_size);
     }
     
