@@ -63,11 +63,12 @@ template<class CharT,
          class Traits = std::char_traits<CharT>,
          bool StoreNullTerminator = true,
          class KeySizeT = std::uint16_t,
-         class IndexSizeT = std::uint32_t>
+         class IndexSizeT = std::uint32_t,
+         class GrowthPolicy = tsl::power_of_two_growth_policy<2>>
 class array_map {
 private:
     using ht = tsl::detail_array_hash::array_hash<CharT, T, Hash, Traits, StoreNullTerminator, 
-                                                  KeySizeT, IndexSizeT>;
+                                                  KeySizeT, IndexSizeT, GrowthPolicy>;
     
 public:
     using traits_type = typename ht::traits_type;

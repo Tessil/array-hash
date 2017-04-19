@@ -84,24 +84,58 @@ struct str_hash {
     }
 }; 
 
+
+
+template<std::size_t GrowthFactor>
+class power_of_two_growth_policy {
+public:
+    power_of_two_growth_policy(std::size_t& min_bucket_count_in_out) {
+        const std::size_t min_bucket_count = MIN_BUCKETS_SIZE;
+        
+        min_bucket_count_in_out = std::max(min_bucket_count, min_bucket_count_in_out);
+        min_bucket_count_in_out = round_up_to_power_of_two(min_bucket_count_in_out);
+    }
+    
+    std::size_t bucket_for_hash(std::size_t hash, std::size_t bucket_count) const {
+        return hash & (bucket_count-1);
+    }
+    
+    std::size_t next_bucket_count(std::size_t bucket_count) const {
+        return bucket_count * GrowthFactor;
+    }
+    
+private:    
+    // TODO could be faster
+    static std::size_t round_up_to_power_of_two(std::size_t value) {
+        if(is_power_of_two(value)) {
+            return value;
+        }
+        
+        std::size_t power = 1;
+        while(power < value) {
+            power <<= 1;
+        }
+        
+        return power;
+    }
+    
+    static constexpr bool is_power_of_two(std::size_t value) {
+        return value != 0 && (value & (value - 1)) == 0;
+    }    
+    
+private:
+    static_assert(GrowthFactor >= 2 && is_power_of_two(GrowthFactor), "GrowthFactor must be a power of two >= 2.");
+
+    static const std::size_t MIN_BUCKETS_SIZE = 2;
+};
+
+
+
+
 namespace detail_array_hash {
     
 static constexpr bool is_power_of_two(std::size_t value) {
     return value != 0 && (value & (value - 1)) == 0;
-}      
-
-// TODO could be faster
-static std::size_t round_up_to_power_of_two(std::size_t value) {
-    if(is_power_of_two(value)) {
-        return value;
-    }
-    
-    std::size_t power = 1;
-    while(power < value) {
-        power <<= 1;
-    }
-    
-    return power;
 }
 
 /**
@@ -632,8 +666,9 @@ template<class CharT,
          class Traits,
          bool StoreNullTerminator,
          class KeySizeT,
-         class IndexSizeT>
-class array_hash : private value_container<T>, private Hash {
+         class IndexSizeT,
+         class GrowthPolicy>
+class array_hash : private value_container<T>, private Hash, private GrowthPolicy {
 private:
     template<typename U>
     using has_value = typename std::integral_constant<bool, !std::is_same<U, void>::value>;
@@ -903,9 +938,10 @@ public:
 public:    
     array_hash(size_type bucket_count, 
                const Hash& hash,
-               float max_load_factor): Hash(hash), m_buckets(round_up_to_power_of_two(bucket_count)), 
+               float max_load_factor): Hash(hash), GrowthPolicy(bucket_count), m_buckets(0), 
                                        m_nb_elements(0), m_max_load_factor(max_load_factor) 
     {
+        m_buckets.resize(bucket_count);
     }
     
     array_hash(const array_hash& other) = default;
@@ -915,6 +951,7 @@ public:
                                             std::is_nothrow_move_constructible<std::vector<array_bucket>>::value)
                                   : value_container<T>(std::move(other)),
                                     Hash(std::move(other)),
+                                    GrowthPolicy(std::move(other)),
                                     m_buckets(std::move(other.m_buckets)),
                                     m_nb_elements(other.m_nb_elements),
                                     m_max_load_factor(other.m_max_load_factor)
@@ -1078,6 +1115,7 @@ public:
         
         swap(static_cast<value_container<T>&>(*this), static_cast<value_container<T>&>(other));
         swap(static_cast<Hash&>(*this), static_cast<Hash&>(other));
+        swap(static_cast<GrowthPolicy&>(*this), static_cast<GrowthPolicy&>(other));
         swap(m_buckets, other.m_buckets);
         swap(m_nb_elements, other.m_nb_elements);;
         swap(m_max_load_factor, other.m_max_load_factor);
@@ -1217,11 +1255,11 @@ private:
     }
     
     std::size_t bucket_for_hash(std::size_t hash) const {
-        return hash & (m_buckets.size() - 1);
+        return GrowthPolicy::bucket_for_hash(hash, m_buckets.size());
     }
     
     std::size_t bucket_for_hash(std::size_t hash, size_type bucket_count) const {
-        return hash & (bucket_count - 1);
+        return GrowthPolicy::bucket_for_hash(hash, bucket_count);
     }
     
     typename std::vector<array_bucket>::iterator first_non_empty_bucket_iterator() noexcept {
@@ -1323,11 +1361,7 @@ private:
     
     void rehash_if_needed() {
         if(load_factor() > m_max_load_factor) {
-            if(bucket_count() > max_bucket_count()/2) {
-                throw std::length_error("Insertion impossible, too much values in the map.");
-            }
-            
-            rehash_impl(bucket_count()*2);
+            rehash_impl(GrowthPolicy::next_bucket_count(m_buckets.size()));
         }
     }
     
@@ -1383,13 +1417,7 @@ private:
     }
     
     void rehash_impl(size_type bucket_count) {
-        const size_type old_bucket_count = bucket_count;
-        bucket_count = round_up_to_power_of_two(bucket_count);
-        
-        // Unsigned overflow, we can't rehash.
-        if(bucket_count < old_bucket_count) {
-            throw std::length_error("Can't insert value, too much values in the map.");
-        }
+        GrowthPolicy new_growth_policy(bucket_count);
         
         if(bucket_count == this->bucket_count()) {
             return;
@@ -1426,6 +1454,8 @@ private:
             ivalue++;
         }
         
+        static_assert(noexcept(std::swap(static_cast<GrowthPolicy&>(*this), new_growth_policy)), "");
+        std::swap(static_cast<GrowthPolicy&>(*this), new_growth_policy);
         m_buckets.swap(new_buckets);
         
         try {
@@ -1435,7 +1465,9 @@ private:
         }
         catch(...) {
             // Rollback
+            std::swap(static_cast<GrowthPolicy&>(*this), new_growth_policy);
             m_buckets.swap(new_buckets);
+            
             throw;
         }
     }

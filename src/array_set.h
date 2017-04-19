@@ -59,11 +59,12 @@ template<class CharT,
          class Traits = std::char_traits<CharT>,
          bool StoreNullTerminator = true,
          class KeySizeT = std::uint16_t,
-         class IndexSizeT = std::uint32_t>
+         class IndexSizeT = std::uint32_t,
+         class GrowthPolicy = tsl::power_of_two_growth_policy<2>>
 class array_set {
 private:
     using ht = tsl::detail_array_hash::array_hash<CharT, void, Hash, Traits, StoreNullTerminator, 
-                                                  KeySizeT, IndexSizeT>;
+                                                  KeySizeT, IndexSizeT, GrowthPolicy>;
     
 public:
     using traits_type = typename ht::traits_type;
@@ -172,9 +173,7 @@ public:
     
     
     
-    template<class InputIt, 
-             // Avoid to participate in overload if InputIt is not an iterator.
-             typename std::enable_if<!std::is_same<typename std::iterator_traits<InputIt>::iterator_category, void>::value>::type* = nullptr>
+    template<class InputIt>
     void insert(InputIt first, InputIt last) {
         if(std::is_base_of<std::forward_iterator_tag, typename std::iterator_traits<InputIt>::iterator_category>::value) {
             reserve(std::distance(first, last));
@@ -357,7 +356,7 @@ public:
         
         for(auto it = lhs.cbegin(); it != lhs.cend(); ++it) {
             const auto it_element_rhs = rhs.find(it.key(), it.key_size());
-            if(it_element_rhs == rhs.cend() || it_element_rhs.value() != it_element_rhs.value()) {
+            if(it_element_rhs == rhs.cend()) {
                 return false;
             }
         }
