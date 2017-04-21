@@ -69,6 +69,8 @@ private:
 public:
     using traits_type = typename ht::traits_type;
     using char_type = typename ht::char_type;
+    using key_size_type = typename ht::key_size_type;
+    using index_size_type = typename ht::index_size_type;
     using size_type = typename ht::size_type;
     using hasher = Hash;
     using iterator = typename ht::iterator;
@@ -194,26 +196,7 @@ public:
     void insert(std::initializer_list<const CharT*> ilist) {
         insert(ilist.begin(), ilist.end());
     }
-#endif    
-    
-    
-    
-#ifdef TSL_HAS_STRING_VIEW
-    std::pair<iterator, bool> emplace(const std::basic_string_view<CharT, Traits>& key) {
-        return m_ht.insert(key.data(), key.size());
-    }
-#else
-    std::pair<iterator, bool> emplace(const CharT* key) {
-        return m_ht.insert(key, Traits::length(key));
-    }
-    
-    std::pair<iterator, bool> emplace(const std::basic_string<CharT, Traits>& key) {
-        return m_ht.insert(key.data(), key.size());
-    }
 #endif
-    std::pair<iterator, bool> emplace_ks(const CharT* key, size_type key_size) {
-        return m_ht.insert(key, key_size);
-    } 
     
     
     

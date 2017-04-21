@@ -687,10 +687,7 @@ private:
     
 public:
     template<bool is_const>
-    class array_hash_iterator_with_value;
-    
-    template<bool is_const>
-    class array_hash_iterator_without_value;
+    class array_hash_iterator;
     
     using traits_type = Traits;
     using char_type = CharT;
@@ -698,24 +695,19 @@ public:
     using index_size_type = IndexSizeT;
     using size_type = std::size_t;
     using hasher = Hash;
-    using iterator = typename std::conditional<has_value<T>::value, 
-                                               array_hash_iterator_with_value<false>, 
-                                               array_hash_iterator_without_value<false>>::type;
-    using const_iterator = typename std::conditional<has_value<T>::value, 
-                                               array_hash_iterator_with_value<true>, 
-                                               array_hash_iterator_without_value<true>>::type;
-                                               
-                                               
-                                               
+    using iterator = array_hash_iterator<false>;
+    using const_iterator = array_hash_iterator<true>;
+   
+    
 /*
  * Iterator classes
  */ 
-private:
+public:
     template<bool is_const>
     class array_hash_iterator {
-        friend class array_hash_iterator<true>;
+        friend class array_hash;
         
-    protected:
+    private:
         using iterator_array_bucket = typename array_bucket::const_iterator;
                                                             
         using iterator_buckets = typename std::conditional<is_const, 
@@ -726,7 +718,20 @@ private:
                                                             const array_hash*, 
                                                             array_hash*>::type;
 
-    protected:                                                            
+    public:
+        using iterator_category = std::forward_iterator_tag;
+        using value_type = typename std::conditional<has_value<T>::value, T, void>::type;
+        using difference_type = std::ptrdiff_t;
+        using reference = typename std::conditional<has_value<T>::value, 
+                                                typename std::conditional<is_const, typename std::add_lvalue_reference<const T>::type,
+                                                                                    typename std::add_lvalue_reference<T>::type>::type, 
+                                                void>::type;
+        using pointer = typename std::conditional<has_value<T>::value, 
+                                                typename std::conditional<is_const, const T*, T*>::type, 
+                                                void>::type;
+        
+                                                        
+    private:                                                            
         array_hash_iterator(iterator_buckets buckets_iterator, iterator_array_bucket array_bucket_iterator, 
                             array_hash_ptr array_hash_p) noexcept: 
             m_buckets_iterator(buckets_iterator),
@@ -752,6 +757,27 @@ private:
         
         size_type key_size() const {
             return m_array_bucket_iterator.key_size();
+        }
+        
+#ifdef TSL_HAS_STRING_VIEW
+        std::basic_string_view<CharT, Traits> key_sv() const {
+            return std::basic_string_view<CharT, Traits>(key(), key_size());
+        }
+#endif
+        
+        template<class U = T, typename std::enable_if<has_value<U>::value>::type* = nullptr>
+        reference value() const {
+            return this->m_array_hash->m_values[this->m_array_bucket_iterator.value()];
+        }
+        
+        template<class U = T, typename std::enable_if<has_value<U>::value>::type* = nullptr>
+        reference operator*() const {
+            return value();
+        }
+        
+        template<class U = T, typename std::enable_if<has_value<U>::value>::type* = nullptr>
+        pointer operator->() const {
+            return std::addressof(value());
         }
         
         array_hash_iterator& operator++() {
@@ -789,149 +815,18 @@ private:
             return !(lhs == rhs); 
         }
         
-    protected:
+    private:
+        template<class U = T, typename std::enable_if<has_value<U>::value>::type* = nullptr>
+        array_bucket_value_type value_position() const {
+            return this->m_array_bucket_iterator.value();
+        }
+        
+    private:
         iterator_buckets m_buckets_iterator;
         iterator_array_bucket m_array_bucket_iterator;
         
         array_hash_ptr m_array_hash;
     };
-    
-public:
-    template<bool is_const>
-    class array_hash_iterator_with_value: private array_hash_iterator<is_const> {
-        using base = array_hash_iterator<is_const>;
-        friend class array_hash;
-                                                             
-        array_hash_iterator_with_value(typename base::iterator_buckets buckets_iterator,
-                                       typename base::iterator_array_bucket array_bucket_iterator, 
-                                       typename base::array_hash_ptr array_hash_p) noexcept: 
-            base(buckets_iterator, array_bucket_iterator, array_hash_p)
-        {
-        }
-        
-    public:
-        using iterator_category = std::forward_iterator_tag;
-        using value_type = T;
-        using difference_type = std::ptrdiff_t;
-        using reference = typename std::conditional<is_const, const T&, T&>::type;
-        using pointer = typename std::conditional<is_const, const T*, T*>::type;
-        
-        array_hash_iterator_with_value() noexcept {
-        }
-        
-        array_hash_iterator_with_value(const array_hash_iterator_with_value<false>& other) noexcept : base(other) {
-        }
-        
-        const CharT* key() const {
-            return base::key();
-        }
-        
-        size_type key_size() const {
-            return base::key_size();
-        }
-        
-#ifdef TSL_HAS_STRING_VIEW
-        std::basic_string_view<CharT, Traits> key_sv() const {
-            return std::basic_string_view<CharT, Traits>(key(), key_size());
-        }
-#endif
-        
-        reference value() const {
-            return this->m_array_hash->m_values[this->m_array_bucket_iterator.value()];
-        }
-        
-        reference operator*() const {
-            return value();
-        }
-        
-        pointer operator->() const {
-            return std::addressof(value());
-        }
-        
-        array_hash_iterator_with_value& operator++() {
-            base::operator++(); 
-            return *this;
-        }
-        
-        array_hash_iterator_with_value operator++(int) {
-            return base::operator++(0);
-        }
-        
-        friend bool operator==(const array_hash_iterator_with_value& lhs, const array_hash_iterator_with_value& rhs) { 
-            return static_cast<base>(lhs) == static_cast<base>(rhs); 
-        }
-        
-        friend bool operator!=(const array_hash_iterator_with_value& lhs, const array_hash_iterator_with_value& rhs) { 
-            return !(lhs == rhs); 
-        }
-        
-    protected:
-        array_bucket_value_type value_position() const {
-            return this->m_array_bucket_iterator.value();
-        }
-    };
-    
-    
-    template<bool is_const>
-    class array_hash_iterator_without_value: private array_hash_iterator<is_const> {
-        using base = array_hash_iterator<is_const>;
-        friend class array_hash;
-                                                             
-        array_hash_iterator_without_value(typename base::iterator_buckets buckets_iterator,
-                                          typename base::iterator_array_bucket array_bucket_iterator, 
-                                          typename base::array_hash_ptr array_hash_p) noexcept: 
-            base(buckets_iterator, array_bucket_iterator, array_hash_p)
-        {
-        }
-        
-    public:
-        using iterator_category = std::forward_iterator_tag;
-        using value_type = void;
-        using difference_type = std::ptrdiff_t;
-        using reference = void;
-        using pointer = void;
-        
-        array_hash_iterator_without_value() noexcept {
-        }
-        
-        array_hash_iterator_without_value(const array_hash_iterator_without_value<false>& other) noexcept : base(other) {
-        }
-        
-        const CharT* key() const {
-            return base::key();
-        }
-        
-        size_type key_size() const {
-            return base::key_size();
-        }
-        
-#ifdef TSL_HAS_STRING_VIEW
-        std::basic_string_view<CharT, Traits> key_sv() const {
-            return std::basic_string_view<CharT, Traits>(key(), key_size());
-        }
-#endif        
-        
-        array_hash_iterator_without_value& operator++() {
-            base::operator++(); 
-            return *this;
-        }
-        
-        array_hash_iterator_without_value operator++(int) {
-            return base::operator++(0);
-        }
-        
-        friend bool operator==(const array_hash_iterator_without_value& lhs, const array_hash_iterator_without_value& rhs) { 
-            return static_cast<base>(lhs) == static_cast<base>(rhs); 
-        }
-        
-        friend bool operator!=(const array_hash_iterator_without_value& lhs, const array_hash_iterator_without_value& rhs) { 
-            return !(lhs == rhs); 
-        }
-    };
-    
-    
-    
-    
     
     
     

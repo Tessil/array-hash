@@ -74,11 +74,14 @@ public:
     using traits_type = typename ht::traits_type;
     using char_type = typename ht::char_type;
     using mapped_type = T;
+    using key_size_type = typename ht::key_size_type;
+    using index_size_type = typename ht::index_size_type;
     using size_type = typename ht::size_type;
     using hasher = Hash;
     using iterator = typename ht::iterator;
     using const_iterator = typename ht::const_iterator;
  
+public:
     array_map(): array_map(ht::DEFAULT_INIT_BUCKET_COUNT) {
     }
     
