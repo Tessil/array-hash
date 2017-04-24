@@ -3,7 +3,7 @@
 
 Cache conscious hash map for strings based on the "Cache-conscious collision resolution in string hash tables." (Askitis Nikolas and Justin Zobel, 2005) paper.
 
-Due to its cache friendliness, the structure is well-adapted to store strings long enough to hinder the Small String Optimization (SSO). But even with shorter string, it provides a good balance between speed and memory usage.
+Due to its cache friendliness, the structure is well-adapted to store strings long enough to hinder the Small String Optimization (SSO). But even with shorter strings, it provides a good balance between speed and memory usage.
 
 <p align="center">
   <img src="https://tessil.github.io/images/array_hash.png" width="500px" />
