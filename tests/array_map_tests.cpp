@@ -228,17 +228,6 @@ BOOST_AUTO_TEST_CASE(test_emplace) {
     BOOST_CHECK(map.at("test") == move_only_test(3));
 }
 
-
-/**
- * iterator
- */
-BOOST_AUTO_TEST_CASE(test_iterator_empty_map) {
-    tsl::array_map<char, int64_t> map;
-    BOOST_CHECK(map.begin() == map.end());
-    BOOST_CHECK(map.begin() == map.cend());
-    BOOST_CHECK(map.cbegin() == map.cend());
-}
-
 /**
  * operator== and operator!=
  */
@@ -409,4 +398,36 @@ BOOST_AUTO_TEST_CASE(test_ci_traits) {
     BOOST_CHECK_EQUAL(map.at("test2"), 20);
     BOOST_CHECK_EQUAL(map.at("test4"), 40);  
     BOOST_CHECK_EQUAL(map.at("tEst5"), 50);    
+}
+
+
+/**
+ * Various operations on empty map
+ */
+BOOST_AUTO_TEST_CASE(test_empty_map) {
+    tsl::array_map<char, int> map(0);
+    
+    BOOST_CHECK_EQUAL(map.size(), 0);
+    BOOST_CHECK(map.empty());
+    
+    BOOST_CHECK(map.begin() == map.end());
+    BOOST_CHECK(map.begin() == map.cend());
+    BOOST_CHECK(map.cbegin() == map.cend());
+    
+    BOOST_CHECK(map.find("") == map.end());
+    BOOST_CHECK(map.find("test") == map.end());
+    
+    BOOST_CHECK_EQUAL(map.count(""), 0);
+    BOOST_CHECK_EQUAL(map.count("test"), 0);
+    
+    BOOST_CHECK_THROW(map.at(""), std::out_of_range);
+    BOOST_CHECK_THROW(map.at("test"), std::out_of_range);
+    
+    auto range = map.equal_range("test");
+    BOOST_CHECK(range.first == range.second);
+    
+    BOOST_CHECK_EQUAL(map.erase("test"), 0);
+    BOOST_CHECK(map.erase(map.begin(), map.end()) == map.end());
+    
+    BOOST_CHECK_EQUAL(map["new value"], int{});
 }
