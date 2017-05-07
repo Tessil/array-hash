@@ -79,7 +79,8 @@ struct str_hash {
         
         std::size_t hash = init;
         for (std::size_t i = 0; i < key_size; ++i) {
-            hash = (hash ^ key[i]) + (hash * multiplier);
+            hash ^= key[i];
+            hash *= multiplier;
         }
         
         return hash;
