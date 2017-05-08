@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>array-hash: tsl::detail_array_hash::array_hash&lt; CharT, T, Hash, Traits, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt; Class Template Reference</title>
+<title>array-hash: tsl::detail_array_hash::array_hash&lt; CharT, T, Hash, KeyEqual, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt; Class Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -48,7 +48,7 @@ $(function() {
 <a href="#pub-static-attribs">Static Public Attributes</a> &#124;
 <a href="classtsl_1_1detail__array__hash_1_1array__hash-members.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">tsl::detail_array_hash::array_hash&lt; CharT, T, Hash, Traits, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt; Class Template Reference</div>  </div>
+<div class="title">tsl::detail_array_hash::array_hash&lt; CharT, T, Hash, KeyEqual, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt; Class Template Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
@@ -63,249 +63,251 @@ Classes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:a54d79d1e7264d8f635d000c60ed4e785"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a54d79d1e7264d8f635d000c60ed4e785">traits_type</a> = Traits</td></tr>
-<tr class="separator:a54d79d1e7264d8f635d000c60ed4e785"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a25b2435ea12897548781b2059e4d7eb5"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a25b2435ea12897548781b2059e4d7eb5">char_type</a> = CharT</td></tr>
-<tr class="separator:a25b2435ea12897548781b2059e4d7eb5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a58889fcbd12d2ad517c3423084e3a124"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a58889fcbd12d2ad517c3423084e3a124">key_size_type</a> = KeySizeT</td></tr>
-<tr class="separator:a58889fcbd12d2ad517c3423084e3a124"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a72577fdf58f8ba15118d4ccff19e6020"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a72577fdf58f8ba15118d4ccff19e6020">index_size_type</a> = IndexSizeT</td></tr>
-<tr class="separator:a72577fdf58f8ba15118d4ccff19e6020"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a78db39620480eae4699632c02ba08830"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a78db39620480eae4699632c02ba08830">size_type</a> = std::size_t</td></tr>
-<tr class="separator:a78db39620480eae4699632c02ba08830"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a94908be170b9f04f691d53ed9374d314"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a94908be170b9f04f691d53ed9374d314">hasher</a> = Hash</td></tr>
-<tr class="separator:a94908be170b9f04f691d53ed9374d314"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7ecc8a99c18e1400977596c150c7c466"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a7ecc8a99c18e1400977596c150c7c466">iterator</a> = <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash_1_1array__hash__iterator.html">array_hash_iterator</a>&lt; false &gt;</td></tr>
-<tr class="separator:a7ecc8a99c18e1400977596c150c7c466"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8598a41a77f995dd6dfab9d0f7ab3fe4"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a8598a41a77f995dd6dfab9d0f7ab3fe4">const_iterator</a> = <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash_1_1array__hash__iterator.html">array_hash_iterator</a>&lt; true &gt;</td></tr>
-<tr class="separator:a8598a41a77f995dd6dfab9d0f7ab3fe4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ade86885ea16dcd95b4d71edeb3505fc1"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#ade86885ea16dcd95b4d71edeb3505fc1">char_type</a> = CharT</td></tr>
+<tr class="separator:ade86885ea16dcd95b4d71edeb3505fc1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa89e6e1eb47d6d90b96fd15c92c119a7"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#aa89e6e1eb47d6d90b96fd15c92c119a7">key_size_type</a> = KeySizeT</td></tr>
+<tr class="separator:aa89e6e1eb47d6d90b96fd15c92c119a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3ac07d2fa7fc5da8b788a9351e0e5df9"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a3ac07d2fa7fc5da8b788a9351e0e5df9">index_size_type</a> = IndexSizeT</td></tr>
+<tr class="separator:a3ac07d2fa7fc5da8b788a9351e0e5df9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3b1a86b05c810e23894cffa30750ff68"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a3b1a86b05c810e23894cffa30750ff68">size_type</a> = std::size_t</td></tr>
+<tr class="separator:a3b1a86b05c810e23894cffa30750ff68"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a80cb01da896ef7bb11fa82ea0303f3f2"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a80cb01da896ef7bb11fa82ea0303f3f2">hasher</a> = Hash</td></tr>
+<tr class="separator:a80cb01da896ef7bb11fa82ea0303f3f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab8563f0e2de312609f1f9587e755d3b0"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#ab8563f0e2de312609f1f9587e755d3b0">key_equal</a> = KeyEqual</td></tr>
+<tr class="separator:ab8563f0e2de312609f1f9587e755d3b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a032b6f7cd7f7f9da7806c9f61dc22345"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a032b6f7cd7f7f9da7806c9f61dc22345">iterator</a> = <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash_1_1array__hash__iterator.html">array_hash_iterator</a>&lt; false &gt;</td></tr>
+<tr class="separator:a032b6f7cd7f7f9da7806c9f61dc22345"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1ebbb92be408b4776a7eee21f473e768"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a1ebbb92be408b4776a7eee21f473e768">const_iterator</a> = <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash_1_1array__hash__iterator.html">array_hash_iterator</a>&lt; true &gt;</td></tr>
+<tr class="separator:a1ebbb92be408b4776a7eee21f473e768"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a183cf1fcfe8db7c6c3ae26123b5303d1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a183cf1fcfe8db7c6c3ae26123b5303d1">array_hash</a> (<a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a78db39620480eae4699632c02ba08830">size_type</a> <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#ac0d08893e6cac2b19c7361b0d1b3416a">bucket_count</a>, const Hash &amp;hash, float <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#acf885d0387e59b607e5ed4fa0b770645">max_load_factor</a>)</td></tr>
-<tr class="separator:a183cf1fcfe8db7c6c3ae26123b5303d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac077fa95cb9c3ce844d2c4489615cafc"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#ac077fa95cb9c3ce844d2c4489615cafc">array_hash</a> (const <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">array_hash</a> &amp;other)=default</td></tr>
-<tr class="separator:ac077fa95cb9c3ce844d2c4489615cafc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a39cd4829a45d61a1d48ee38453deaf0f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a39cd4829a45d61a1d48ee38453deaf0f">array_hash</a> (<a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">array_hash</a> &amp;&amp;other) noexcept(std::is_nothrow_move_constructible&lt; value_container&lt; T &gt;&gt;::value &amp;&amp;std::is_nothrow_move_constructible&lt; Hash &gt;::value &amp;&amp;std::is_nothrow_move_constructible&lt; std::vector&lt; array_bucket &gt;&gt;::value)</td></tr>
-<tr class="separator:a39cd4829a45d61a1d48ee38453deaf0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a71433cfbccda5d7b06fbd7fa0b189437"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">array_hash</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a71433cfbccda5d7b06fbd7fa0b189437">operator=</a> (const <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">array_hash</a> &amp;other)=default</td></tr>
-<tr class="separator:a71433cfbccda5d7b06fbd7fa0b189437"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af47fa464775a2e53ec8b410d9e2997ef"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">array_hash</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#af47fa464775a2e53ec8b410d9e2997ef">operator=</a> (<a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">array_hash</a> &amp;&amp;other)</td></tr>
-<tr class="separator:af47fa464775a2e53ec8b410d9e2997ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad09966793cba2d7546e23ed06eb655c3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a7ecc8a99c18e1400977596c150c7c466">iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#ad09966793cba2d7546e23ed06eb655c3">begin</a> () noexcept</td></tr>
-<tr class="separator:ad09966793cba2d7546e23ed06eb655c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5ccd206e51d40acfd6ed6867a4836feb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a8598a41a77f995dd6dfab9d0f7ab3fe4">const_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a5ccd206e51d40acfd6ed6867a4836feb">begin</a> () const noexcept</td></tr>
-<tr class="separator:a5ccd206e51d40acfd6ed6867a4836feb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a436799aeb92f3de33987217e002ce030"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a8598a41a77f995dd6dfab9d0f7ab3fe4">const_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a436799aeb92f3de33987217e002ce030">cbegin</a> () const noexcept</td></tr>
-<tr class="separator:a436799aeb92f3de33987217e002ce030"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aadb4217122dbf74040a534fc273bedf6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a7ecc8a99c18e1400977596c150c7c466">iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#aadb4217122dbf74040a534fc273bedf6">end</a> () noexcept</td></tr>
-<tr class="separator:aadb4217122dbf74040a534fc273bedf6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aca744d34d25275ee0574464453735e9b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a8598a41a77f995dd6dfab9d0f7ab3fe4">const_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#aca744d34d25275ee0574464453735e9b">end</a> () const noexcept</td></tr>
-<tr class="separator:aca744d34d25275ee0574464453735e9b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aabaff339cc15c23f4b5c4ea40ce52dd8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a8598a41a77f995dd6dfab9d0f7ab3fe4">const_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#aabaff339cc15c23f4b5c4ea40ce52dd8">cend</a> () const noexcept</td></tr>
-<tr class="separator:aabaff339cc15c23f4b5c4ea40ce52dd8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2d95145f4210f77ca948c5155086bdf2"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a2d95145f4210f77ca948c5155086bdf2">empty</a> () const noexcept</td></tr>
-<tr class="separator:a2d95145f4210f77ca948c5155086bdf2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ade1912d15b35225642ab8353176915e5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a78db39620480eae4699632c02ba08830">size_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#ade1912d15b35225642ab8353176915e5">size</a> () const noexcept</td></tr>
-<tr class="separator:ade1912d15b35225642ab8353176915e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afd421ef53647a54a286c3c7668e924cb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a78db39620480eae4699632c02ba08830">size_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#afd421ef53647a54a286c3c7668e924cb">max_size</a> () const noexcept</td></tr>
-<tr class="separator:afd421ef53647a54a286c3c7668e924cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a18b090741846638b844eb5957ce460c5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a78db39620480eae4699632c02ba08830">size_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a18b090741846638b844eb5957ce460c5">max_key_size</a> () const noexcept</td></tr>
-<tr class="separator:a18b090741846638b844eb5957ce460c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7c4dae1de61092300d69c460da29f276"><td class="memTemplParams" colspan="2">template&lt;class U  = T, typename std::enable_if&lt;!has_value&lt; U &gt;::value &gt;::type *  = nullptr&gt; </td></tr>
-<tr class="memitem:a7c4dae1de61092300d69c460da29f276"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a7c4dae1de61092300d69c460da29f276">shrink_to_fit</a> ()</td></tr>
-<tr class="separator:a7c4dae1de61092300d69c460da29f276"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7c4dae1de61092300d69c460da29f276"><td class="memTemplParams" colspan="2">template&lt;class U  = T, typename std::enable_if&lt; has_value&lt; U &gt;::value &gt;::type *  = nullptr&gt; </td></tr>
-<tr class="memitem:a7c4dae1de61092300d69c460da29f276"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a7c4dae1de61092300d69c460da29f276">shrink_to_fit</a> ()</td></tr>
-<tr class="separator:a7c4dae1de61092300d69c460da29f276"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8aec659aac0949120f00a66afe119d62"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a8aec659aac0949120f00a66afe119d62">clear</a> () noexcept</td></tr>
-<tr class="separator:a8aec659aac0949120f00a66afe119d62"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a57307e6077e31482a64f63167c7d83f0"><td class="memTemplParams" colspan="2">template&lt;class... ValueArgs&gt; </td></tr>
-<tr class="memitem:a57307e6077e31482a64f63167c7d83f0"><td class="memTemplItemLeft" align="right" valign="top">std::pair&lt; <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a7ecc8a99c18e1400977596c150c7c466">iterator</a>, bool &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a57307e6077e31482a64f63167c7d83f0">insert</a> (const CharT *key, <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a78db39620480eae4699632c02ba08830">size_type</a> key_size, ValueArgs &amp;&amp;... value_args)</td></tr>
-<tr class="separator:a57307e6077e31482a64f63167c7d83f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0eac3472dcb9a8917e2b8bf2411d90a0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a7ecc8a99c18e1400977596c150c7c466">iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a0eac3472dcb9a8917e2b8bf2411d90a0">erase</a> (<a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a8598a41a77f995dd6dfab9d0f7ab3fe4">const_iterator</a> pos)</td></tr>
-<tr class="separator:a0eac3472dcb9a8917e2b8bf2411d90a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1ed0fab5c59de367a78db4eb6332a44d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a7ecc8a99c18e1400977596c150c7c466">iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a1ed0fab5c59de367a78db4eb6332a44d">erase</a> (<a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a8598a41a77f995dd6dfab9d0f7ab3fe4">const_iterator</a> first, <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a8598a41a77f995dd6dfab9d0f7ab3fe4">const_iterator</a> last)</td></tr>
-<tr class="separator:a1ed0fab5c59de367a78db4eb6332a44d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a34a6a13b54194120efde8a2345a3b172"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a78db39620480eae4699632c02ba08830">size_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a34a6a13b54194120efde8a2345a3b172">erase</a> (const CharT *key, <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a78db39620480eae4699632c02ba08830">size_type</a> key_size)</td></tr>
-<tr class="separator:a34a6a13b54194120efde8a2345a3b172"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ada9ce2dd0b2335edca19ce6ba32fecfb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#ada9ce2dd0b2335edca19ce6ba32fecfb">swap</a> (<a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">array_hash</a> &amp;other)</td></tr>
-<tr class="separator:ada9ce2dd0b2335edca19ce6ba32fecfb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3510a7d351ed57e60564bd8d868e82dc"><td class="memTemplParams" colspan="2">template&lt;class U  = T, typename std::enable_if&lt; has_value&lt; U &gt;::value &gt;::type *  = nullptr&gt; </td></tr>
-<tr class="memitem:a3510a7d351ed57e60564bd8d868e82dc"><td class="memTemplItemLeft" align="right" valign="top">U &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a3510a7d351ed57e60564bd8d868e82dc">at</a> (const CharT *key, <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a78db39620480eae4699632c02ba08830">size_type</a> key_size)</td></tr>
-<tr class="separator:a3510a7d351ed57e60564bd8d868e82dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7d4f959cef35e2fc01f85c2f1258ecb4"><td class="memTemplParams" colspan="2">template&lt;class U  = T, typename std::enable_if&lt; has_value&lt; U &gt;::value &gt;::type *  = nullptr&gt; </td></tr>
-<tr class="memitem:a7d4f959cef35e2fc01f85c2f1258ecb4"><td class="memTemplItemLeft" align="right" valign="top">const U &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a7d4f959cef35e2fc01f85c2f1258ecb4">at</a> (const CharT *key, <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a78db39620480eae4699632c02ba08830">size_type</a> key_size) const</td></tr>
-<tr class="separator:a7d4f959cef35e2fc01f85c2f1258ecb4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a118ac8661b120c8ce65cae54cfde7818"><td class="memTemplParams" colspan="2">template&lt;class U  = T, typename std::enable_if&lt; has_value&lt; U &gt;::value &gt;::type *  = nullptr&gt; </td></tr>
-<tr class="memitem:a118ac8661b120c8ce65cae54cfde7818"><td class="memTemplItemLeft" align="right" valign="top">U &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a118ac8661b120c8ce65cae54cfde7818">access_operator</a> (const CharT *key, <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a78db39620480eae4699632c02ba08830">size_type</a> key_size)</td></tr>
-<tr class="separator:a118ac8661b120c8ce65cae54cfde7818"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a927067d795fcd97b939937fd62d9dabc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a78db39620480eae4699632c02ba08830">size_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a927067d795fcd97b939937fd62d9dabc">count</a> (const CharT *key, <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a78db39620480eae4699632c02ba08830">size_type</a> key_size) const</td></tr>
-<tr class="separator:a927067d795fcd97b939937fd62d9dabc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8d0661aeefcc9c1990ad4ad8ff4ee8ad"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a7ecc8a99c18e1400977596c150c7c466">iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a8d0661aeefcc9c1990ad4ad8ff4ee8ad">find</a> (const CharT *key, <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a78db39620480eae4699632c02ba08830">size_type</a> key_size)</td></tr>
-<tr class="separator:a8d0661aeefcc9c1990ad4ad8ff4ee8ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a32dfc9c9eca1956fc19f6b3a50bd2720"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a8598a41a77f995dd6dfab9d0f7ab3fe4">const_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a32dfc9c9eca1956fc19f6b3a50bd2720">find</a> (const CharT *key, <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a78db39620480eae4699632c02ba08830">size_type</a> key_size) const</td></tr>
-<tr class="separator:a32dfc9c9eca1956fc19f6b3a50bd2720"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a634a1094b30e12a6f160c817f198e4c0"><td class="memItemLeft" align="right" valign="top">std::pair&lt; <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a7ecc8a99c18e1400977596c150c7c466">iterator</a>, <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a7ecc8a99c18e1400977596c150c7c466">iterator</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a634a1094b30e12a6f160c817f198e4c0">equal_range</a> (const CharT *key, <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a78db39620480eae4699632c02ba08830">size_type</a> key_size)</td></tr>
-<tr class="separator:a634a1094b30e12a6f160c817f198e4c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a84f90daf87de6f058b643e80fe3e0bfd"><td class="memItemLeft" align="right" valign="top">std::pair&lt; <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a8598a41a77f995dd6dfab9d0f7ab3fe4">const_iterator</a>, <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a8598a41a77f995dd6dfab9d0f7ab3fe4">const_iterator</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a84f90daf87de6f058b643e80fe3e0bfd">equal_range</a> (const CharT *key, <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a78db39620480eae4699632c02ba08830">size_type</a> key_size) const</td></tr>
-<tr class="separator:a84f90daf87de6f058b643e80fe3e0bfd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac0d08893e6cac2b19c7361b0d1b3416a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a78db39620480eae4699632c02ba08830">size_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#ac0d08893e6cac2b19c7361b0d1b3416a">bucket_count</a> () const</td></tr>
-<tr class="separator:ac0d08893e6cac2b19c7361b0d1b3416a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a08ed6c57550de25ac716a494509394de"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a78db39620480eae4699632c02ba08830">size_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a08ed6c57550de25ac716a494509394de">max_bucket_count</a> () const</td></tr>
-<tr class="separator:a08ed6c57550de25ac716a494509394de"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a23fe610ff322bb879fa37b917bb141f0"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a23fe610ff322bb879fa37b917bb141f0">load_factor</a> () const</td></tr>
-<tr class="separator:a23fe610ff322bb879fa37b917bb141f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acf885d0387e59b607e5ed4fa0b770645"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#acf885d0387e59b607e5ed4fa0b770645">max_load_factor</a> () const</td></tr>
-<tr class="separator:acf885d0387e59b607e5ed4fa0b770645"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a95ae249b1b1e7e9f5402c41221a1797a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a95ae249b1b1e7e9f5402c41221a1797a">max_load_factor</a> (float ml)</td></tr>
-<tr class="separator:a95ae249b1b1e7e9f5402c41221a1797a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3b43085e7048169fa0ce60c846f7daa4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a3b43085e7048169fa0ce60c846f7daa4">rehash</a> (<a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a78db39620480eae4699632c02ba08830">size_type</a> <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a927067d795fcd97b939937fd62d9dabc">count</a>)</td></tr>
-<tr class="separator:a3b43085e7048169fa0ce60c846f7daa4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a52cebe44c1a1f4163e78e7ac6c3a2907"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a52cebe44c1a1f4163e78e7ac6c3a2907">reserve</a> (<a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a78db39620480eae4699632c02ba08830">size_type</a> <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a927067d795fcd97b939937fd62d9dabc">count</a>)</td></tr>
-<tr class="separator:a52cebe44c1a1f4163e78e7ac6c3a2907"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7dda4f9ae9888220591fe2dc1d56d51e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a94908be170b9f04f691d53ed9374d314">hasher</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a7dda4f9ae9888220591fe2dc1d56d51e">hash_function</a> () const</td></tr>
-<tr class="separator:a7dda4f9ae9888220591fe2dc1d56d51e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a762883b6ba07c8e37204d6a4df596ffc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a7ecc8a99c18e1400977596c150c7c466">iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a762883b6ba07c8e37204d6a4df596ffc">mutable_iterator</a> (<a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a8598a41a77f995dd6dfab9d0f7ab3fe4">const_iterator</a> it) noexcept</td></tr>
-<tr class="separator:a762883b6ba07c8e37204d6a4df596ffc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aba35961f5207cb351549fa0d2d5683e1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#aba35961f5207cb351549fa0d2d5683e1">array_hash</a> (<a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a3b1a86b05c810e23894cffa30750ff68">size_type</a> <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#ad775908162e31095eb16f347d9540c41">bucket_count</a>, const Hash &amp;hash, float <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#ab4781edcd65166f26daee4b6c590a508">max_load_factor</a>)</td></tr>
+<tr class="separator:aba35961f5207cb351549fa0d2d5683e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa29ba8ccbd37c4e2140b9611f4f01252"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#aa29ba8ccbd37c4e2140b9611f4f01252">array_hash</a> (const <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">array_hash</a> &amp;other)=default</td></tr>
+<tr class="separator:aa29ba8ccbd37c4e2140b9611f4f01252"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad1147e135ce6efbf50a79047dd916582"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#ad1147e135ce6efbf50a79047dd916582">array_hash</a> (<a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">array_hash</a> &amp;&amp;other) noexcept(std::is_nothrow_move_constructible&lt; value_container&lt; T &gt;&gt;::value &amp;&amp;std::is_nothrow_move_constructible&lt; Hash &gt;::value &amp;&amp;std::is_nothrow_move_constructible&lt; std::vector&lt; array_bucket &gt;&gt;::value)</td></tr>
+<tr class="separator:ad1147e135ce6efbf50a79047dd916582"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acceed4428e1d07b3e4801e81525aeef5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">array_hash</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#acceed4428e1d07b3e4801e81525aeef5">operator=</a> (const <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">array_hash</a> &amp;other)=default</td></tr>
+<tr class="separator:acceed4428e1d07b3e4801e81525aeef5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4128818856b97385372bba3406c302e5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">array_hash</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a4128818856b97385372bba3406c302e5">operator=</a> (<a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">array_hash</a> &amp;&amp;other)</td></tr>
+<tr class="separator:a4128818856b97385372bba3406c302e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5f048989bc9b0565cab06b08a464d2ec"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a032b6f7cd7f7f9da7806c9f61dc22345">iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a5f048989bc9b0565cab06b08a464d2ec">begin</a> () noexcept</td></tr>
+<tr class="separator:a5f048989bc9b0565cab06b08a464d2ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeabaa55de92c4e3595885248c4bdb1cf"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a1ebbb92be408b4776a7eee21f473e768">const_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#aeabaa55de92c4e3595885248c4bdb1cf">begin</a> () const noexcept</td></tr>
+<tr class="separator:aeabaa55de92c4e3595885248c4bdb1cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab9698e0f289b6de11c9f5e66db9ede1d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a1ebbb92be408b4776a7eee21f473e768">const_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#ab9698e0f289b6de11c9f5e66db9ede1d">cbegin</a> () const noexcept</td></tr>
+<tr class="separator:ab9698e0f289b6de11c9f5e66db9ede1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7b48893dac47f0071f057f2cef80c4a0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a032b6f7cd7f7f9da7806c9f61dc22345">iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a7b48893dac47f0071f057f2cef80c4a0">end</a> () noexcept</td></tr>
+<tr class="separator:a7b48893dac47f0071f057f2cef80c4a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a164258745172c9dcf15bbadbafb3524f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a1ebbb92be408b4776a7eee21f473e768">const_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a164258745172c9dcf15bbadbafb3524f">end</a> () const noexcept</td></tr>
+<tr class="separator:a164258745172c9dcf15bbadbafb3524f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a368137ab7e008dd93fcd95cb55af7723"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a1ebbb92be408b4776a7eee21f473e768">const_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a368137ab7e008dd93fcd95cb55af7723">cend</a> () const noexcept</td></tr>
+<tr class="separator:a368137ab7e008dd93fcd95cb55af7723"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af26083eb59f68a36913c0af46ca13a1b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#af26083eb59f68a36913c0af46ca13a1b">empty</a> () const noexcept</td></tr>
+<tr class="separator:af26083eb59f68a36913c0af46ca13a1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa79444b3b3e1599a472184bb352b5e8d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a3b1a86b05c810e23894cffa30750ff68">size_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#aa79444b3b3e1599a472184bb352b5e8d">size</a> () const noexcept</td></tr>
+<tr class="separator:aa79444b3b3e1599a472184bb352b5e8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a09820e8d6f3769b170a7ca71b2e1dcdd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a3b1a86b05c810e23894cffa30750ff68">size_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a09820e8d6f3769b170a7ca71b2e1dcdd">max_size</a> () const noexcept</td></tr>
+<tr class="separator:a09820e8d6f3769b170a7ca71b2e1dcdd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0d8fa97f044de843a9350e22e5ed7fbd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a3b1a86b05c810e23894cffa30750ff68">size_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a0d8fa97f044de843a9350e22e5ed7fbd">max_key_size</a> () const noexcept</td></tr>
+<tr class="separator:a0d8fa97f044de843a9350e22e5ed7fbd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4517ef4cb6baa0df74fc7274323b060a"><td class="memTemplParams" colspan="2">template&lt;class U  = T, typename std::enable_if&lt;!has_value&lt; U &gt;::value &gt;::type *  = nullptr&gt; </td></tr>
+<tr class="memitem:a4517ef4cb6baa0df74fc7274323b060a"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a4517ef4cb6baa0df74fc7274323b060a">shrink_to_fit</a> ()</td></tr>
+<tr class="separator:a4517ef4cb6baa0df74fc7274323b060a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4517ef4cb6baa0df74fc7274323b060a"><td class="memTemplParams" colspan="2">template&lt;class U  = T, typename std::enable_if&lt; has_value&lt; U &gt;::value &gt;::type *  = nullptr&gt; </td></tr>
+<tr class="memitem:a4517ef4cb6baa0df74fc7274323b060a"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a4517ef4cb6baa0df74fc7274323b060a">shrink_to_fit</a> ()</td></tr>
+<tr class="separator:a4517ef4cb6baa0df74fc7274323b060a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0405b201fcd73dadf9368036b3f74b2e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a0405b201fcd73dadf9368036b3f74b2e">clear</a> () noexcept</td></tr>
+<tr class="separator:a0405b201fcd73dadf9368036b3f74b2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7baf7225281772d5b2eb6d00cafc8077"><td class="memTemplParams" colspan="2">template&lt;class... ValueArgs&gt; </td></tr>
+<tr class="memitem:a7baf7225281772d5b2eb6d00cafc8077"><td class="memTemplItemLeft" align="right" valign="top">std::pair&lt; <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a032b6f7cd7f7f9da7806c9f61dc22345">iterator</a>, bool &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a7baf7225281772d5b2eb6d00cafc8077">insert</a> (const CharT *key, <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a3b1a86b05c810e23894cffa30750ff68">size_type</a> key_size, ValueArgs &amp;&amp;... value_args)</td></tr>
+<tr class="separator:a7baf7225281772d5b2eb6d00cafc8077"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6bfa244297db5823c806815cc9f0bef4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a032b6f7cd7f7f9da7806c9f61dc22345">iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a6bfa244297db5823c806815cc9f0bef4">erase</a> (<a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a1ebbb92be408b4776a7eee21f473e768">const_iterator</a> pos)</td></tr>
+<tr class="separator:a6bfa244297db5823c806815cc9f0bef4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a38c0aaa4e4ec5ec5a210057ee9329e68"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a032b6f7cd7f7f9da7806c9f61dc22345">iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a38c0aaa4e4ec5ec5a210057ee9329e68">erase</a> (<a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a1ebbb92be408b4776a7eee21f473e768">const_iterator</a> first, <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a1ebbb92be408b4776a7eee21f473e768">const_iterator</a> last)</td></tr>
+<tr class="separator:a38c0aaa4e4ec5ec5a210057ee9329e68"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1a8db41ac289e8bf7686aa84564568eb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a3b1a86b05c810e23894cffa30750ff68">size_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a1a8db41ac289e8bf7686aa84564568eb">erase</a> (const CharT *key, <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a3b1a86b05c810e23894cffa30750ff68">size_type</a> key_size)</td></tr>
+<tr class="separator:a1a8db41ac289e8bf7686aa84564568eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a41df5cf523ec4beb2185c3ffdf8dad6d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a41df5cf523ec4beb2185c3ffdf8dad6d">swap</a> (<a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">array_hash</a> &amp;other)</td></tr>
+<tr class="separator:a41df5cf523ec4beb2185c3ffdf8dad6d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a19ff24185ce23f09c90055851016a547"><td class="memTemplParams" colspan="2">template&lt;class U  = T, typename std::enable_if&lt; has_value&lt; U &gt;::value &gt;::type *  = nullptr&gt; </td></tr>
+<tr class="memitem:a19ff24185ce23f09c90055851016a547"><td class="memTemplItemLeft" align="right" valign="top">U &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a19ff24185ce23f09c90055851016a547">at</a> (const CharT *key, <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a3b1a86b05c810e23894cffa30750ff68">size_type</a> key_size)</td></tr>
+<tr class="separator:a19ff24185ce23f09c90055851016a547"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad03817a91eb9abb4eb4d34b6893d164f"><td class="memTemplParams" colspan="2">template&lt;class U  = T, typename std::enable_if&lt; has_value&lt; U &gt;::value &gt;::type *  = nullptr&gt; </td></tr>
+<tr class="memitem:ad03817a91eb9abb4eb4d34b6893d164f"><td class="memTemplItemLeft" align="right" valign="top">const U &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#ad03817a91eb9abb4eb4d34b6893d164f">at</a> (const CharT *key, <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a3b1a86b05c810e23894cffa30750ff68">size_type</a> key_size) const</td></tr>
+<tr class="separator:ad03817a91eb9abb4eb4d34b6893d164f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afd18c7c8e9c199dab64b7784207a8c41"><td class="memTemplParams" colspan="2">template&lt;class U  = T, typename std::enable_if&lt; has_value&lt; U &gt;::value &gt;::type *  = nullptr&gt; </td></tr>
+<tr class="memitem:afd18c7c8e9c199dab64b7784207a8c41"><td class="memTemplItemLeft" align="right" valign="top">U &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#afd18c7c8e9c199dab64b7784207a8c41">access_operator</a> (const CharT *key, <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a3b1a86b05c810e23894cffa30750ff68">size_type</a> key_size)</td></tr>
+<tr class="separator:afd18c7c8e9c199dab64b7784207a8c41"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab657288a09ee0b355d70560fc8480b6b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a3b1a86b05c810e23894cffa30750ff68">size_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#ab657288a09ee0b355d70560fc8480b6b">count</a> (const CharT *key, <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a3b1a86b05c810e23894cffa30750ff68">size_type</a> key_size) const</td></tr>
+<tr class="separator:ab657288a09ee0b355d70560fc8480b6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac0ce34f6c90c9edb4c32d493b01a5793"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a032b6f7cd7f7f9da7806c9f61dc22345">iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#ac0ce34f6c90c9edb4c32d493b01a5793">find</a> (const CharT *key, <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a3b1a86b05c810e23894cffa30750ff68">size_type</a> key_size)</td></tr>
+<tr class="separator:ac0ce34f6c90c9edb4c32d493b01a5793"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ade5e81d9542abd3c2da2bbab6503c290"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a1ebbb92be408b4776a7eee21f473e768">const_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#ade5e81d9542abd3c2da2bbab6503c290">find</a> (const CharT *key, <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a3b1a86b05c810e23894cffa30750ff68">size_type</a> key_size) const</td></tr>
+<tr class="separator:ade5e81d9542abd3c2da2bbab6503c290"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6ebcb2ef3d23f894e4e95a61927fa524"><td class="memItemLeft" align="right" valign="top">std::pair&lt; <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a032b6f7cd7f7f9da7806c9f61dc22345">iterator</a>, <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a032b6f7cd7f7f9da7806c9f61dc22345">iterator</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a6ebcb2ef3d23f894e4e95a61927fa524">equal_range</a> (const CharT *key, <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a3b1a86b05c810e23894cffa30750ff68">size_type</a> key_size)</td></tr>
+<tr class="separator:a6ebcb2ef3d23f894e4e95a61927fa524"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac5720f180729384a261001bbf6146304"><td class="memItemLeft" align="right" valign="top">std::pair&lt; <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a1ebbb92be408b4776a7eee21f473e768">const_iterator</a>, <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a1ebbb92be408b4776a7eee21f473e768">const_iterator</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#ac5720f180729384a261001bbf6146304">equal_range</a> (const CharT *key, <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a3b1a86b05c810e23894cffa30750ff68">size_type</a> key_size) const</td></tr>
+<tr class="separator:ac5720f180729384a261001bbf6146304"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad775908162e31095eb16f347d9540c41"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a3b1a86b05c810e23894cffa30750ff68">size_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#ad775908162e31095eb16f347d9540c41">bucket_count</a> () const</td></tr>
+<tr class="separator:ad775908162e31095eb16f347d9540c41"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acacafcac928000f078e2eaa422b8fabe"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a3b1a86b05c810e23894cffa30750ff68">size_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#acacafcac928000f078e2eaa422b8fabe">max_bucket_count</a> () const</td></tr>
+<tr class="separator:acacafcac928000f078e2eaa422b8fabe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2edb18df0bf7881d2f5dbcfa92cea419"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a2edb18df0bf7881d2f5dbcfa92cea419">load_factor</a> () const</td></tr>
+<tr class="separator:a2edb18df0bf7881d2f5dbcfa92cea419"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab4781edcd65166f26daee4b6c590a508"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#ab4781edcd65166f26daee4b6c590a508">max_load_factor</a> () const</td></tr>
+<tr class="separator:ab4781edcd65166f26daee4b6c590a508"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a222f63f9dfd2b4b1be7bedd6df7160d0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a222f63f9dfd2b4b1be7bedd6df7160d0">max_load_factor</a> (float ml)</td></tr>
+<tr class="separator:a222f63f9dfd2b4b1be7bedd6df7160d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae59f550f2996effcde37bc5bdc0b8db5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#ae59f550f2996effcde37bc5bdc0b8db5">rehash</a> (<a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a3b1a86b05c810e23894cffa30750ff68">size_type</a> <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#ab657288a09ee0b355d70560fc8480b6b">count</a>)</td></tr>
+<tr class="separator:ae59f550f2996effcde37bc5bdc0b8db5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a220e0c558993e68193d2a1edf93dfaa7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a220e0c558993e68193d2a1edf93dfaa7">reserve</a> (<a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a3b1a86b05c810e23894cffa30750ff68">size_type</a> <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#ab657288a09ee0b355d70560fc8480b6b">count</a>)</td></tr>
+<tr class="separator:a220e0c558993e68193d2a1edf93dfaa7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a13ac46af36bcb400245148bbf3037497"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a80cb01da896ef7bb11fa82ea0303f3f2">hasher</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a13ac46af36bcb400245148bbf3037497">hash_function</a> () const</td></tr>
+<tr class="separator:a13ac46af36bcb400245148bbf3037497"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afc888c62b23103099cc69e7ff6529a67"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#ab8563f0e2de312609f1f9587e755d3b0">key_equal</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#afc888c62b23103099cc69e7ff6529a67">key_eq</a> () const</td></tr>
+<tr class="separator:afc888c62b23103099cc69e7ff6529a67"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8939d41f970743ef9198fb4462be83bd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a032b6f7cd7f7f9da7806c9f61dc22345">iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a8939d41f970743ef9198fb4462be83bd">mutable_iterator</a> (<a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a1ebbb92be408b4776a7eee21f473e768">const_iterator</a> it) noexcept</td></tr>
+<tr class="separator:a8939d41f970743ef9198fb4462be83bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
-<tr class="memitem:a7d025ebed1e698ddbee9d3176e03ef26"><td class="memItemLeft" align="right" valign="top">static const <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a78db39620480eae4699632c02ba08830">size_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a7d025ebed1e698ddbee9d3176e03ef26">DEFAULT_INIT_BUCKET_COUNT</a> = 16</td></tr>
-<tr class="separator:a7d025ebed1e698ddbee9d3176e03ef26"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac0dda38413a7ea51d92cfc74ae264139"><td class="memItemLeft" align="right" valign="top">static constexpr float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#ac0dda38413a7ea51d92cfc74ae264139">DEFAULT_MAX_LOAD_FACTOR</a> = 2.0f</td></tr>
-<tr class="separator:ac0dda38413a7ea51d92cfc74ae264139"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a620ef464524a5b3f80e2876eec8f5467"><td class="memItemLeft" align="right" valign="top">static const <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a78db39620480eae4699632c02ba08830">size_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a620ef464524a5b3f80e2876eec8f5467">MAX_KEY_SIZE</a> = array_bucket::MAX_KEY_SIZE</td></tr>
-<tr class="separator:a620ef464524a5b3f80e2876eec8f5467"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae22200e3f987ec4d9c430e5bd06f720a"><td class="memItemLeft" align="right" valign="top">static const <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a3b1a86b05c810e23894cffa30750ff68">size_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#ae22200e3f987ec4d9c430e5bd06f720a">DEFAULT_INIT_BUCKET_COUNT</a> = 16</td></tr>
+<tr class="separator:ae22200e3f987ec4d9c430e5bd06f720a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6d5870d711fafac7777a6a012704c7e4"><td class="memItemLeft" align="right" valign="top">static constexpr float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a6d5870d711fafac7777a6a012704c7e4">DEFAULT_MAX_LOAD_FACTOR</a> = 2.0f</td></tr>
+<tr class="separator:a6d5870d711fafac7777a6a012704c7e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad445fe99b1a5d9e8bf688fdf4480eb63"><td class="memItemLeft" align="right" valign="top">static const <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a3b1a86b05c810e23894cffa30750ff68">size_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#ad445fe99b1a5d9e8bf688fdf4480eb63">MAX_KEY_SIZE</a> = array_bucket::MAX_KEY_SIZE</td></tr>
+<tr class="separator:ad445fe99b1a5d9e8bf688fdf4480eb63"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><h3>template&lt;class CharT, class T, class Hash, class Traits, bool StoreNullTerminator, class KeySizeT, class IndexSizeT, class GrowthPolicy&gt;<br />
-class tsl::detail_array_hash::array_hash&lt; CharT, T, Hash, Traits, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt;</h3>
+<div class="textblock"><h3>template&lt;class CharT, class T, class Hash, class KeyEqual, bool StoreNullTerminator, class KeySizeT, class IndexSizeT, class GrowthPolicy&gt;<br />
+class tsl::detail_array_hash::array_hash&lt; CharT, T, Hash, KeyEqual, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt;</h3>
 
 <p>If there is no value in the <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">array_hash</a> (in the case of a set for example), T should be void. </p>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
-<a id="a25b2435ea12897548781b2059e4d7eb5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a25b2435ea12897548781b2059e4d7eb5">&#9670;&nbsp;</a></span>char_type</h2>
+<a id="ade86885ea16dcd95b4d71edeb3505fc1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ade86885ea16dcd95b4d71edeb3505fc1">&#9670;&nbsp;</a></span>char_type</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class CharT, class T, class Hash, class Traits, bool StoreNullTerminator, class KeySizeT, class IndexSizeT, class GrowthPolicy&gt; </div>
+template&lt;class CharT, class T, class Hash, class KeyEqual, bool StoreNullTerminator, class KeySizeT, class IndexSizeT, class GrowthPolicy&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">tsl::detail_array_hash::array_hash</a>&lt; CharT, T, Hash, Traits, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt;::<a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a25b2435ea12897548781b2059e4d7eb5">char_type</a> =  CharT</td>
+          <td class="memname">using <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">tsl::detail_array_hash::array_hash</a>&lt; CharT, T, Hash, KeyEqual, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt;::<a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#ade86885ea16dcd95b4d71edeb3505fc1">char_type</a> =  CharT</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a8598a41a77f995dd6dfab9d0f7ab3fe4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8598a41a77f995dd6dfab9d0f7ab3fe4">&#9670;&nbsp;</a></span>const_iterator</h2>
+<a id="a1ebbb92be408b4776a7eee21f473e768"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1ebbb92be408b4776a7eee21f473e768">&#9670;&nbsp;</a></span>const_iterator</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class CharT, class T, class Hash, class Traits, bool StoreNullTerminator, class KeySizeT, class IndexSizeT, class GrowthPolicy&gt; </div>
+template&lt;class CharT, class T, class Hash, class KeyEqual, bool StoreNullTerminator, class KeySizeT, class IndexSizeT, class GrowthPolicy&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">tsl::detail_array_hash::array_hash</a>&lt; CharT, T, Hash, Traits, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt;::<a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a8598a41a77f995dd6dfab9d0f7ab3fe4">const_iterator</a> =  <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash_1_1array__hash__iterator.html">array_hash_iterator</a>&lt;true&gt;</td>
+          <td class="memname">using <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">tsl::detail_array_hash::array_hash</a>&lt; CharT, T, Hash, KeyEqual, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt;::<a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a1ebbb92be408b4776a7eee21f473e768">const_iterator</a> =  <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash_1_1array__hash__iterator.html">array_hash_iterator</a>&lt;true&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a94908be170b9f04f691d53ed9374d314"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a94908be170b9f04f691d53ed9374d314">&#9670;&nbsp;</a></span>hasher</h2>
+<a id="a80cb01da896ef7bb11fa82ea0303f3f2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a80cb01da896ef7bb11fa82ea0303f3f2">&#9670;&nbsp;</a></span>hasher</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class CharT, class T, class Hash, class Traits, bool StoreNullTerminator, class KeySizeT, class IndexSizeT, class GrowthPolicy&gt; </div>
+template&lt;class CharT, class T, class Hash, class KeyEqual, bool StoreNullTerminator, class KeySizeT, class IndexSizeT, class GrowthPolicy&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">tsl::detail_array_hash::array_hash</a>&lt; CharT, T, Hash, Traits, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt;::<a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a94908be170b9f04f691d53ed9374d314">hasher</a> =  Hash</td>
+          <td class="memname">using <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">tsl::detail_array_hash::array_hash</a>&lt; CharT, T, Hash, KeyEqual, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt;::<a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a80cb01da896ef7bb11fa82ea0303f3f2">hasher</a> =  Hash</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a72577fdf58f8ba15118d4ccff19e6020"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a72577fdf58f8ba15118d4ccff19e6020">&#9670;&nbsp;</a></span>index_size_type</h2>
+<a id="a3ac07d2fa7fc5da8b788a9351e0e5df9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3ac07d2fa7fc5da8b788a9351e0e5df9">&#9670;&nbsp;</a></span>index_size_type</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class CharT, class T, class Hash, class Traits, bool StoreNullTerminator, class KeySizeT, class IndexSizeT, class GrowthPolicy&gt; </div>
+template&lt;class CharT, class T, class Hash, class KeyEqual, bool StoreNullTerminator, class KeySizeT, class IndexSizeT, class GrowthPolicy&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">tsl::detail_array_hash::array_hash</a>&lt; CharT, T, Hash, Traits, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt;::<a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a72577fdf58f8ba15118d4ccff19e6020">index_size_type</a> =  IndexSizeT</td>
+          <td class="memname">using <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">tsl::detail_array_hash::array_hash</a>&lt; CharT, T, Hash, KeyEqual, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt;::<a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a3ac07d2fa7fc5da8b788a9351e0e5df9">index_size_type</a> =  IndexSizeT</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a7ecc8a99c18e1400977596c150c7c466"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7ecc8a99c18e1400977596c150c7c466">&#9670;&nbsp;</a></span>iterator</h2>
+<a id="a032b6f7cd7f7f9da7806c9f61dc22345"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a032b6f7cd7f7f9da7806c9f61dc22345">&#9670;&nbsp;</a></span>iterator</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class CharT, class T, class Hash, class Traits, bool StoreNullTerminator, class KeySizeT, class IndexSizeT, class GrowthPolicy&gt; </div>
+template&lt;class CharT, class T, class Hash, class KeyEqual, bool StoreNullTerminator, class KeySizeT, class IndexSizeT, class GrowthPolicy&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">tsl::detail_array_hash::array_hash</a>&lt; CharT, T, Hash, Traits, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt;::<a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a7ecc8a99c18e1400977596c150c7c466">iterator</a> =  <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash_1_1array__hash__iterator.html">array_hash_iterator</a>&lt;false&gt;</td>
+          <td class="memname">using <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">tsl::detail_array_hash::array_hash</a>&lt; CharT, T, Hash, KeyEqual, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt;::<a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a032b6f7cd7f7f9da7806c9f61dc22345">iterator</a> =  <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash_1_1array__hash__iterator.html">array_hash_iterator</a>&lt;false&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a58889fcbd12d2ad517c3423084e3a124"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a58889fcbd12d2ad517c3423084e3a124">&#9670;&nbsp;</a></span>key_size_type</h2>
+<a id="ab8563f0e2de312609f1f9587e755d3b0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab8563f0e2de312609f1f9587e755d3b0">&#9670;&nbsp;</a></span>key_equal</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class CharT, class T, class Hash, class Traits, bool StoreNullTerminator, class KeySizeT, class IndexSizeT, class GrowthPolicy&gt; </div>
+template&lt;class CharT, class T, class Hash, class KeyEqual, bool StoreNullTerminator, class KeySizeT, class IndexSizeT, class GrowthPolicy&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">tsl::detail_array_hash::array_hash</a>&lt; CharT, T, Hash, Traits, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt;::<a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a58889fcbd12d2ad517c3423084e3a124">key_size_type</a> =  KeySizeT</td>
+          <td class="memname">using <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">tsl::detail_array_hash::array_hash</a>&lt; CharT, T, Hash, KeyEqual, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt;::<a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#ab8563f0e2de312609f1f9587e755d3b0">key_equal</a> =  KeyEqual</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a78db39620480eae4699632c02ba08830"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a78db39620480eae4699632c02ba08830">&#9670;&nbsp;</a></span>size_type</h2>
+<a id="aa89e6e1eb47d6d90b96fd15c92c119a7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa89e6e1eb47d6d90b96fd15c92c119a7">&#9670;&nbsp;</a></span>key_size_type</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class CharT, class T, class Hash, class Traits, bool StoreNullTerminator, class KeySizeT, class IndexSizeT, class GrowthPolicy&gt; </div>
+template&lt;class CharT, class T, class Hash, class KeyEqual, bool StoreNullTerminator, class KeySizeT, class IndexSizeT, class GrowthPolicy&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">tsl::detail_array_hash::array_hash</a>&lt; CharT, T, Hash, Traits, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt;::<a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a78db39620480eae4699632c02ba08830">size_type</a> =  std::size_t</td>
+          <td class="memname">using <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">tsl::detail_array_hash::array_hash</a>&lt; CharT, T, Hash, KeyEqual, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt;::<a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#aa89e6e1eb47d6d90b96fd15c92c119a7">key_size_type</a> =  KeySizeT</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a54d79d1e7264d8f635d000c60ed4e785"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a54d79d1e7264d8f635d000c60ed4e785">&#9670;&nbsp;</a></span>traits_type</h2>
+<a id="a3b1a86b05c810e23894cffa30750ff68"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3b1a86b05c810e23894cffa30750ff68">&#9670;&nbsp;</a></span>size_type</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class CharT, class T, class Hash, class Traits, bool StoreNullTerminator, class KeySizeT, class IndexSizeT, class GrowthPolicy&gt; </div>
+template&lt;class CharT, class T, class Hash, class KeyEqual, bool StoreNullTerminator, class KeySizeT, class IndexSizeT, class GrowthPolicy&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">tsl::detail_array_hash::array_hash</a>&lt; CharT, T, Hash, Traits, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt;::<a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a54d79d1e7264d8f635d000c60ed4e785">traits_type</a> =  Traits</td>
+          <td class="memname">using <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">tsl::detail_array_hash::array_hash</a>&lt; CharT, T, Hash, KeyEqual, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt;::<a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a3b1a86b05c810e23894cffa30750ff68">size_type</a> =  std::size_t</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -313,21 +315,21 @@ template&lt;class CharT, class T, class Hash, class Traits, bool StoreNullTermin
 </div>
 </div>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a183cf1fcfe8db7c6c3ae26123b5303d1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a183cf1fcfe8db7c6c3ae26123b5303d1">&#9670;&nbsp;</a></span>array_hash() <span class="overload">[1/3]</span></h2>
+<a id="aba35961f5207cb351549fa0d2d5683e1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aba35961f5207cb351549fa0d2d5683e1">&#9670;&nbsp;</a></span>array_hash() <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class CharT, class T, class Hash, class Traits, bool StoreNullTerminator, class KeySizeT, class IndexSizeT, class GrowthPolicy&gt; </div>
+template&lt;class CharT, class T, class Hash, class KeyEqual, bool StoreNullTerminator, class KeySizeT, class IndexSizeT, class GrowthPolicy&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">tsl::detail_array_hash::array_hash</a>&lt; CharT, T, Hash, Traits, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt;::<a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">array_hash</a> </td>
+          <td class="memname"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">tsl::detail_array_hash::array_hash</a>&lt; CharT, T, Hash, KeyEqual, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt;::<a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">array_hash</a> </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a78db39620480eae4699632c02ba08830">size_type</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a3b1a86b05c810e23894cffa30750ff68">size_type</a>&#160;</td>
           <td class="paramname"><em>bucket_count</em>, </td>
         </tr>
         <tr>
@@ -357,21 +359,21 @@ template&lt;class CharT, class T, class Hash, class Traits, bool StoreNullTermin
 
 </div>
 </div>
-<a id="ac077fa95cb9c3ce844d2c4489615cafc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac077fa95cb9c3ce844d2c4489615cafc">&#9670;&nbsp;</a></span>array_hash() <span class="overload">[2/3]</span></h2>
+<a id="aa29ba8ccbd37c4e2140b9611f4f01252"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa29ba8ccbd37c4e2140b9611f4f01252">&#9670;&nbsp;</a></span>array_hash() <span class="overload">[2/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class CharT, class T, class Hash, class Traits, bool StoreNullTerminator, class KeySizeT, class IndexSizeT, class GrowthPolicy&gt; </div>
+template&lt;class CharT, class T, class Hash, class KeyEqual, bool StoreNullTerminator, class KeySizeT, class IndexSizeT, class GrowthPolicy&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">tsl::detail_array_hash::array_hash</a>&lt; CharT, T, Hash, Traits, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt;::<a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">array_hash</a> </td>
+          <td class="memname"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">tsl::detail_array_hash::array_hash</a>&lt; CharT, T, Hash, KeyEqual, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt;::<a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">array_hash</a> </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">array_hash</a>&lt; CharT, T, Hash, Traits, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt; &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">array_hash</a>&lt; CharT, T, Hash, KeyEqual, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt; &amp;&#160;</td>
           <td class="paramname"><em>other</em></td><td>)</td>
           <td></td>
         </tr>
@@ -385,21 +387,21 @@ template&lt;class CharT, class T, class Hash, class Traits, bool StoreNullTermin
 
 </div>
 </div>
-<a id="a39cd4829a45d61a1d48ee38453deaf0f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a39cd4829a45d61a1d48ee38453deaf0f">&#9670;&nbsp;</a></span>array_hash() <span class="overload">[3/3]</span></h2>
+<a id="ad1147e135ce6efbf50a79047dd916582"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad1147e135ce6efbf50a79047dd916582">&#9670;&nbsp;</a></span>array_hash() <span class="overload">[3/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class CharT, class T, class Hash, class Traits, bool StoreNullTerminator, class KeySizeT, class IndexSizeT, class GrowthPolicy&gt; </div>
+template&lt;class CharT, class T, class Hash, class KeyEqual, bool StoreNullTerminator, class KeySizeT, class IndexSizeT, class GrowthPolicy&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">tsl::detail_array_hash::array_hash</a>&lt; CharT, T, Hash, Traits, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt;::<a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">array_hash</a> </td>
+          <td class="memname"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">tsl::detail_array_hash::array_hash</a>&lt; CharT, T, Hash, KeyEqual, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt;::<a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">array_hash</a> </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">array_hash</a>&lt; CharT, T, Hash, Traits, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt; &amp;&amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">array_hash</a>&lt; CharT, T, Hash, KeyEqual, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt; &amp;&amp;&#160;</td>
           <td class="paramname"><em>other</em></td><td>)</td>
           <td></td>
         </tr>
@@ -414,13 +416,13 @@ template&lt;class CharT, class T, class Hash, class Traits, bool StoreNullTermin
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a118ac8661b120c8ce65cae54cfde7818"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a118ac8661b120c8ce65cae54cfde7818">&#9670;&nbsp;</a></span>access_operator()</h2>
+<a id="afd18c7c8e9c199dab64b7784207a8c41"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afd18c7c8e9c199dab64b7784207a8c41">&#9670;&nbsp;</a></span>access_operator()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class CharT, class T, class Hash, class Traits, bool StoreNullTerminator, class KeySizeT, class IndexSizeT, class GrowthPolicy&gt; </div>
+template&lt;class CharT, class T, class Hash, class KeyEqual, bool StoreNullTerminator, class KeySizeT, class IndexSizeT, class GrowthPolicy&gt; </div>
 <div class="memtemplate">
 template&lt;class U  = T, typename std::enable_if&lt; has_value&lt; U &gt;::value &gt;::type *  = nullptr&gt; </div>
 <table class="mlabels">
@@ -428,7 +430,7 @@ template&lt;class U  = T, typename std::enable_if&lt; has_value&lt; U &gt;::valu
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">U&amp; <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">tsl::detail_array_hash::array_hash</a>&lt; CharT, T, Hash, Traits, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt;::access_operator </td>
+          <td class="memname">U&amp; <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">tsl::detail_array_hash::array_hash</a>&lt; CharT, T, Hash, KeyEqual, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt;::access_operator </td>
           <td>(</td>
           <td class="paramtype">const CharT *&#160;</td>
           <td class="paramname"><em>key</em>, </td>
@@ -436,7 +438,7 @@ template&lt;class U  = T, typename std::enable_if&lt; has_value&lt; U &gt;::valu
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a78db39620480eae4699632c02ba08830">size_type</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a3b1a86b05c810e23894cffa30750ff68">size_type</a>&#160;</td>
           <td class="paramname"><em>key_size</em>&#160;</td>
         </tr>
         <tr>
@@ -454,13 +456,13 @@ template&lt;class U  = T, typename std::enable_if&lt; has_value&lt; U &gt;::valu
 
 </div>
 </div>
-<a id="a3510a7d351ed57e60564bd8d868e82dc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3510a7d351ed57e60564bd8d868e82dc">&#9670;&nbsp;</a></span>at() <span class="overload">[1/2]</span></h2>
+<a id="a19ff24185ce23f09c90055851016a547"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a19ff24185ce23f09c90055851016a547">&#9670;&nbsp;</a></span>at() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class CharT, class T, class Hash, class Traits, bool StoreNullTerminator, class KeySizeT, class IndexSizeT, class GrowthPolicy&gt; </div>
+template&lt;class CharT, class T, class Hash, class KeyEqual, bool StoreNullTerminator, class KeySizeT, class IndexSizeT, class GrowthPolicy&gt; </div>
 <div class="memtemplate">
 template&lt;class U  = T, typename std::enable_if&lt; has_value&lt; U &gt;::value &gt;::type *  = nullptr&gt; </div>
 <table class="mlabels">
@@ -468,7 +470,7 @@ template&lt;class U  = T, typename std::enable_if&lt; has_value&lt; U &gt;::valu
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">U&amp; <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">tsl::detail_array_hash::array_hash</a>&lt; CharT, T, Hash, Traits, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt;::at </td>
+          <td class="memname">U&amp; <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">tsl::detail_array_hash::array_hash</a>&lt; CharT, T, Hash, KeyEqual, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt;::at </td>
           <td>(</td>
           <td class="paramtype">const CharT *&#160;</td>
           <td class="paramname"><em>key</em>, </td>
@@ -476,7 +478,7 @@ template&lt;class U  = T, typename std::enable_if&lt; has_value&lt; U &gt;::valu
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a78db39620480eae4699632c02ba08830">size_type</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a3b1a86b05c810e23894cffa30750ff68">size_type</a>&#160;</td>
           <td class="paramname"><em>key_size</em>&#160;</td>
         </tr>
         <tr>
@@ -494,13 +496,13 @@ template&lt;class U  = T, typename std::enable_if&lt; has_value&lt; U &gt;::valu
 
 </div>
 </div>
-<a id="a7d4f959cef35e2fc01f85c2f1258ecb4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7d4f959cef35e2fc01f85c2f1258ecb4">&#9670;&nbsp;</a></span>at() <span class="overload">[2/2]</span></h2>
+<a id="ad03817a91eb9abb4eb4d34b6893d164f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad03817a91eb9abb4eb4d34b6893d164f">&#9670;&nbsp;</a></span>at() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class CharT, class T, class Hash, class Traits, bool StoreNullTerminator, class KeySizeT, class IndexSizeT, class GrowthPolicy&gt; </div>
+template&lt;class CharT, class T, class Hash, class KeyEqual, bool StoreNullTerminator, class KeySizeT, class IndexSizeT, class GrowthPolicy&gt; </div>
 <div class="memtemplate">
 template&lt;class U  = T, typename std::enable_if&lt; has_value&lt; U &gt;::value &gt;::type *  = nullptr&gt; </div>
 <table class="mlabels">
@@ -508,7 +510,7 @@ template&lt;class U  = T, typename std::enable_if&lt; has_value&lt; U &gt;::valu
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const U&amp; <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">tsl::detail_array_hash::array_hash</a>&lt; CharT, T, Hash, Traits, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt;::at </td>
+          <td class="memname">const U&amp; <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">tsl::detail_array_hash::array_hash</a>&lt; CharT, T, Hash, KeyEqual, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt;::at </td>
           <td>(</td>
           <td class="paramtype">const CharT *&#160;</td>
           <td class="paramname"><em>key</em>, </td>
@@ -516,7 +518,7 @@ template&lt;class U  = T, typename std::enable_if&lt; has_value&lt; U &gt;::valu
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a78db39620480eae4699632c02ba08830">size_type</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a3b1a86b05c810e23894cffa30750ff68">size_type</a>&#160;</td>
           <td class="paramname"><em>key_size</em>&#160;</td>
         </tr>
         <tr>
@@ -534,19 +536,19 @@ template&lt;class U  = T, typename std::enable_if&lt; has_value&lt; U &gt;::valu
 
 </div>
 </div>
-<a id="ad09966793cba2d7546e23ed06eb655c3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad09966793cba2d7546e23ed06eb655c3">&#9670;&nbsp;</a></span>begin() <span class="overload">[1/2]</span></h2>
+<a id="a5f048989bc9b0565cab06b08a464d2ec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5f048989bc9b0565cab06b08a464d2ec">&#9670;&nbsp;</a></span>begin() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class CharT, class T, class Hash, class Traits, bool StoreNullTerminator, class KeySizeT, class IndexSizeT, class GrowthPolicy&gt; </div>
+template&lt;class CharT, class T, class Hash, class KeyEqual, bool StoreNullTerminator, class KeySizeT, class IndexSizeT, class GrowthPolicy&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a7ecc8a99c18e1400977596c150c7c466">iterator</a> <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">tsl::detail_array_hash::array_hash</a>&lt; CharT, T, Hash, Traits, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt;::begin </td>
+          <td class="memname"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a032b6f7cd7f7f9da7806c9f61dc22345">iterator</a> <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">tsl::detail_array_hash::array_hash</a>&lt; CharT, T, Hash, KeyEqual, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt;::begin </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -561,19 +563,19 @@ template&lt;class CharT, class T, class Hash, class Traits, bool StoreNullTermin
 
 </div>
 </div>
-<a id="a5ccd206e51d40acfd6ed6867a4836feb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5ccd206e51d40acfd6ed6867a4836feb">&#9670;&nbsp;</a></span>begin() <span class="overload">[2/2]</span></h2>
+<a id="aeabaa55de92c4e3595885248c4bdb1cf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeabaa55de92c4e3595885248c4bdb1cf">&#9670;&nbsp;</a></span>begin() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class CharT, class T, class Hash, class Traits, bool StoreNullTerminator, class KeySizeT, class IndexSizeT, class GrowthPolicy&gt; </div>
+template&lt;class CharT, class T, class Hash, class KeyEqual, bool StoreNullTerminator, class KeySizeT, class IndexSizeT, class GrowthPolicy&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a8598a41a77f995dd6dfab9d0f7ab3fe4">const_iterator</a> <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">tsl::detail_array_hash::array_hash</a>&lt; CharT, T, Hash, Traits, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt;::begin </td>
+          <td class="memname"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a1ebbb92be408b4776a7eee21f473e768">const_iterator</a> <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">tsl::detail_array_hash::array_hash</a>&lt; CharT, T, Hash, KeyEqual, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt;::begin </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -588,19 +590,19 @@ template&lt;class CharT, class T, class Hash, class Traits, bool StoreNullTermin
 
 </div>
 </div>
-<a id="ac0d08893e6cac2b19c7361b0d1b3416a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac0d08893e6cac2b19c7361b0d1b3416a">&#9670;&nbsp;</a></span>bucket_count()</h2>
+<a id="ad775908162e31095eb16f347d9540c41"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad775908162e31095eb16f347d9540c41">&#9670;&nbsp;</a></span>bucket_count()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class CharT, class T, class Hash, class Traits, bool StoreNullTerminator, class KeySizeT, class IndexSizeT, class GrowthPolicy&gt; </div>
+template&lt;class CharT, class T, class Hash, class KeyEqual, bool StoreNullTerminator, class KeySizeT, class IndexSizeT, class GrowthPolicy&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a78db39620480eae4699632c02ba08830">size_type</a> <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">tsl::detail_array_hash::array_hash</a>&lt; CharT, T, Hash, Traits, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt;::bucket_count </td>
+          <td class="memname"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a3b1a86b05c810e23894cffa30750ff68">size_type</a> <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">tsl::detail_array_hash::array_hash</a>&lt; CharT, T, Hash, KeyEqual, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt;::bucket_count </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -615,19 +617,19 @@ template&lt;class CharT, class T, class Hash, class Traits, bool StoreNullTermin
 
 </div>
 </div>
-<a id="a436799aeb92f3de33987217e002ce030"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a436799aeb92f3de33987217e002ce030">&#9670;&nbsp;</a></span>cbegin()</h2>
+<a id="ab9698e0f289b6de11c9f5e66db9ede1d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab9698e0f289b6de11c9f5e66db9ede1d">&#9670;&nbsp;</a></span>cbegin()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class CharT, class T, class Hash, class Traits, bool StoreNullTerminator, class KeySizeT, class IndexSizeT, class GrowthPolicy&gt; </div>
+template&lt;class CharT, class T, class Hash, class KeyEqual, bool StoreNullTerminator, class KeySizeT, class IndexSizeT, class GrowthPolicy&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a8598a41a77f995dd6dfab9d0f7ab3fe4">const_iterator</a> <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">tsl::detail_array_hash::array_hash</a>&lt; CharT, T, Hash, Traits, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt;::cbegin </td>
+          <td class="memname"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a1ebbb92be408b4776a7eee21f473e768">const_iterator</a> <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">tsl::detail_array_hash::array_hash</a>&lt; CharT, T, Hash, KeyEqual, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt;::cbegin </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -642,19 +644,19 @@ template&lt;class CharT, class T, class Hash, class Traits, bool StoreNullTermin
 
 </div>
 </div>
-<a id="aabaff339cc15c23f4b5c4ea40ce52dd8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aabaff339cc15c23f4b5c4ea40ce52dd8">&#9670;&nbsp;</a></span>cend()</h2>
+<a id="a368137ab7e008dd93fcd95cb55af7723"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a368137ab7e008dd93fcd95cb55af7723">&#9670;&nbsp;</a></span>cend()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class CharT, class T, class Hash, class Traits, bool StoreNullTerminator, class KeySizeT, class IndexSizeT, class GrowthPolicy&gt; </div>
+template&lt;class CharT, class T, class Hash, class KeyEqual, bool StoreNullTerminator, class KeySizeT, class IndexSizeT, class GrowthPolicy&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a8598a41a77f995dd6dfab9d0f7ab3fe4">const_iterator</a> <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">tsl::detail_array_hash::array_hash</a>&lt; CharT, T, Hash, Traits, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt;::cend </td>
+          <td class="memname"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a1ebbb92be408b4776a7eee21f473e768">const_iterator</a> <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">tsl::detail_array_hash::array_hash</a>&lt; CharT, T, Hash, KeyEqual, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt;::cend </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -669,19 +671,19 @@ template&lt;class CharT, class T, class Hash, class Traits, bool StoreNullTermin
 
 </div>
 </div>
-<a id="a8aec659aac0949120f00a66afe119d62"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8aec659aac0949120f00a66afe119d62">&#9670;&nbsp;</a></span>clear()</h2>
+<a id="a0405b201fcd73dadf9368036b3f74b2e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0405b201fcd73dadf9368036b3f74b2e">&#9670;&nbsp;</a></span>clear()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class CharT, class T, class Hash, class Traits, bool StoreNullTerminator, class KeySizeT, class IndexSizeT, class GrowthPolicy&gt; </div>
+template&lt;class CharT, class T, class Hash, class KeyEqual, bool StoreNullTerminator, class KeySizeT, class IndexSizeT, class GrowthPolicy&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">tsl::detail_array_hash::array_hash</a>&lt; CharT, T, Hash, Traits, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt;::clear </td>
+          <td class="memname">void <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">tsl::detail_array_hash::array_hash</a>&lt; CharT, T, Hash, KeyEqual, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt;::clear </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -696,19 +698,19 @@ template&lt;class CharT, class T, class Hash, class Traits, bool StoreNullTermin
 
 </div>
 </div>
-<a id="a927067d795fcd97b939937fd62d9dabc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a927067d795fcd97b939937fd62d9dabc">&#9670;&nbsp;</a></span>count()</h2>
+<a id="ab657288a09ee0b355d70560fc8480b6b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab657288a09ee0b355d70560fc8480b6b">&#9670;&nbsp;</a></span>count()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class CharT, class T, class Hash, class Traits, bool StoreNullTerminator, class KeySizeT, class IndexSizeT, class GrowthPolicy&gt; </div>
+template&lt;class CharT, class T, class Hash, class KeyEqual, bool StoreNullTerminator, class KeySizeT, class IndexSizeT, class GrowthPolicy&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a78db39620480eae4699632c02ba08830">size_type</a> <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">tsl::detail_array_hash::array_hash</a>&lt; CharT, T, Hash, Traits, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt;::count </td>
+          <td class="memname"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a3b1a86b05c810e23894cffa30750ff68">size_type</a> <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">tsl::detail_array_hash::array_hash</a>&lt; CharT, T, Hash, KeyEqual, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt;::count </td>
           <td>(</td>
           <td class="paramtype">const CharT *&#160;</td>
           <td class="paramname"><em>key</em>, </td>
@@ -716,7 +718,7 @@ template&lt;class CharT, class T, class Hash, class Traits, bool StoreNullTermin
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a78db39620480eae4699632c02ba08830">size_type</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a3b1a86b05c810e23894cffa30750ff68">size_type</a>&#160;</td>
           <td class="paramname"><em>key_size</em>&#160;</td>
         </tr>
         <tr>
@@ -734,19 +736,19 @@ template&lt;class CharT, class T, class Hash, class Traits, bool StoreNullTermin
 
 </div>
 </div>
-<a id="a2d95145f4210f77ca948c5155086bdf2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2d95145f4210f77ca948c5155086bdf2">&#9670;&nbsp;</a></span>empty()</h2>
+<a id="af26083eb59f68a36913c0af46ca13a1b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af26083eb59f68a36913c0af46ca13a1b">&#9670;&nbsp;</a></span>empty()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class CharT, class T, class Hash, class Traits, bool StoreNullTerminator, class KeySizeT, class IndexSizeT, class GrowthPolicy&gt; </div>
+template&lt;class CharT, class T, class Hash, class KeyEqual, bool StoreNullTerminator, class KeySizeT, class IndexSizeT, class GrowthPolicy&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">tsl::detail_array_hash::array_hash</a>&lt; CharT, T, Hash, Traits, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt;::empty </td>
+          <td class="memname">bool <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">tsl::detail_array_hash::array_hash</a>&lt; CharT, T, Hash, KeyEqual, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt;::empty </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -761,19 +763,19 @@ template&lt;class CharT, class T, class Hash, class Traits, bool StoreNullTermin
 
 </div>
 </div>
-<a id="aadb4217122dbf74040a534fc273bedf6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aadb4217122dbf74040a534fc273bedf6">&#9670;&nbsp;</a></span>end() <span class="overload">[1/2]</span></h2>
+<a id="a7b48893dac47f0071f057f2cef80c4a0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7b48893dac47f0071f057f2cef80c4a0">&#9670;&nbsp;</a></span>end() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class CharT, class T, class Hash, class Traits, bool StoreNullTerminator, class KeySizeT, class IndexSizeT, class GrowthPolicy&gt; </div>
+template&lt;class CharT, class T, class Hash, class KeyEqual, bool StoreNullTerminator, class KeySizeT, class IndexSizeT, class GrowthPolicy&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a7ecc8a99c18e1400977596c150c7c466">iterator</a> <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">tsl::detail_array_hash::array_hash</a>&lt; CharT, T, Hash, Traits, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt;::end </td>
+          <td class="memname"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a032b6f7cd7f7f9da7806c9f61dc22345">iterator</a> <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">tsl::detail_array_hash::array_hash</a>&lt; CharT, T, Hash, KeyEqual, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt;::end </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -788,19 +790,19 @@ template&lt;class CharT, class T, class Hash, class Traits, bool StoreNullTermin
 
 </div>
 </div>
-<a id="aca744d34d25275ee0574464453735e9b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aca744d34d25275ee0574464453735e9b">&#9670;&nbsp;</a></span>end() <span class="overload">[2/2]</span></h2>
+<a id="a164258745172c9dcf15bbadbafb3524f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a164258745172c9dcf15bbadbafb3524f">&#9670;&nbsp;</a></span>end() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class CharT, class T, class Hash, class Traits, bool StoreNullTerminator, class KeySizeT, class IndexSizeT, class GrowthPolicy&gt; </div>
+template&lt;class CharT, class T, class Hash, class KeyEqual, bool StoreNullTerminator, class KeySizeT, class IndexSizeT, class GrowthPolicy&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a8598a41a77f995dd6dfab9d0f7ab3fe4">const_iterator</a> <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">tsl::detail_array_hash::array_hash</a>&lt; CharT, T, Hash, Traits, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt;::end </td>
+          <td class="memname"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a1ebbb92be408b4776a7eee21f473e768">const_iterator</a> <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">tsl::detail_array_hash::array_hash</a>&lt; CharT, T, Hash, KeyEqual, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt;::end </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -815,19 +817,19 @@ template&lt;class CharT, class T, class Hash, class Traits, bool StoreNullTermin
 
 </div>
 </div>
-<a id="a634a1094b30e12a6f160c817f198e4c0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a634a1094b30e12a6f160c817f198e4c0">&#9670;&nbsp;</a></span>equal_range() <span class="overload">[1/2]</span></h2>
+<a id="a6ebcb2ef3d23f894e4e95a61927fa524"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6ebcb2ef3d23f894e4e95a61927fa524">&#9670;&nbsp;</a></span>equal_range() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class CharT, class T, class Hash, class Traits, bool StoreNullTerminator, class KeySizeT, class IndexSizeT, class GrowthPolicy&gt; </div>
+template&lt;class CharT, class T, class Hash, class KeyEqual, bool StoreNullTerminator, class KeySizeT, class IndexSizeT, class GrowthPolicy&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::pair&lt;<a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a7ecc8a99c18e1400977596c150c7c466">iterator</a>, <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a7ecc8a99c18e1400977596c150c7c466">iterator</a>&gt; <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">tsl::detail_array_hash::array_hash</a>&lt; CharT, T, Hash, Traits, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt;::equal_range </td>
+          <td class="memname">std::pair&lt;<a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a032b6f7cd7f7f9da7806c9f61dc22345">iterator</a>, <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a032b6f7cd7f7f9da7806c9f61dc22345">iterator</a>&gt; <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">tsl::detail_array_hash::array_hash</a>&lt; CharT, T, Hash, KeyEqual, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt;::equal_range </td>
           <td>(</td>
           <td class="paramtype">const CharT *&#160;</td>
           <td class="paramname"><em>key</em>, </td>
@@ -835,7 +837,7 @@ template&lt;class CharT, class T, class Hash, class Traits, bool StoreNullTermin
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a78db39620480eae4699632c02ba08830">size_type</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a3b1a86b05c810e23894cffa30750ff68">size_type</a>&#160;</td>
           <td class="paramname"><em>key_size</em>&#160;</td>
         </tr>
         <tr>
@@ -853,19 +855,19 @@ template&lt;class CharT, class T, class Hash, class Traits, bool StoreNullTermin
 
 </div>
 </div>
-<a id="a84f90daf87de6f058b643e80fe3e0bfd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a84f90daf87de6f058b643e80fe3e0bfd">&#9670;&nbsp;</a></span>equal_range() <span class="overload">[2/2]</span></h2>
+<a id="ac5720f180729384a261001bbf6146304"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac5720f180729384a261001bbf6146304">&#9670;&nbsp;</a></span>equal_range() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class CharT, class T, class Hash, class Traits, bool StoreNullTerminator, class KeySizeT, class IndexSizeT, class GrowthPolicy&gt; </div>
+template&lt;class CharT, class T, class Hash, class KeyEqual, bool StoreNullTerminator, class KeySizeT, class IndexSizeT, class GrowthPolicy&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::pair&lt;<a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a8598a41a77f995dd6dfab9d0f7ab3fe4">const_iterator</a>, <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a8598a41a77f995dd6dfab9d0f7ab3fe4">const_iterator</a>&gt; <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">tsl::detail_array_hash::array_hash</a>&lt; CharT, T, Hash, Traits, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt;::equal_range </td>
+          <td class="memname">std::pair&lt;<a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a1ebbb92be408b4776a7eee21f473e768">const_iterator</a>, <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a1ebbb92be408b4776a7eee21f473e768">const_iterator</a>&gt; <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">tsl::detail_array_hash::array_hash</a>&lt; CharT, T, Hash, KeyEqual, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt;::equal_range </td>
           <td>(</td>
           <td class="paramtype">const CharT *&#160;</td>
           <td class="paramname"><em>key</em>, </td>
@@ -873,7 +875,7 @@ template&lt;class CharT, class T, class Hash, class Traits, bool StoreNullTermin
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a78db39620480eae4699632c02ba08830">size_type</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a3b1a86b05c810e23894cffa30750ff68">size_type</a>&#160;</td>
           <td class="paramname"><em>key_size</em>&#160;</td>
         </tr>
         <tr>
@@ -891,21 +893,21 @@ template&lt;class CharT, class T, class Hash, class Traits, bool StoreNullTermin
 
 </div>
 </div>
-<a id="a0eac3472dcb9a8917e2b8bf2411d90a0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0eac3472dcb9a8917e2b8bf2411d90a0">&#9670;&nbsp;</a></span>erase() <span class="overload">[1/3]</span></h2>
+<a id="a6bfa244297db5823c806815cc9f0bef4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6bfa244297db5823c806815cc9f0bef4">&#9670;&nbsp;</a></span>erase() <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class CharT, class T, class Hash, class Traits, bool StoreNullTerminator, class KeySizeT, class IndexSizeT, class GrowthPolicy&gt; </div>
+template&lt;class CharT, class T, class Hash, class KeyEqual, bool StoreNullTerminator, class KeySizeT, class IndexSizeT, class GrowthPolicy&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a7ecc8a99c18e1400977596c150c7c466">iterator</a> <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">tsl::detail_array_hash::array_hash</a>&lt; CharT, T, Hash, Traits, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt;::erase </td>
+          <td class="memname"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a032b6f7cd7f7f9da7806c9f61dc22345">iterator</a> <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">tsl::detail_array_hash::array_hash</a>&lt; CharT, T, Hash, KeyEqual, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt;::erase </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a8598a41a77f995dd6dfab9d0f7ab3fe4">const_iterator</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a1ebbb92be408b4776a7eee21f473e768">const_iterator</a>&#160;</td>
           <td class="paramname"><em>pos</em></td><td>)</td>
           <td></td>
         </tr>
@@ -919,27 +921,27 @@ template&lt;class CharT, class T, class Hash, class Traits, bool StoreNullTermin
 
 </div>
 </div>
-<a id="a1ed0fab5c59de367a78db4eb6332a44d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1ed0fab5c59de367a78db4eb6332a44d">&#9670;&nbsp;</a></span>erase() <span class="overload">[2/3]</span></h2>
+<a id="a38c0aaa4e4ec5ec5a210057ee9329e68"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a38c0aaa4e4ec5ec5a210057ee9329e68">&#9670;&nbsp;</a></span>erase() <span class="overload">[2/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class CharT, class T, class Hash, class Traits, bool StoreNullTerminator, class KeySizeT, class IndexSizeT, class GrowthPolicy&gt; </div>
+template&lt;class CharT, class T, class Hash, class KeyEqual, bool StoreNullTerminator, class KeySizeT, class IndexSizeT, class GrowthPolicy&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a7ecc8a99c18e1400977596c150c7c466">iterator</a> <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">tsl::detail_array_hash::array_hash</a>&lt; CharT, T, Hash, Traits, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt;::erase </td>
+          <td class="memname"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a032b6f7cd7f7f9da7806c9f61dc22345">iterator</a> <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">tsl::detail_array_hash::array_hash</a>&lt; CharT, T, Hash, KeyEqual, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt;::erase </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a8598a41a77f995dd6dfab9d0f7ab3fe4">const_iterator</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a1ebbb92be408b4776a7eee21f473e768">const_iterator</a>&#160;</td>
           <td class="paramname"><em>first</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a8598a41a77f995dd6dfab9d0f7ab3fe4">const_iterator</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a1ebbb92be408b4776a7eee21f473e768">const_iterator</a>&#160;</td>
           <td class="paramname"><em>last</em>&#160;</td>
         </tr>
         <tr>
@@ -957,19 +959,19 @@ template&lt;class CharT, class T, class Hash, class Traits, bool StoreNullTermin
 
 </div>
 </div>
-<a id="a34a6a13b54194120efde8a2345a3b172"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a34a6a13b54194120efde8a2345a3b172">&#9670;&nbsp;</a></span>erase() <span class="overload">[3/3]</span></h2>
+<a id="a1a8db41ac289e8bf7686aa84564568eb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1a8db41ac289e8bf7686aa84564568eb">&#9670;&nbsp;</a></span>erase() <span class="overload">[3/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class CharT, class T, class Hash, class Traits, bool StoreNullTerminator, class KeySizeT, class IndexSizeT, class GrowthPolicy&gt; </div>
+template&lt;class CharT, class T, class Hash, class KeyEqual, bool StoreNullTerminator, class KeySizeT, class IndexSizeT, class GrowthPolicy&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a78db39620480eae4699632c02ba08830">size_type</a> <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">tsl::detail_array_hash::array_hash</a>&lt; CharT, T, Hash, Traits, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt;::erase </td>
+          <td class="memname"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a3b1a86b05c810e23894cffa30750ff68">size_type</a> <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">tsl::detail_array_hash::array_hash</a>&lt; CharT, T, Hash, KeyEqual, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt;::erase </td>
           <td>(</td>
           <td class="paramtype">const CharT *&#160;</td>
           <td class="paramname"><em>key</em>, </td>
@@ -977,7 +979,7 @@ template&lt;class CharT, class T, class Hash, class Traits, bool StoreNullTermin
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a78db39620480eae4699632c02ba08830">size_type</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a3b1a86b05c810e23894cffa30750ff68">size_type</a>&#160;</td>
           <td class="paramname"><em>key_size</em>&#160;</td>
         </tr>
         <tr>
@@ -995,19 +997,19 @@ template&lt;class CharT, class T, class Hash, class Traits, bool StoreNullTermin
 
 </div>
 </div>
-<a id="a8d0661aeefcc9c1990ad4ad8ff4ee8ad"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8d0661aeefcc9c1990ad4ad8ff4ee8ad">&#9670;&nbsp;</a></span>find() <span class="overload">[1/2]</span></h2>
+<a id="ac0ce34f6c90c9edb4c32d493b01a5793"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac0ce34f6c90c9edb4c32d493b01a5793">&#9670;&nbsp;</a></span>find() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class CharT, class T, class Hash, class Traits, bool StoreNullTerminator, class KeySizeT, class IndexSizeT, class GrowthPolicy&gt; </div>
+template&lt;class CharT, class T, class Hash, class KeyEqual, bool StoreNullTerminator, class KeySizeT, class IndexSizeT, class GrowthPolicy&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a7ecc8a99c18e1400977596c150c7c466">iterator</a> <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">tsl::detail_array_hash::array_hash</a>&lt; CharT, T, Hash, Traits, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt;::find </td>
+          <td class="memname"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a032b6f7cd7f7f9da7806c9f61dc22345">iterator</a> <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">tsl::detail_array_hash::array_hash</a>&lt; CharT, T, Hash, KeyEqual, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt;::find </td>
           <td>(</td>
           <td class="paramtype">const CharT *&#160;</td>
           <td class="paramname"><em>key</em>, </td>
@@ -1015,7 +1017,7 @@ template&lt;class CharT, class T, class Hash, class Traits, bool StoreNullTermin
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a78db39620480eae4699632c02ba08830">size_type</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a3b1a86b05c810e23894cffa30750ff68">size_type</a>&#160;</td>
           <td class="paramname"><em>key_size</em>&#160;</td>
         </tr>
         <tr>
@@ -1033,19 +1035,19 @@ template&lt;class CharT, class T, class Hash, class Traits, bool StoreNullTermin
 
 </div>
 </div>
-<a id="a32dfc9c9eca1956fc19f6b3a50bd2720"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a32dfc9c9eca1956fc19f6b3a50bd2720">&#9670;&nbsp;</a></span>find() <span class="overload">[2/2]</span></h2>
+<a id="ade5e81d9542abd3c2da2bbab6503c290"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ade5e81d9542abd3c2da2bbab6503c290">&#9670;&nbsp;</a></span>find() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class CharT, class T, class Hash, class Traits, bool StoreNullTerminator, class KeySizeT, class IndexSizeT, class GrowthPolicy&gt; </div>
+template&lt;class CharT, class T, class Hash, class KeyEqual, bool StoreNullTerminator, class KeySizeT, class IndexSizeT, class GrowthPolicy&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a8598a41a77f995dd6dfab9d0f7ab3fe4">const_iterator</a> <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">tsl::detail_array_hash::array_hash</a>&lt; CharT, T, Hash, Traits, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt;::find </td>
+          <td class="memname"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a1ebbb92be408b4776a7eee21f473e768">const_iterator</a> <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">tsl::detail_array_hash::array_hash</a>&lt; CharT, T, Hash, KeyEqual, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt;::find </td>
           <td>(</td>
           <td class="paramtype">const CharT *&#160;</td>
           <td class="paramname"><em>key</em>, </td>
@@ -1053,7 +1055,7 @@ template&lt;class CharT, class T, class Hash, class Traits, bool StoreNullTermin
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a78db39620480eae4699632c02ba08830">size_type</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a3b1a86b05c810e23894cffa30750ff68">size_type</a>&#160;</td>
           <td class="paramname"><em>key_size</em>&#160;</td>
         </tr>
         <tr>
@@ -1071,19 +1073,19 @@ template&lt;class CharT, class T, class Hash, class Traits, bool StoreNullTermin
 
 </div>
 </div>
-<a id="a7dda4f9ae9888220591fe2dc1d56d51e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7dda4f9ae9888220591fe2dc1d56d51e">&#9670;&nbsp;</a></span>hash_function()</h2>
+<a id="a13ac46af36bcb400245148bbf3037497"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a13ac46af36bcb400245148bbf3037497">&#9670;&nbsp;</a></span>hash_function()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class CharT, class T, class Hash, class Traits, bool StoreNullTerminator, class KeySizeT, class IndexSizeT, class GrowthPolicy&gt; </div>
+template&lt;class CharT, class T, class Hash, class KeyEqual, bool StoreNullTerminator, class KeySizeT, class IndexSizeT, class GrowthPolicy&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a94908be170b9f04f691d53ed9374d314">hasher</a> <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">tsl::detail_array_hash::array_hash</a>&lt; CharT, T, Hash, Traits, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt;::hash_function </td>
+          <td class="memname"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a80cb01da896ef7bb11fa82ea0303f3f2">hasher</a> <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">tsl::detail_array_hash::array_hash</a>&lt; CharT, T, Hash, KeyEqual, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt;::hash_function </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -1098,13 +1100,13 @@ template&lt;class CharT, class T, class Hash, class Traits, bool StoreNullTermin
 
 </div>
 </div>
-<a id="a57307e6077e31482a64f63167c7d83f0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a57307e6077e31482a64f63167c7d83f0">&#9670;&nbsp;</a></span>insert()</h2>
+<a id="a7baf7225281772d5b2eb6d00cafc8077"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7baf7225281772d5b2eb6d00cafc8077">&#9670;&nbsp;</a></span>insert()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class CharT, class T, class Hash, class Traits, bool StoreNullTerminator, class KeySizeT, class IndexSizeT, class GrowthPolicy&gt; </div>
+template&lt;class CharT, class T, class Hash, class KeyEqual, bool StoreNullTerminator, class KeySizeT, class IndexSizeT, class GrowthPolicy&gt; </div>
 <div class="memtemplate">
 template&lt;class... ValueArgs&gt; </div>
 <table class="mlabels">
@@ -1112,7 +1114,7 @@ template&lt;class... ValueArgs&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::pair&lt;<a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a7ecc8a99c18e1400977596c150c7c466">iterator</a>, bool&gt; <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">tsl::detail_array_hash::array_hash</a>&lt; CharT, T, Hash, Traits, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt;::insert </td>
+          <td class="memname">std::pair&lt;<a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a032b6f7cd7f7f9da7806c9f61dc22345">iterator</a>, bool&gt; <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">tsl::detail_array_hash::array_hash</a>&lt; CharT, T, Hash, KeyEqual, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt;::insert </td>
           <td>(</td>
           <td class="paramtype">const CharT *&#160;</td>
           <td class="paramname"><em>key</em>, </td>
@@ -1120,7 +1122,7 @@ template&lt;class... ValueArgs&gt; </div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a78db39620480eae4699632c02ba08830">size_type</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a3b1a86b05c810e23894cffa30750ff68">size_type</a>&#160;</td>
           <td class="paramname"><em>key_size</em>, </td>
         </tr>
         <tr>
@@ -1144,19 +1146,19 @@ template&lt;class... ValueArgs&gt; </div>
 
 </div>
 </div>
-<a id="a23fe610ff322bb879fa37b917bb141f0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a23fe610ff322bb879fa37b917bb141f0">&#9670;&nbsp;</a></span>load_factor()</h2>
+<a id="afc888c62b23103099cc69e7ff6529a67"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afc888c62b23103099cc69e7ff6529a67">&#9670;&nbsp;</a></span>key_eq()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class CharT, class T, class Hash, class Traits, bool StoreNullTerminator, class KeySizeT, class IndexSizeT, class GrowthPolicy&gt; </div>
+template&lt;class CharT, class T, class Hash, class KeyEqual, bool StoreNullTerminator, class KeySizeT, class IndexSizeT, class GrowthPolicy&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">float <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">tsl::detail_array_hash::array_hash</a>&lt; CharT, T, Hash, Traits, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt;::load_factor </td>
+          <td class="memname"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#ab8563f0e2de312609f1f9587e755d3b0">key_equal</a> <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">tsl::detail_array_hash::array_hash</a>&lt; CharT, T, Hash, KeyEqual, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt;::key_eq </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -1171,19 +1173,19 @@ template&lt;class CharT, class T, class Hash, class Traits, bool StoreNullTermin
 
 </div>
 </div>
-<a id="a08ed6c57550de25ac716a494509394de"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a08ed6c57550de25ac716a494509394de">&#9670;&nbsp;</a></span>max_bucket_count()</h2>
+<a id="a2edb18df0bf7881d2f5dbcfa92cea419"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2edb18df0bf7881d2f5dbcfa92cea419">&#9670;&nbsp;</a></span>load_factor()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class CharT, class T, class Hash, class Traits, bool StoreNullTerminator, class KeySizeT, class IndexSizeT, class GrowthPolicy&gt; </div>
+template&lt;class CharT, class T, class Hash, class KeyEqual, bool StoreNullTerminator, class KeySizeT, class IndexSizeT, class GrowthPolicy&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a78db39620480eae4699632c02ba08830">size_type</a> <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">tsl::detail_array_hash::array_hash</a>&lt; CharT, T, Hash, Traits, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt;::max_bucket_count </td>
+          <td class="memname">float <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">tsl::detail_array_hash::array_hash</a>&lt; CharT, T, Hash, KeyEqual, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt;::load_factor </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -1198,19 +1200,46 @@ template&lt;class CharT, class T, class Hash, class Traits, bool StoreNullTermin
 
 </div>
 </div>
-<a id="a18b090741846638b844eb5957ce460c5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a18b090741846638b844eb5957ce460c5">&#9670;&nbsp;</a></span>max_key_size()</h2>
+<a id="acacafcac928000f078e2eaa422b8fabe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acacafcac928000f078e2eaa422b8fabe">&#9670;&nbsp;</a></span>max_bucket_count()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class CharT, class T, class Hash, class Traits, bool StoreNullTerminator, class KeySizeT, class IndexSizeT, class GrowthPolicy&gt; </div>
+template&lt;class CharT, class T, class Hash, class KeyEqual, bool StoreNullTerminator, class KeySizeT, class IndexSizeT, class GrowthPolicy&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a78db39620480eae4699632c02ba08830">size_type</a> <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">tsl::detail_array_hash::array_hash</a>&lt; CharT, T, Hash, Traits, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt;::max_key_size </td>
+          <td class="memname"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a3b1a86b05c810e23894cffa30750ff68">size_type</a> <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">tsl::detail_array_hash::array_hash</a>&lt; CharT, T, Hash, KeyEqual, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt;::max_bucket_count </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0d8fa97f044de843a9350e22e5ed7fbd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0d8fa97f044de843a9350e22e5ed7fbd">&#9670;&nbsp;</a></span>max_key_size()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class CharT, class T, class Hash, class KeyEqual, bool StoreNullTerminator, class KeySizeT, class IndexSizeT, class GrowthPolicy&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a3b1a86b05c810e23894cffa30750ff68">size_type</a> <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">tsl::detail_array_hash::array_hash</a>&lt; CharT, T, Hash, KeyEqual, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt;::max_key_size </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -1225,19 +1254,19 @@ template&lt;class CharT, class T, class Hash, class Traits, bool StoreNullTermin
 
 </div>
 </div>
-<a id="acf885d0387e59b607e5ed4fa0b770645"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acf885d0387e59b607e5ed4fa0b770645">&#9670;&nbsp;</a></span>max_load_factor() <span class="overload">[1/2]</span></h2>
+<a id="ab4781edcd65166f26daee4b6c590a508"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab4781edcd65166f26daee4b6c590a508">&#9670;&nbsp;</a></span>max_load_factor() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class CharT, class T, class Hash, class Traits, bool StoreNullTerminator, class KeySizeT, class IndexSizeT, class GrowthPolicy&gt; </div>
+template&lt;class CharT, class T, class Hash, class KeyEqual, bool StoreNullTerminator, class KeySizeT, class IndexSizeT, class GrowthPolicy&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">float <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">tsl::detail_array_hash::array_hash</a>&lt; CharT, T, Hash, Traits, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt;::max_load_factor </td>
+          <td class="memname">float <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">tsl::detail_array_hash::array_hash</a>&lt; CharT, T, Hash, KeyEqual, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt;::max_load_factor </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -1252,19 +1281,19 @@ template&lt;class CharT, class T, class Hash, class Traits, bool StoreNullTermin
 
 </div>
 </div>
-<a id="a95ae249b1b1e7e9f5402c41221a1797a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a95ae249b1b1e7e9f5402c41221a1797a">&#9670;&nbsp;</a></span>max_load_factor() <span class="overload">[2/2]</span></h2>
+<a id="a222f63f9dfd2b4b1be7bedd6df7160d0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a222f63f9dfd2b4b1be7bedd6df7160d0">&#9670;&nbsp;</a></span>max_load_factor() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class CharT, class T, class Hash, class Traits, bool StoreNullTerminator, class KeySizeT, class IndexSizeT, class GrowthPolicy&gt; </div>
+template&lt;class CharT, class T, class Hash, class KeyEqual, bool StoreNullTerminator, class KeySizeT, class IndexSizeT, class GrowthPolicy&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">tsl::detail_array_hash::array_hash</a>&lt; CharT, T, Hash, Traits, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt;::max_load_factor </td>
+          <td class="memname">void <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">tsl::detail_array_hash::array_hash</a>&lt; CharT, T, Hash, KeyEqual, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt;::max_load_factor </td>
           <td>(</td>
           <td class="paramtype">float&#160;</td>
           <td class="paramname"><em>ml</em></td><td>)</td>
@@ -1280,19 +1309,19 @@ template&lt;class CharT, class T, class Hash, class Traits, bool StoreNullTermin
 
 </div>
 </div>
-<a id="afd421ef53647a54a286c3c7668e924cb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afd421ef53647a54a286c3c7668e924cb">&#9670;&nbsp;</a></span>max_size()</h2>
+<a id="a09820e8d6f3769b170a7ca71b2e1dcdd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a09820e8d6f3769b170a7ca71b2e1dcdd">&#9670;&nbsp;</a></span>max_size()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class CharT, class T, class Hash, class Traits, bool StoreNullTerminator, class KeySizeT, class IndexSizeT, class GrowthPolicy&gt; </div>
+template&lt;class CharT, class T, class Hash, class KeyEqual, bool StoreNullTerminator, class KeySizeT, class IndexSizeT, class GrowthPolicy&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a78db39620480eae4699632c02ba08830">size_type</a> <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">tsl::detail_array_hash::array_hash</a>&lt; CharT, T, Hash, Traits, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt;::max_size </td>
+          <td class="memname"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a3b1a86b05c810e23894cffa30750ff68">size_type</a> <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">tsl::detail_array_hash::array_hash</a>&lt; CharT, T, Hash, KeyEqual, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt;::max_size </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -1307,21 +1336,21 @@ template&lt;class CharT, class T, class Hash, class Traits, bool StoreNullTermin
 
 </div>
 </div>
-<a id="a762883b6ba07c8e37204d6a4df596ffc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a762883b6ba07c8e37204d6a4df596ffc">&#9670;&nbsp;</a></span>mutable_iterator()</h2>
+<a id="a8939d41f970743ef9198fb4462be83bd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8939d41f970743ef9198fb4462be83bd">&#9670;&nbsp;</a></span>mutable_iterator()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class CharT, class T, class Hash, class Traits, bool StoreNullTerminator, class KeySizeT, class IndexSizeT, class GrowthPolicy&gt; </div>
+template&lt;class CharT, class T, class Hash, class KeyEqual, bool StoreNullTerminator, class KeySizeT, class IndexSizeT, class GrowthPolicy&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a7ecc8a99c18e1400977596c150c7c466">iterator</a> <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">tsl::detail_array_hash::array_hash</a>&lt; CharT, T, Hash, Traits, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt;::mutable_iterator </td>
+          <td class="memname"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a032b6f7cd7f7f9da7806c9f61dc22345">iterator</a> <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">tsl::detail_array_hash::array_hash</a>&lt; CharT, T, Hash, KeyEqual, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt;::mutable_iterator </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a8598a41a77f995dd6dfab9d0f7ab3fe4">const_iterator</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a1ebbb92be408b4776a7eee21f473e768">const_iterator</a>&#160;</td>
           <td class="paramname"><em>it</em></td><td>)</td>
           <td></td>
         </tr>
@@ -1335,21 +1364,21 @@ template&lt;class CharT, class T, class Hash, class Traits, bool StoreNullTermin
 
 </div>
 </div>
-<a id="a71433cfbccda5d7b06fbd7fa0b189437"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a71433cfbccda5d7b06fbd7fa0b189437">&#9670;&nbsp;</a></span>operator=() <span class="overload">[1/2]</span></h2>
+<a id="acceed4428e1d07b3e4801e81525aeef5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acceed4428e1d07b3e4801e81525aeef5">&#9670;&nbsp;</a></span>operator=() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class CharT, class T, class Hash, class Traits, bool StoreNullTerminator, class KeySizeT, class IndexSizeT, class GrowthPolicy&gt; </div>
+template&lt;class CharT, class T, class Hash, class KeyEqual, bool StoreNullTerminator, class KeySizeT, class IndexSizeT, class GrowthPolicy&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">array_hash</a>&amp; <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">tsl::detail_array_hash::array_hash</a>&lt; CharT, T, Hash, Traits, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt;::operator= </td>
+          <td class="memname"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">array_hash</a>&amp; <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">tsl::detail_array_hash::array_hash</a>&lt; CharT, T, Hash, KeyEqual, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt;::operator= </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">array_hash</a>&lt; CharT, T, Hash, Traits, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt; &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">array_hash</a>&lt; CharT, T, Hash, KeyEqual, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt; &amp;&#160;</td>
           <td class="paramname"><em>other</em></td><td>)</td>
           <td></td>
         </tr>
@@ -1363,21 +1392,21 @@ template&lt;class CharT, class T, class Hash, class Traits, bool StoreNullTermin
 
 </div>
 </div>
-<a id="af47fa464775a2e53ec8b410d9e2997ef"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af47fa464775a2e53ec8b410d9e2997ef">&#9670;&nbsp;</a></span>operator=() <span class="overload">[2/2]</span></h2>
+<a id="a4128818856b97385372bba3406c302e5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4128818856b97385372bba3406c302e5">&#9670;&nbsp;</a></span>operator=() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class CharT, class T, class Hash, class Traits, bool StoreNullTerminator, class KeySizeT, class IndexSizeT, class GrowthPolicy&gt; </div>
+template&lt;class CharT, class T, class Hash, class KeyEqual, bool StoreNullTerminator, class KeySizeT, class IndexSizeT, class GrowthPolicy&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">array_hash</a>&amp; <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">tsl::detail_array_hash::array_hash</a>&lt; CharT, T, Hash, Traits, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt;::operator= </td>
+          <td class="memname"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">array_hash</a>&amp; <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">tsl::detail_array_hash::array_hash</a>&lt; CharT, T, Hash, KeyEqual, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt;::operator= </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">array_hash</a>&lt; CharT, T, Hash, Traits, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt; &amp;&amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">array_hash</a>&lt; CharT, T, Hash, KeyEqual, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt; &amp;&amp;&#160;</td>
           <td class="paramname"><em>other</em></td><td>)</td>
           <td></td>
         </tr>
@@ -1391,21 +1420,21 @@ template&lt;class CharT, class T, class Hash, class Traits, bool StoreNullTermin
 
 </div>
 </div>
-<a id="a3b43085e7048169fa0ce60c846f7daa4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3b43085e7048169fa0ce60c846f7daa4">&#9670;&nbsp;</a></span>rehash()</h2>
+<a id="ae59f550f2996effcde37bc5bdc0b8db5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae59f550f2996effcde37bc5bdc0b8db5">&#9670;&nbsp;</a></span>rehash()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class CharT, class T, class Hash, class Traits, bool StoreNullTerminator, class KeySizeT, class IndexSizeT, class GrowthPolicy&gt; </div>
+template&lt;class CharT, class T, class Hash, class KeyEqual, bool StoreNullTerminator, class KeySizeT, class IndexSizeT, class GrowthPolicy&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">tsl::detail_array_hash::array_hash</a>&lt; CharT, T, Hash, Traits, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt;::rehash </td>
+          <td class="memname">void <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">tsl::detail_array_hash::array_hash</a>&lt; CharT, T, Hash, KeyEqual, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt;::rehash </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a78db39620480eae4699632c02ba08830">size_type</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a3b1a86b05c810e23894cffa30750ff68">size_type</a>&#160;</td>
           <td class="paramname"><em>count</em></td><td>)</td>
           <td></td>
         </tr>
@@ -1419,21 +1448,21 @@ template&lt;class CharT, class T, class Hash, class Traits, bool StoreNullTermin
 
 </div>
 </div>
-<a id="a52cebe44c1a1f4163e78e7ac6c3a2907"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a52cebe44c1a1f4163e78e7ac6c3a2907">&#9670;&nbsp;</a></span>reserve()</h2>
+<a id="a220e0c558993e68193d2a1edf93dfaa7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a220e0c558993e68193d2a1edf93dfaa7">&#9670;&nbsp;</a></span>reserve()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class CharT, class T, class Hash, class Traits, bool StoreNullTerminator, class KeySizeT, class IndexSizeT, class GrowthPolicy&gt; </div>
+template&lt;class CharT, class T, class Hash, class KeyEqual, bool StoreNullTerminator, class KeySizeT, class IndexSizeT, class GrowthPolicy&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">tsl::detail_array_hash::array_hash</a>&lt; CharT, T, Hash, Traits, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt;::reserve </td>
+          <td class="memname">void <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">tsl::detail_array_hash::array_hash</a>&lt; CharT, T, Hash, KeyEqual, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt;::reserve </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a78db39620480eae4699632c02ba08830">size_type</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a3b1a86b05c810e23894cffa30750ff68">size_type</a>&#160;</td>
           <td class="paramname"><em>count</em></td><td>)</td>
           <td></td>
         </tr>
@@ -1447,13 +1476,13 @@ template&lt;class CharT, class T, class Hash, class Traits, bool StoreNullTermin
 
 </div>
 </div>
-<a id="a7c4dae1de61092300d69c460da29f276"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7c4dae1de61092300d69c460da29f276">&#9670;&nbsp;</a></span>shrink_to_fit() <span class="overload">[1/2]</span></h2>
+<a id="a4517ef4cb6baa0df74fc7274323b060a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4517ef4cb6baa0df74fc7274323b060a">&#9670;&nbsp;</a></span>shrink_to_fit() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class CharT, class T, class Hash, class Traits, bool StoreNullTerminator, class KeySizeT, class IndexSizeT, class GrowthPolicy&gt; </div>
+template&lt;class CharT, class T, class Hash, class KeyEqual, bool StoreNullTerminator, class KeySizeT, class IndexSizeT, class GrowthPolicy&gt; </div>
 <div class="memtemplate">
 template&lt;class U  = T, typename std::enable_if&lt;!has_value&lt; U &gt;::value &gt;::type *  = nullptr&gt; </div>
 <table class="mlabels">
@@ -1461,7 +1490,7 @@ template&lt;class U  = T, typename std::enable_if&lt;!has_value&lt; U &gt;::valu
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">tsl::detail_array_hash::array_hash</a>&lt; CharT, T, Hash, Traits, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt;::shrink_to_fit </td>
+          <td class="memname">void <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">tsl::detail_array_hash::array_hash</a>&lt; CharT, T, Hash, KeyEqual, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt;::shrink_to_fit </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -1476,13 +1505,13 @@ template&lt;class U  = T, typename std::enable_if&lt;!has_value&lt; U &gt;::valu
 
 </div>
 </div>
-<a id="a7c4dae1de61092300d69c460da29f276"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7c4dae1de61092300d69c460da29f276">&#9670;&nbsp;</a></span>shrink_to_fit() <span class="overload">[2/2]</span></h2>
+<a id="a4517ef4cb6baa0df74fc7274323b060a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4517ef4cb6baa0df74fc7274323b060a">&#9670;&nbsp;</a></span>shrink_to_fit() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class CharT, class T, class Hash, class Traits, bool StoreNullTerminator, class KeySizeT, class IndexSizeT, class GrowthPolicy&gt; </div>
+template&lt;class CharT, class T, class Hash, class KeyEqual, bool StoreNullTerminator, class KeySizeT, class IndexSizeT, class GrowthPolicy&gt; </div>
 <div class="memtemplate">
 template&lt;class U  = T, typename std::enable_if&lt; has_value&lt; U &gt;::value &gt;::type *  = nullptr&gt; </div>
 <table class="mlabels">
@@ -1490,7 +1519,7 @@ template&lt;class U  = T, typename std::enable_if&lt; has_value&lt; U &gt;::valu
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">tsl::detail_array_hash::array_hash</a>&lt; CharT, T, Hash, Traits, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt;::shrink_to_fit </td>
+          <td class="memname">void <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">tsl::detail_array_hash::array_hash</a>&lt; CharT, T, Hash, KeyEqual, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt;::shrink_to_fit </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -1505,19 +1534,19 @@ template&lt;class U  = T, typename std::enable_if&lt; has_value&lt; U &gt;::valu
 
 </div>
 </div>
-<a id="ade1912d15b35225642ab8353176915e5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ade1912d15b35225642ab8353176915e5">&#9670;&nbsp;</a></span>size()</h2>
+<a id="aa79444b3b3e1599a472184bb352b5e8d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa79444b3b3e1599a472184bb352b5e8d">&#9670;&nbsp;</a></span>size()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class CharT, class T, class Hash, class Traits, bool StoreNullTerminator, class KeySizeT, class IndexSizeT, class GrowthPolicy&gt; </div>
+template&lt;class CharT, class T, class Hash, class KeyEqual, bool StoreNullTerminator, class KeySizeT, class IndexSizeT, class GrowthPolicy&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a78db39620480eae4699632c02ba08830">size_type</a> <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">tsl::detail_array_hash::array_hash</a>&lt; CharT, T, Hash, Traits, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt;::size </td>
+          <td class="memname"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a3b1a86b05c810e23894cffa30750ff68">size_type</a> <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">tsl::detail_array_hash::array_hash</a>&lt; CharT, T, Hash, KeyEqual, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt;::size </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -1532,21 +1561,21 @@ template&lt;class CharT, class T, class Hash, class Traits, bool StoreNullTermin
 
 </div>
 </div>
-<a id="ada9ce2dd0b2335edca19ce6ba32fecfb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ada9ce2dd0b2335edca19ce6ba32fecfb">&#9670;&nbsp;</a></span>swap()</h2>
+<a id="a41df5cf523ec4beb2185c3ffdf8dad6d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a41df5cf523ec4beb2185c3ffdf8dad6d">&#9670;&nbsp;</a></span>swap()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class CharT, class T, class Hash, class Traits, bool StoreNullTerminator, class KeySizeT, class IndexSizeT, class GrowthPolicy&gt; </div>
+template&lt;class CharT, class T, class Hash, class KeyEqual, bool StoreNullTerminator, class KeySizeT, class IndexSizeT, class GrowthPolicy&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">tsl::detail_array_hash::array_hash</a>&lt; CharT, T, Hash, Traits, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt;::swap </td>
+          <td class="memname">void <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">tsl::detail_array_hash::array_hash</a>&lt; CharT, T, Hash, KeyEqual, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt;::swap </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">array_hash</a>&lt; CharT, T, Hash, Traits, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt; &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">array_hash</a>&lt; CharT, T, Hash, KeyEqual, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt; &amp;&#160;</td>
           <td class="paramname"><em>other</em></td><td>)</td>
           <td></td>
         </tr>
@@ -1561,19 +1590,19 @@ template&lt;class CharT, class T, class Hash, class Traits, bool StoreNullTermin
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="a7d025ebed1e698ddbee9d3176e03ef26"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7d025ebed1e698ddbee9d3176e03ef26">&#9670;&nbsp;</a></span>DEFAULT_INIT_BUCKET_COUNT</h2>
+<a id="ae22200e3f987ec4d9c430e5bd06f720a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae22200e3f987ec4d9c430e5bd06f720a">&#9670;&nbsp;</a></span>DEFAULT_INIT_BUCKET_COUNT</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class CharT, class T, class Hash, class Traits, bool StoreNullTerminator, class KeySizeT, class IndexSizeT, class GrowthPolicy&gt; </div>
+template&lt;class CharT, class T, class Hash, class KeyEqual, bool StoreNullTerminator, class KeySizeT, class IndexSizeT, class GrowthPolicy&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a78db39620480eae4699632c02ba08830">size_type</a> <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">tsl::detail_array_hash::array_hash</a>&lt; CharT, T, Hash, Traits, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt;::DEFAULT_INIT_BUCKET_COUNT = 16</td>
+          <td class="memname">const <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a3b1a86b05c810e23894cffa30750ff68">size_type</a> <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">tsl::detail_array_hash::array_hash</a>&lt; CharT, T, Hash, KeyEqual, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt;::DEFAULT_INIT_BUCKET_COUNT = 16</td>
         </tr>
       </table>
   </td>
@@ -1585,19 +1614,19 @@ template&lt;class CharT, class T, class Hash, class Traits, bool StoreNullTermin
 
 </div>
 </div>
-<a id="ac0dda38413a7ea51d92cfc74ae264139"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac0dda38413a7ea51d92cfc74ae264139">&#9670;&nbsp;</a></span>DEFAULT_MAX_LOAD_FACTOR</h2>
+<a id="a6d5870d711fafac7777a6a012704c7e4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6d5870d711fafac7777a6a012704c7e4">&#9670;&nbsp;</a></span>DEFAULT_MAX_LOAD_FACTOR</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class CharT, class T, class Hash, class Traits, bool StoreNullTerminator, class KeySizeT, class IndexSizeT, class GrowthPolicy&gt; </div>
+template&lt;class CharT, class T, class Hash, class KeyEqual, bool StoreNullTerminator, class KeySizeT, class IndexSizeT, class GrowthPolicy&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">constexpr float <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">tsl::detail_array_hash::array_hash</a>&lt; CharT, T, Hash, Traits, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt;::DEFAULT_MAX_LOAD_FACTOR = 2.0f</td>
+          <td class="memname">constexpr float <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">tsl::detail_array_hash::array_hash</a>&lt; CharT, T, Hash, KeyEqual, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt;::DEFAULT_MAX_LOAD_FACTOR = 2.0f</td>
         </tr>
       </table>
   </td>
@@ -1609,19 +1638,19 @@ template&lt;class CharT, class T, class Hash, class Traits, bool StoreNullTermin
 
 </div>
 </div>
-<a id="a620ef464524a5b3f80e2876eec8f5467"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a620ef464524a5b3f80e2876eec8f5467">&#9670;&nbsp;</a></span>MAX_KEY_SIZE</h2>
+<a id="ad445fe99b1a5d9e8bf688fdf4480eb63"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad445fe99b1a5d9e8bf688fdf4480eb63">&#9670;&nbsp;</a></span>MAX_KEY_SIZE</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class CharT, class T, class Hash, class Traits, bool StoreNullTerminator, class KeySizeT, class IndexSizeT, class GrowthPolicy&gt; </div>
+template&lt;class CharT, class T, class Hash, class KeyEqual, bool StoreNullTerminator, class KeySizeT, class IndexSizeT, class GrowthPolicy&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a78db39620480eae4699632c02ba08830">size_type</a> <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">tsl::detail_array_hash::array_hash</a>&lt; CharT, T, Hash, Traits, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt;::MAX_KEY_SIZE = array_bucket::MAX_KEY_SIZE</td>
+          <td class="memname">const <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a3b1a86b05c810e23894cffa30750ff68">size_type</a> <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html">tsl::detail_array_hash::array_hash</a>&lt; CharT, T, Hash, KeyEqual, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt;::MAX_KEY_SIZE = array_bucket::MAX_KEY_SIZE</td>
         </tr>
       </table>
   </td>
