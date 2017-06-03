@@ -49,8 +49,8 @@ namespace tsl {
  * See max_size() for an easy access to this limit.
  * 
  * Iterators invalidation:
- *  - clear, operator=, reserve, rehash: always invalidate the iterators.
- *  - insert: only invalidate the iterators if there is a rehash.
+ *  - clear, operator=: always invalidate the iterators.
+ *  - insert, emplace, operator[]: always invalidate the iterators.
  *  - erase: always invalidate the iterators.
  *  - shrink_to_fit: always invalidate the iterators.
  */  
