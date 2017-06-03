@@ -241,8 +241,8 @@ class tsl::array_map&lt; CharT, T, Hash, KeyEqual, StoreNullTerminator, KeySizeT
 <p>The size of a key string is limited to std::numeric_limits&lt;KeySizeT&gt;::max() - 1. That is 65 535 characters by default, but can be raised with the KeySizeT template parameter. See <a class="el" href="classtsl_1_1array__map.html#ae51e1e4fb42a3e2742636ca24f71a414">max_key_size()</a> for an easy access to this limit.</p>
 <p>The number of elements in the map is limited to std::numeric_limits&lt;IndexSizeT&gt;::max(). That is 4 294 967 296 elements, but can be raised with the IndexSizeT template parameter. See <a class="el" href="classtsl_1_1array__map.html#ab8dbb34df32fb6e4c94edf0dfe820b8b">max_size()</a> for an easy access to this limit.</p>
 <p>Iterators invalidation:</p><ul>
-<li>clear, operator=, reserve, rehash: always invalidate the iterators.</li>
-<li>insert, emplace, operator[]: only invalidate the iterators if there is a rehash.</li>
+<li>clear, operator=: always invalidate the iterators.</li>
+<li>insert, emplace, operator[]: always invalidate the iterators.</li>
 <li>erase: always invalidate the iterators.</li>
 <li>shrink_to_fit: always invalidate the iterators. </li>
 </ul>
