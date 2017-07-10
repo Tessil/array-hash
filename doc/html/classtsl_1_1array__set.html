@@ -189,7 +189,7 @@ Friends</h2></td></tr>
 <tr class="separator:a95e1a1e6c43c56321f90df2e1f729759"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><h3>template&lt;class CharT, class Hash = tsl::str_hash&lt;CharT&gt;, class KeyEqual = tsl::str_equal&lt;CharT&gt;, bool StoreNullTerminator = true, class KeySizeT = std::uint16_t, class IndexSizeT = std::uint32_t, class GrowthPolicy = tsl::power_of_two_growth_policy&lt;2&gt;&gt;<br />
+<div class="textblock"><h3>template&lt;class CharT, class Hash = tsl::str_hash_ah&lt;CharT&gt;, class KeyEqual = tsl::str_equal_ah&lt;CharT&gt;, bool StoreNullTerminator = true, class KeySizeT = std::uint16_t, class IndexSizeT = std::uint32_t, class GrowthPolicy = tsl::power_of_two_growth_policy_ah&lt;2&gt;&gt;<br />
 class tsl::array_set&lt; CharT, Hash, KeyEqual, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt;</h3>
 
 <p>Implementation of a cache-conscious string hash set.</p>
@@ -209,7 +209,7 @@ class tsl::array_set&lt; CharT, Hash, KeyEqual, StoreNullTerminator, KeySizeT, I
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class CharT , class Hash  = tsl::str_hash&lt;CharT&gt;, class KeyEqual  = tsl::str_equal&lt;CharT&gt;, bool StoreNullTerminator = true, class KeySizeT  = std::uint16_t, class IndexSizeT  = std::uint32_t, class GrowthPolicy  = tsl::power_of_two_growth_policy&lt;2&gt;&gt; </div>
+template&lt;class CharT , class Hash  = tsl::str_hash_ah&lt;CharT&gt;, class KeyEqual  = tsl::str_equal_ah&lt;CharT&gt;, bool StoreNullTerminator = true, class KeySizeT  = std::uint16_t, class IndexSizeT  = std::uint32_t, class GrowthPolicy  = tsl::power_of_two_growth_policy_ah&lt;2&gt;&gt; </div>
       <table class="memname">
         <tr>
           <td class="memname">using <a class="el" href="classtsl_1_1array__set.html">tsl::array_set</a>&lt; CharT, Hash, KeyEqual, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt;::<a class="el" href="classtsl_1_1array__set.html#ac46af2c82d7dd815a45d40848c13eabf">char_type</a> =  typename <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#ade86885ea16dcd95b4d71edeb3505fc1">ht::char_type</a></td>
@@ -225,7 +225,7 @@ template&lt;class CharT , class Hash  = tsl::str_hash&lt;CharT&gt;, class KeyEqu
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class CharT , class Hash  = tsl::str_hash&lt;CharT&gt;, class KeyEqual  = tsl::str_equal&lt;CharT&gt;, bool StoreNullTerminator = true, class KeySizeT  = std::uint16_t, class IndexSizeT  = std::uint32_t, class GrowthPolicy  = tsl::power_of_two_growth_policy&lt;2&gt;&gt; </div>
+template&lt;class CharT , class Hash  = tsl::str_hash_ah&lt;CharT&gt;, class KeyEqual  = tsl::str_equal_ah&lt;CharT&gt;, bool StoreNullTerminator = true, class KeySizeT  = std::uint16_t, class IndexSizeT  = std::uint32_t, class GrowthPolicy  = tsl::power_of_two_growth_policy_ah&lt;2&gt;&gt; </div>
       <table class="memname">
         <tr>
           <td class="memname">using <a class="el" href="classtsl_1_1array__set.html">tsl::array_set</a>&lt; CharT, Hash, KeyEqual, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt;::<a class="el" href="classtsl_1_1array__set.html#a9ad20ea69f59541f4d1836e6d9da1ca1">const_iterator</a> =  typename <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a1ebbb92be408b4776a7eee21f473e768">ht::const_iterator</a></td>
@@ -241,7 +241,7 @@ template&lt;class CharT , class Hash  = tsl::str_hash&lt;CharT&gt;, class KeyEqu
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class CharT , class Hash  = tsl::str_hash&lt;CharT&gt;, class KeyEqual  = tsl::str_equal&lt;CharT&gt;, bool StoreNullTerminator = true, class KeySizeT  = std::uint16_t, class IndexSizeT  = std::uint32_t, class GrowthPolicy  = tsl::power_of_two_growth_policy&lt;2&gt;&gt; </div>
+template&lt;class CharT , class Hash  = tsl::str_hash_ah&lt;CharT&gt;, class KeyEqual  = tsl::str_equal_ah&lt;CharT&gt;, bool StoreNullTerminator = true, class KeySizeT  = std::uint16_t, class IndexSizeT  = std::uint32_t, class GrowthPolicy  = tsl::power_of_two_growth_policy_ah&lt;2&gt;&gt; </div>
       <table class="memname">
         <tr>
           <td class="memname">using <a class="el" href="classtsl_1_1array__set.html">tsl::array_set</a>&lt; CharT, Hash, KeyEqual, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt;::<a class="el" href="classtsl_1_1array__set.html#ad974bb2bc08abe3950bfac4c41b97974">hasher</a> =  typename <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a80cb01da896ef7bb11fa82ea0303f3f2">ht::hasher</a></td>
@@ -257,7 +257,7 @@ template&lt;class CharT , class Hash  = tsl::str_hash&lt;CharT&gt;, class KeyEqu
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class CharT , class Hash  = tsl::str_hash&lt;CharT&gt;, class KeyEqual  = tsl::str_equal&lt;CharT&gt;, bool StoreNullTerminator = true, class KeySizeT  = std::uint16_t, class IndexSizeT  = std::uint32_t, class GrowthPolicy  = tsl::power_of_two_growth_policy&lt;2&gt;&gt; </div>
+template&lt;class CharT , class Hash  = tsl::str_hash_ah&lt;CharT&gt;, class KeyEqual  = tsl::str_equal_ah&lt;CharT&gt;, bool StoreNullTerminator = true, class KeySizeT  = std::uint16_t, class IndexSizeT  = std::uint32_t, class GrowthPolicy  = tsl::power_of_two_growth_policy_ah&lt;2&gt;&gt; </div>
       <table class="memname">
         <tr>
           <td class="memname">using <a class="el" href="classtsl_1_1array__set.html">tsl::array_set</a>&lt; CharT, Hash, KeyEqual, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt;::<a class="el" href="classtsl_1_1array__set.html#a4ecf5f11f163d44051a53deaea79d673">index_size_type</a> =  typename <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a3ac07d2fa7fc5da8b788a9351e0e5df9">ht::index_size_type</a></td>
@@ -273,7 +273,7 @@ template&lt;class CharT , class Hash  = tsl::str_hash&lt;CharT&gt;, class KeyEqu
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class CharT , class Hash  = tsl::str_hash&lt;CharT&gt;, class KeyEqual  = tsl::str_equal&lt;CharT&gt;, bool StoreNullTerminator = true, class KeySizeT  = std::uint16_t, class IndexSizeT  = std::uint32_t, class GrowthPolicy  = tsl::power_of_two_growth_policy&lt;2&gt;&gt; </div>
+template&lt;class CharT , class Hash  = tsl::str_hash_ah&lt;CharT&gt;, class KeyEqual  = tsl::str_equal_ah&lt;CharT&gt;, bool StoreNullTerminator = true, class KeySizeT  = std::uint16_t, class IndexSizeT  = std::uint32_t, class GrowthPolicy  = tsl::power_of_two_growth_policy_ah&lt;2&gt;&gt; </div>
       <table class="memname">
         <tr>
           <td class="memname">using <a class="el" href="classtsl_1_1array__set.html">tsl::array_set</a>&lt; CharT, Hash, KeyEqual, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt;::<a class="el" href="classtsl_1_1array__set.html#a48a951228b7b837c63429985a0f7d68e">iterator</a> =  typename <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a032b6f7cd7f7f9da7806c9f61dc22345">ht::iterator</a></td>
@@ -289,7 +289,7 @@ template&lt;class CharT , class Hash  = tsl::str_hash&lt;CharT&gt;, class KeyEqu
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class CharT , class Hash  = tsl::str_hash&lt;CharT&gt;, class KeyEqual  = tsl::str_equal&lt;CharT&gt;, bool StoreNullTerminator = true, class KeySizeT  = std::uint16_t, class IndexSizeT  = std::uint32_t, class GrowthPolicy  = tsl::power_of_two_growth_policy&lt;2&gt;&gt; </div>
+template&lt;class CharT , class Hash  = tsl::str_hash_ah&lt;CharT&gt;, class KeyEqual  = tsl::str_equal_ah&lt;CharT&gt;, bool StoreNullTerminator = true, class KeySizeT  = std::uint16_t, class IndexSizeT  = std::uint32_t, class GrowthPolicy  = tsl::power_of_two_growth_policy_ah&lt;2&gt;&gt; </div>
       <table class="memname">
         <tr>
           <td class="memname">using <a class="el" href="classtsl_1_1array__set.html">tsl::array_set</a>&lt; CharT, Hash, KeyEqual, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt;::<a class="el" href="classtsl_1_1array__set.html#aae7e84e2d600c3d9b597e9e9abfec760">key_equal</a> =  typename <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#ab8563f0e2de312609f1f9587e755d3b0">ht::key_equal</a></td>
@@ -305,7 +305,7 @@ template&lt;class CharT , class Hash  = tsl::str_hash&lt;CharT&gt;, class KeyEqu
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class CharT , class Hash  = tsl::str_hash&lt;CharT&gt;, class KeyEqual  = tsl::str_equal&lt;CharT&gt;, bool StoreNullTerminator = true, class KeySizeT  = std::uint16_t, class IndexSizeT  = std::uint32_t, class GrowthPolicy  = tsl::power_of_two_growth_policy&lt;2&gt;&gt; </div>
+template&lt;class CharT , class Hash  = tsl::str_hash_ah&lt;CharT&gt;, class KeyEqual  = tsl::str_equal_ah&lt;CharT&gt;, bool StoreNullTerminator = true, class KeySizeT  = std::uint16_t, class IndexSizeT  = std::uint32_t, class GrowthPolicy  = tsl::power_of_two_growth_policy_ah&lt;2&gt;&gt; </div>
       <table class="memname">
         <tr>
           <td class="memname">using <a class="el" href="classtsl_1_1array__set.html">tsl::array_set</a>&lt; CharT, Hash, KeyEqual, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt;::<a class="el" href="classtsl_1_1array__set.html#a94784013d4d47e4af82fee5839bdab6b">key_size_type</a> =  typename <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#aa89e6e1eb47d6d90b96fd15c92c119a7">ht::key_size_type</a></td>
@@ -321,7 +321,7 @@ template&lt;class CharT , class Hash  = tsl::str_hash&lt;CharT&gt;, class KeyEqu
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class CharT , class Hash  = tsl::str_hash&lt;CharT&gt;, class KeyEqual  = tsl::str_equal&lt;CharT&gt;, bool StoreNullTerminator = true, class KeySizeT  = std::uint16_t, class IndexSizeT  = std::uint32_t, class GrowthPolicy  = tsl::power_of_two_growth_policy&lt;2&gt;&gt; </div>
+template&lt;class CharT , class Hash  = tsl::str_hash_ah&lt;CharT&gt;, class KeyEqual  = tsl::str_equal_ah&lt;CharT&gt;, bool StoreNullTerminator = true, class KeySizeT  = std::uint16_t, class IndexSizeT  = std::uint32_t, class GrowthPolicy  = tsl::power_of_two_growth_policy_ah&lt;2&gt;&gt; </div>
       <table class="memname">
         <tr>
           <td class="memname">using <a class="el" href="classtsl_1_1array__set.html">tsl::array_set</a>&lt; CharT, Hash, KeyEqual, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt;::<a class="el" href="classtsl_1_1array__set.html#ad60cee37c2bf6944e35842f461c356a8">size_type</a> =  typename <a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#a3b1a86b05c810e23894cffa30750ff68">ht::size_type</a></td>
@@ -338,7 +338,7 @@ template&lt;class CharT , class Hash  = tsl::str_hash&lt;CharT&gt;, class KeyEqu
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class CharT , class Hash  = tsl::str_hash&lt;CharT&gt;, class KeyEqual  = tsl::str_equal&lt;CharT&gt;, bool StoreNullTerminator = true, class KeySizeT  = std::uint16_t, class IndexSizeT  = std::uint32_t, class GrowthPolicy  = tsl::power_of_two_growth_policy&lt;2&gt;&gt; </div>
+template&lt;class CharT , class Hash  = tsl::str_hash_ah&lt;CharT&gt;, class KeyEqual  = tsl::str_equal_ah&lt;CharT&gt;, bool StoreNullTerminator = true, class KeySizeT  = std::uint16_t, class IndexSizeT  = std::uint32_t, class GrowthPolicy  = tsl::power_of_two_growth_policy_ah&lt;2&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -365,7 +365,7 @@ template&lt;class CharT , class Hash  = tsl::str_hash&lt;CharT&gt;, class KeyEqu
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class CharT , class Hash  = tsl::str_hash&lt;CharT&gt;, class KeyEqual  = tsl::str_equal&lt;CharT&gt;, bool StoreNullTerminator = true, class KeySizeT  = std::uint16_t, class IndexSizeT  = std::uint32_t, class GrowthPolicy  = tsl::power_of_two_growth_policy&lt;2&gt;&gt; </div>
+template&lt;class CharT , class Hash  = tsl::str_hash_ah&lt;CharT&gt;, class KeyEqual  = tsl::str_equal_ah&lt;CharT&gt;, bool StoreNullTerminator = true, class KeySizeT  = std::uint16_t, class IndexSizeT  = std::uint32_t, class GrowthPolicy  = tsl::power_of_two_growth_policy_ah&lt;2&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -403,7 +403,7 @@ template&lt;class CharT , class Hash  = tsl::str_hash&lt;CharT&gt;, class KeyEqu
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class CharT , class Hash  = tsl::str_hash&lt;CharT&gt;, class KeyEqual  = tsl::str_equal&lt;CharT&gt;, bool StoreNullTerminator = true, class KeySizeT  = std::uint16_t, class IndexSizeT  = std::uint32_t, class GrowthPolicy  = tsl::power_of_two_growth_policy&lt;2&gt;&gt; </div>
+template&lt;class CharT , class Hash  = tsl::str_hash_ah&lt;CharT&gt;, class KeyEqual  = tsl::str_equal_ah&lt;CharT&gt;, bool StoreNullTerminator = true, class KeySizeT  = std::uint16_t, class IndexSizeT  = std::uint32_t, class GrowthPolicy  = tsl::power_of_two_growth_policy_ah&lt;2&gt;&gt; </div>
 <div class="memtemplate">
 template&lt;class InputIt &gt; </div>
 <table class="mlabels">
@@ -455,7 +455,7 @@ template&lt;class InputIt &gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class CharT , class Hash  = tsl::str_hash&lt;CharT&gt;, class KeyEqual  = tsl::str_equal&lt;CharT&gt;, bool StoreNullTerminator = true, class KeySizeT  = std::uint16_t, class IndexSizeT  = std::uint32_t, class GrowthPolicy  = tsl::power_of_two_growth_policy&lt;2&gt;&gt; </div>
+template&lt;class CharT , class Hash  = tsl::str_hash_ah&lt;CharT&gt;, class KeyEqual  = tsl::str_equal_ah&lt;CharT&gt;, bool StoreNullTerminator = true, class KeySizeT  = std::uint16_t, class IndexSizeT  = std::uint32_t, class GrowthPolicy  = tsl::power_of_two_growth_policy_ah&lt;2&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -500,7 +500,7 @@ template&lt;class CharT , class Hash  = tsl::str_hash&lt;CharT&gt;, class KeyEqu
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class CharT , class Hash  = tsl::str_hash&lt;CharT&gt;, class KeyEqual  = tsl::str_equal&lt;CharT&gt;, bool StoreNullTerminator = true, class KeySizeT  = std::uint16_t, class IndexSizeT  = std::uint32_t, class GrowthPolicy  = tsl::power_of_two_growth_policy&lt;2&gt;&gt; </div>
+template&lt;class CharT , class Hash  = tsl::str_hash_ah&lt;CharT&gt;, class KeyEqual  = tsl::str_equal_ah&lt;CharT&gt;, bool StoreNullTerminator = true, class KeySizeT  = std::uint16_t, class IndexSizeT  = std::uint32_t, class GrowthPolicy  = tsl::power_of_two_growth_policy_ah&lt;2&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -527,7 +527,7 @@ template&lt;class CharT , class Hash  = tsl::str_hash&lt;CharT&gt;, class KeyEqu
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class CharT , class Hash  = tsl::str_hash&lt;CharT&gt;, class KeyEqual  = tsl::str_equal&lt;CharT&gt;, bool StoreNullTerminator = true, class KeySizeT  = std::uint16_t, class IndexSizeT  = std::uint32_t, class GrowthPolicy  = tsl::power_of_two_growth_policy&lt;2&gt;&gt; </div>
+template&lt;class CharT , class Hash  = tsl::str_hash_ah&lt;CharT&gt;, class KeyEqual  = tsl::str_equal_ah&lt;CharT&gt;, bool StoreNullTerminator = true, class KeySizeT  = std::uint16_t, class IndexSizeT  = std::uint32_t, class GrowthPolicy  = tsl::power_of_two_growth_policy_ah&lt;2&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -554,7 +554,7 @@ template&lt;class CharT , class Hash  = tsl::str_hash&lt;CharT&gt;, class KeyEqu
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class CharT , class Hash  = tsl::str_hash&lt;CharT&gt;, class KeyEqual  = tsl::str_equal&lt;CharT&gt;, bool StoreNullTerminator = true, class KeySizeT  = std::uint16_t, class IndexSizeT  = std::uint32_t, class GrowthPolicy  = tsl::power_of_two_growth_policy&lt;2&gt;&gt; </div>
+template&lt;class CharT , class Hash  = tsl::str_hash_ah&lt;CharT&gt;, class KeyEqual  = tsl::str_equal_ah&lt;CharT&gt;, bool StoreNullTerminator = true, class KeySizeT  = std::uint16_t, class IndexSizeT  = std::uint32_t, class GrowthPolicy  = tsl::power_of_two_growth_policy_ah&lt;2&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -581,7 +581,7 @@ template&lt;class CharT , class Hash  = tsl::str_hash&lt;CharT&gt;, class KeyEqu
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class CharT , class Hash  = tsl::str_hash&lt;CharT&gt;, class KeyEqual  = tsl::str_equal&lt;CharT&gt;, bool StoreNullTerminator = true, class KeySizeT  = std::uint16_t, class IndexSizeT  = std::uint32_t, class GrowthPolicy  = tsl::power_of_two_growth_policy&lt;2&gt;&gt; </div>
+template&lt;class CharT , class Hash  = tsl::str_hash_ah&lt;CharT&gt;, class KeyEqual  = tsl::str_equal_ah&lt;CharT&gt;, bool StoreNullTerminator = true, class KeySizeT  = std::uint16_t, class IndexSizeT  = std::uint32_t, class GrowthPolicy  = tsl::power_of_two_growth_policy_ah&lt;2&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -608,7 +608,7 @@ template&lt;class CharT , class Hash  = tsl::str_hash&lt;CharT&gt;, class KeyEqu
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class CharT , class Hash  = tsl::str_hash&lt;CharT&gt;, class KeyEqual  = tsl::str_equal&lt;CharT&gt;, bool StoreNullTerminator = true, class KeySizeT  = std::uint16_t, class IndexSizeT  = std::uint32_t, class GrowthPolicy  = tsl::power_of_two_growth_policy&lt;2&gt;&gt; </div>
+template&lt;class CharT , class Hash  = tsl::str_hash_ah&lt;CharT&gt;, class KeyEqual  = tsl::str_equal_ah&lt;CharT&gt;, bool StoreNullTerminator = true, class KeySizeT  = std::uint16_t, class IndexSizeT  = std::uint32_t, class GrowthPolicy  = tsl::power_of_two_growth_policy_ah&lt;2&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -635,7 +635,7 @@ template&lt;class CharT , class Hash  = tsl::str_hash&lt;CharT&gt;, class KeyEqu
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class CharT , class Hash  = tsl::str_hash&lt;CharT&gt;, class KeyEqual  = tsl::str_equal&lt;CharT&gt;, bool StoreNullTerminator = true, class KeySizeT  = std::uint16_t, class IndexSizeT  = std::uint32_t, class GrowthPolicy  = tsl::power_of_two_growth_policy&lt;2&gt;&gt; </div>
+template&lt;class CharT , class Hash  = tsl::str_hash_ah&lt;CharT&gt;, class KeyEqual  = tsl::str_equal_ah&lt;CharT&gt;, bool StoreNullTerminator = true, class KeySizeT  = std::uint16_t, class IndexSizeT  = std::uint32_t, class GrowthPolicy  = tsl::power_of_two_growth_policy_ah&lt;2&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -662,7 +662,7 @@ template&lt;class CharT , class Hash  = tsl::str_hash&lt;CharT&gt;, class KeyEqu
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class CharT , class Hash  = tsl::str_hash&lt;CharT&gt;, class KeyEqual  = tsl::str_equal&lt;CharT&gt;, bool StoreNullTerminator = true, class KeySizeT  = std::uint16_t, class IndexSizeT  = std::uint32_t, class GrowthPolicy  = tsl::power_of_two_growth_policy&lt;2&gt;&gt; </div>
+template&lt;class CharT , class Hash  = tsl::str_hash_ah&lt;CharT&gt;, class KeyEqual  = tsl::str_equal_ah&lt;CharT&gt;, bool StoreNullTerminator = true, class KeySizeT  = std::uint16_t, class IndexSizeT  = std::uint32_t, class GrowthPolicy  = tsl::power_of_two_growth_policy_ah&lt;2&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -690,7 +690,7 @@ template&lt;class CharT , class Hash  = tsl::str_hash&lt;CharT&gt;, class KeyEqu
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class CharT , class Hash  = tsl::str_hash&lt;CharT&gt;, class KeyEqual  = tsl::str_equal&lt;CharT&gt;, bool StoreNullTerminator = true, class KeySizeT  = std::uint16_t, class IndexSizeT  = std::uint32_t, class GrowthPolicy  = tsl::power_of_two_growth_policy&lt;2&gt;&gt; </div>
+template&lt;class CharT , class Hash  = tsl::str_hash_ah&lt;CharT&gt;, class KeyEqual  = tsl::str_equal_ah&lt;CharT&gt;, bool StoreNullTerminator = true, class KeySizeT  = std::uint16_t, class IndexSizeT  = std::uint32_t, class GrowthPolicy  = tsl::power_of_two_growth_policy_ah&lt;2&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -728,7 +728,7 @@ template&lt;class CharT , class Hash  = tsl::str_hash&lt;CharT&gt;, class KeyEqu
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class CharT , class Hash  = tsl::str_hash&lt;CharT&gt;, class KeyEqual  = tsl::str_equal&lt;CharT&gt;, bool StoreNullTerminator = true, class KeySizeT  = std::uint16_t, class IndexSizeT  = std::uint32_t, class GrowthPolicy  = tsl::power_of_two_growth_policy&lt;2&gt;&gt; </div>
+template&lt;class CharT , class Hash  = tsl::str_hash_ah&lt;CharT&gt;, class KeyEqual  = tsl::str_equal_ah&lt;CharT&gt;, bool StoreNullTerminator = true, class KeySizeT  = std::uint16_t, class IndexSizeT  = std::uint32_t, class GrowthPolicy  = tsl::power_of_two_growth_policy_ah&lt;2&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -756,7 +756,7 @@ template&lt;class CharT , class Hash  = tsl::str_hash&lt;CharT&gt;, class KeyEqu
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class CharT , class Hash  = tsl::str_hash&lt;CharT&gt;, class KeyEqual  = tsl::str_equal&lt;CharT&gt;, bool StoreNullTerminator = true, class KeySizeT  = std::uint16_t, class IndexSizeT  = std::uint32_t, class GrowthPolicy  = tsl::power_of_two_growth_policy&lt;2&gt;&gt; </div>
+template&lt;class CharT , class Hash  = tsl::str_hash_ah&lt;CharT&gt;, class KeyEqual  = tsl::str_equal_ah&lt;CharT&gt;, bool StoreNullTerminator = true, class KeySizeT  = std::uint16_t, class IndexSizeT  = std::uint32_t, class GrowthPolicy  = tsl::power_of_two_growth_policy_ah&lt;2&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -794,7 +794,7 @@ template&lt;class CharT , class Hash  = tsl::str_hash&lt;CharT&gt;, class KeyEqu
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class CharT , class Hash  = tsl::str_hash&lt;CharT&gt;, class KeyEqual  = tsl::str_equal&lt;CharT&gt;, bool StoreNullTerminator = true, class KeySizeT  = std::uint16_t, class IndexSizeT  = std::uint32_t, class GrowthPolicy  = tsl::power_of_two_growth_policy&lt;2&gt;&gt; </div>
+template&lt;class CharT , class Hash  = tsl::str_hash_ah&lt;CharT&gt;, class KeyEqual  = tsl::str_equal_ah&lt;CharT&gt;, bool StoreNullTerminator = true, class KeySizeT  = std::uint16_t, class IndexSizeT  = std::uint32_t, class GrowthPolicy  = tsl::power_of_two_growth_policy_ah&lt;2&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -821,7 +821,7 @@ template&lt;class CharT , class Hash  = tsl::str_hash&lt;CharT&gt;, class KeyEqu
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class CharT , class Hash  = tsl::str_hash&lt;CharT&gt;, class KeyEqual  = tsl::str_equal&lt;CharT&gt;, bool StoreNullTerminator = true, class KeySizeT  = std::uint16_t, class IndexSizeT  = std::uint32_t, class GrowthPolicy  = tsl::power_of_two_growth_policy&lt;2&gt;&gt; </div>
+template&lt;class CharT , class Hash  = tsl::str_hash_ah&lt;CharT&gt;, class KeyEqual  = tsl::str_equal_ah&lt;CharT&gt;, bool StoreNullTerminator = true, class KeySizeT  = std::uint16_t, class IndexSizeT  = std::uint32_t, class GrowthPolicy  = tsl::power_of_two_growth_policy_ah&lt;2&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -848,7 +848,7 @@ template&lt;class CharT , class Hash  = tsl::str_hash&lt;CharT&gt;, class KeyEqu
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class CharT , class Hash  = tsl::str_hash&lt;CharT&gt;, class KeyEqual  = tsl::str_equal&lt;CharT&gt;, bool StoreNullTerminator = true, class KeySizeT  = std::uint16_t, class IndexSizeT  = std::uint32_t, class GrowthPolicy  = tsl::power_of_two_growth_policy&lt;2&gt;&gt; </div>
+template&lt;class CharT , class Hash  = tsl::str_hash_ah&lt;CharT&gt;, class KeyEqual  = tsl::str_equal_ah&lt;CharT&gt;, bool StoreNullTerminator = true, class KeySizeT  = std::uint16_t, class IndexSizeT  = std::uint32_t, class GrowthPolicy  = tsl::power_of_two_growth_policy_ah&lt;2&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -875,7 +875,7 @@ template&lt;class CharT , class Hash  = tsl::str_hash&lt;CharT&gt;, class KeyEqu
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class CharT , class Hash  = tsl::str_hash&lt;CharT&gt;, class KeyEqual  = tsl::str_equal&lt;CharT&gt;, bool StoreNullTerminator = true, class KeySizeT  = std::uint16_t, class IndexSizeT  = std::uint32_t, class GrowthPolicy  = tsl::power_of_two_growth_policy&lt;2&gt;&gt; </div>
+template&lt;class CharT , class Hash  = tsl::str_hash_ah&lt;CharT&gt;, class KeyEqual  = tsl::str_equal_ah&lt;CharT&gt;, bool StoreNullTerminator = true, class KeySizeT  = std::uint16_t, class IndexSizeT  = std::uint32_t, class GrowthPolicy  = tsl::power_of_two_growth_policy_ah&lt;2&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -903,7 +903,7 @@ template&lt;class CharT , class Hash  = tsl::str_hash&lt;CharT&gt;, class KeyEqu
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class CharT , class Hash  = tsl::str_hash&lt;CharT&gt;, class KeyEqual  = tsl::str_equal&lt;CharT&gt;, bool StoreNullTerminator = true, class KeySizeT  = std::uint16_t, class IndexSizeT  = std::uint32_t, class GrowthPolicy  = tsl::power_of_two_growth_policy&lt;2&gt;&gt; </div>
+template&lt;class CharT , class Hash  = tsl::str_hash_ah&lt;CharT&gt;, class KeyEqual  = tsl::str_equal_ah&lt;CharT&gt;, bool StoreNullTerminator = true, class KeySizeT  = std::uint16_t, class IndexSizeT  = std::uint32_t, class GrowthPolicy  = tsl::power_of_two_growth_policy_ah&lt;2&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -931,7 +931,7 @@ template&lt;class CharT , class Hash  = tsl::str_hash&lt;CharT&gt;, class KeyEqu
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class CharT , class Hash  = tsl::str_hash&lt;CharT&gt;, class KeyEqual  = tsl::str_equal&lt;CharT&gt;, bool StoreNullTerminator = true, class KeySizeT  = std::uint16_t, class IndexSizeT  = std::uint32_t, class GrowthPolicy  = tsl::power_of_two_growth_policy&lt;2&gt;&gt; </div>
+template&lt;class CharT , class Hash  = tsl::str_hash_ah&lt;CharT&gt;, class KeyEqual  = tsl::str_equal_ah&lt;CharT&gt;, bool StoreNullTerminator = true, class KeySizeT  = std::uint16_t, class IndexSizeT  = std::uint32_t, class GrowthPolicy  = tsl::power_of_two_growth_policy_ah&lt;2&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -969,7 +969,7 @@ template&lt;class CharT , class Hash  = tsl::str_hash&lt;CharT&gt;, class KeyEqu
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class CharT , class Hash  = tsl::str_hash&lt;CharT&gt;, class KeyEqual  = tsl::str_equal&lt;CharT&gt;, bool StoreNullTerminator = true, class KeySizeT  = std::uint16_t, class IndexSizeT  = std::uint32_t, class GrowthPolicy  = tsl::power_of_two_growth_policy&lt;2&gt;&gt; </div>
+template&lt;class CharT , class Hash  = tsl::str_hash_ah&lt;CharT&gt;, class KeyEqual  = tsl::str_equal_ah&lt;CharT&gt;, bool StoreNullTerminator = true, class KeySizeT  = std::uint16_t, class IndexSizeT  = std::uint32_t, class GrowthPolicy  = tsl::power_of_two_growth_policy_ah&lt;2&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -1007,7 +1007,7 @@ template&lt;class CharT , class Hash  = tsl::str_hash&lt;CharT&gt;, class KeyEqu
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class CharT , class Hash  = tsl::str_hash&lt;CharT&gt;, class KeyEqual  = tsl::str_equal&lt;CharT&gt;, bool StoreNullTerminator = true, class KeySizeT  = std::uint16_t, class IndexSizeT  = std::uint32_t, class GrowthPolicy  = tsl::power_of_two_growth_policy&lt;2&gt;&gt; </div>
+template&lt;class CharT , class Hash  = tsl::str_hash_ah&lt;CharT&gt;, class KeyEqual  = tsl::str_equal_ah&lt;CharT&gt;, bool StoreNullTerminator = true, class KeySizeT  = std::uint16_t, class IndexSizeT  = std::uint32_t, class GrowthPolicy  = tsl::power_of_two_growth_policy_ah&lt;2&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -1035,7 +1035,7 @@ template&lt;class CharT , class Hash  = tsl::str_hash&lt;CharT&gt;, class KeyEqu
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class CharT , class Hash  = tsl::str_hash&lt;CharT&gt;, class KeyEqual  = tsl::str_equal&lt;CharT&gt;, bool StoreNullTerminator = true, class KeySizeT  = std::uint16_t, class IndexSizeT  = std::uint32_t, class GrowthPolicy  = tsl::power_of_two_growth_policy&lt;2&gt;&gt; </div>
+template&lt;class CharT , class Hash  = tsl::str_hash_ah&lt;CharT&gt;, class KeyEqual  = tsl::str_equal_ah&lt;CharT&gt;, bool StoreNullTerminator = true, class KeySizeT  = std::uint16_t, class IndexSizeT  = std::uint32_t, class GrowthPolicy  = tsl::power_of_two_growth_policy_ah&lt;2&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -1073,7 +1073,7 @@ template&lt;class CharT , class Hash  = tsl::str_hash&lt;CharT&gt;, class KeyEqu
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class CharT , class Hash  = tsl::str_hash&lt;CharT&gt;, class KeyEqual  = tsl::str_equal&lt;CharT&gt;, bool StoreNullTerminator = true, class KeySizeT  = std::uint16_t, class IndexSizeT  = std::uint32_t, class GrowthPolicy  = tsl::power_of_two_growth_policy&lt;2&gt;&gt; </div>
+template&lt;class CharT , class Hash  = tsl::str_hash_ah&lt;CharT&gt;, class KeyEqual  = tsl::str_equal_ah&lt;CharT&gt;, bool StoreNullTerminator = true, class KeySizeT  = std::uint16_t, class IndexSizeT  = std::uint32_t, class GrowthPolicy  = tsl::power_of_two_growth_policy_ah&lt;2&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -1101,7 +1101,7 @@ template&lt;class CharT , class Hash  = tsl::str_hash&lt;CharT&gt;, class KeyEqu
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class CharT , class Hash  = tsl::str_hash&lt;CharT&gt;, class KeyEqual  = tsl::str_equal&lt;CharT&gt;, bool StoreNullTerminator = true, class KeySizeT  = std::uint16_t, class IndexSizeT  = std::uint32_t, class GrowthPolicy  = tsl::power_of_two_growth_policy&lt;2&gt;&gt; </div>
+template&lt;class CharT , class Hash  = tsl::str_hash_ah&lt;CharT&gt;, class KeyEqual  = tsl::str_equal_ah&lt;CharT&gt;, bool StoreNullTerminator = true, class KeySizeT  = std::uint16_t, class IndexSizeT  = std::uint32_t, class GrowthPolicy  = tsl::power_of_two_growth_policy_ah&lt;2&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -1139,7 +1139,7 @@ template&lt;class CharT , class Hash  = tsl::str_hash&lt;CharT&gt;, class KeyEqu
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class CharT , class Hash  = tsl::str_hash&lt;CharT&gt;, class KeyEqual  = tsl::str_equal&lt;CharT&gt;, bool StoreNullTerminator = true, class KeySizeT  = std::uint16_t, class IndexSizeT  = std::uint32_t, class GrowthPolicy  = tsl::power_of_two_growth_policy&lt;2&gt;&gt; </div>
+template&lt;class CharT , class Hash  = tsl::str_hash_ah&lt;CharT&gt;, class KeyEqual  = tsl::str_equal_ah&lt;CharT&gt;, bool StoreNullTerminator = true, class KeySizeT  = std::uint16_t, class IndexSizeT  = std::uint32_t, class GrowthPolicy  = tsl::power_of_two_growth_policy_ah&lt;2&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -1167,7 +1167,7 @@ template&lt;class CharT , class Hash  = tsl::str_hash&lt;CharT&gt;, class KeyEqu
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class CharT , class Hash  = tsl::str_hash&lt;CharT&gt;, class KeyEqual  = tsl::str_equal&lt;CharT&gt;, bool StoreNullTerminator = true, class KeySizeT  = std::uint16_t, class IndexSizeT  = std::uint32_t, class GrowthPolicy  = tsl::power_of_two_growth_policy&lt;2&gt;&gt; </div>
+template&lt;class CharT , class Hash  = tsl::str_hash_ah&lt;CharT&gt;, class KeyEqual  = tsl::str_equal_ah&lt;CharT&gt;, bool StoreNullTerminator = true, class KeySizeT  = std::uint16_t, class IndexSizeT  = std::uint32_t, class GrowthPolicy  = tsl::power_of_two_growth_policy_ah&lt;2&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -1195,7 +1195,7 @@ template&lt;class CharT , class Hash  = tsl::str_hash&lt;CharT&gt;, class KeyEqu
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class CharT , class Hash  = tsl::str_hash&lt;CharT&gt;, class KeyEqual  = tsl::str_equal&lt;CharT&gt;, bool StoreNullTerminator = true, class KeySizeT  = std::uint16_t, class IndexSizeT  = std::uint32_t, class GrowthPolicy  = tsl::power_of_two_growth_policy&lt;2&gt;&gt; </div>
+template&lt;class CharT , class Hash  = tsl::str_hash_ah&lt;CharT&gt;, class KeyEqual  = tsl::str_equal_ah&lt;CharT&gt;, bool StoreNullTerminator = true, class KeySizeT  = std::uint16_t, class IndexSizeT  = std::uint32_t, class GrowthPolicy  = tsl::power_of_two_growth_policy_ah&lt;2&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -1233,7 +1233,7 @@ template&lt;class CharT , class Hash  = tsl::str_hash&lt;CharT&gt;, class KeyEqu
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class CharT , class Hash  = tsl::str_hash&lt;CharT&gt;, class KeyEqual  = tsl::str_equal&lt;CharT&gt;, bool StoreNullTerminator = true, class KeySizeT  = std::uint16_t, class IndexSizeT  = std::uint32_t, class GrowthPolicy  = tsl::power_of_two_growth_policy&lt;2&gt;&gt; </div>
+template&lt;class CharT , class Hash  = tsl::str_hash_ah&lt;CharT&gt;, class KeyEqual  = tsl::str_equal_ah&lt;CharT&gt;, bool StoreNullTerminator = true, class KeySizeT  = std::uint16_t, class IndexSizeT  = std::uint32_t, class GrowthPolicy  = tsl::power_of_two_growth_policy_ah&lt;2&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -1271,7 +1271,7 @@ template&lt;class CharT , class Hash  = tsl::str_hash&lt;CharT&gt;, class KeyEqu
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class CharT , class Hash  = tsl::str_hash&lt;CharT&gt;, class KeyEqual  = tsl::str_equal&lt;CharT&gt;, bool StoreNullTerminator = true, class KeySizeT  = std::uint16_t, class IndexSizeT  = std::uint32_t, class GrowthPolicy  = tsl::power_of_two_growth_policy&lt;2&gt;&gt; </div>
+template&lt;class CharT , class Hash  = tsl::str_hash_ah&lt;CharT&gt;, class KeyEqual  = tsl::str_equal_ah&lt;CharT&gt;, bool StoreNullTerminator = true, class KeySizeT  = std::uint16_t, class IndexSizeT  = std::uint32_t, class GrowthPolicy  = tsl::power_of_two_growth_policy_ah&lt;2&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -1298,7 +1298,7 @@ template&lt;class CharT , class Hash  = tsl::str_hash&lt;CharT&gt;, class KeyEqu
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class CharT , class Hash  = tsl::str_hash&lt;CharT&gt;, class KeyEqual  = tsl::str_equal&lt;CharT&gt;, bool StoreNullTerminator = true, class KeySizeT  = std::uint16_t, class IndexSizeT  = std::uint32_t, class GrowthPolicy  = tsl::power_of_two_growth_policy&lt;2&gt;&gt; </div>
+template&lt;class CharT , class Hash  = tsl::str_hash_ah&lt;CharT&gt;, class KeyEqual  = tsl::str_equal_ah&lt;CharT&gt;, bool StoreNullTerminator = true, class KeySizeT  = std::uint16_t, class IndexSizeT  = std::uint32_t, class GrowthPolicy  = tsl::power_of_two_growth_policy_ah&lt;2&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -1326,7 +1326,7 @@ template&lt;class CharT , class Hash  = tsl::str_hash&lt;CharT&gt;, class KeyEqu
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class CharT , class Hash  = tsl::str_hash&lt;CharT&gt;, class KeyEqual  = tsl::str_equal&lt;CharT&gt;, bool StoreNullTerminator = true, class KeySizeT  = std::uint16_t, class IndexSizeT  = std::uint32_t, class GrowthPolicy  = tsl::power_of_two_growth_policy&lt;2&gt;&gt; </div>
+template&lt;class CharT , class Hash  = tsl::str_hash_ah&lt;CharT&gt;, class KeyEqual  = tsl::str_equal_ah&lt;CharT&gt;, bool StoreNullTerminator = true, class KeySizeT  = std::uint16_t, class IndexSizeT  = std::uint32_t, class GrowthPolicy  = tsl::power_of_two_growth_policy_ah&lt;2&gt;&gt; </div>
 <div class="memtemplate">
 template&lt;class InputIt &gt; </div>
 <table class="mlabels">
@@ -1366,7 +1366,7 @@ template&lt;class InputIt &gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class CharT , class Hash  = tsl::str_hash&lt;CharT&gt;, class KeyEqual  = tsl::str_equal&lt;CharT&gt;, bool StoreNullTerminator = true, class KeySizeT  = std::uint16_t, class IndexSizeT  = std::uint32_t, class GrowthPolicy  = tsl::power_of_two_growth_policy&lt;2&gt;&gt; </div>
+template&lt;class CharT , class Hash  = tsl::str_hash_ah&lt;CharT&gt;, class KeyEqual  = tsl::str_equal_ah&lt;CharT&gt;, bool StoreNullTerminator = true, class KeySizeT  = std::uint16_t, class IndexSizeT  = std::uint32_t, class GrowthPolicy  = tsl::power_of_two_growth_policy_ah&lt;2&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -1394,7 +1394,7 @@ template&lt;class CharT , class Hash  = tsl::str_hash&lt;CharT&gt;, class KeyEqu
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class CharT , class Hash  = tsl::str_hash&lt;CharT&gt;, class KeyEqual  = tsl::str_equal&lt;CharT&gt;, bool StoreNullTerminator = true, class KeySizeT  = std::uint16_t, class IndexSizeT  = std::uint32_t, class GrowthPolicy  = tsl::power_of_two_growth_policy&lt;2&gt;&gt; </div>
+template&lt;class CharT , class Hash  = tsl::str_hash_ah&lt;CharT&gt;, class KeyEqual  = tsl::str_equal_ah&lt;CharT&gt;, bool StoreNullTerminator = true, class KeySizeT  = std::uint16_t, class IndexSizeT  = std::uint32_t, class GrowthPolicy  = tsl::power_of_two_growth_policy_ah&lt;2&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -1432,7 +1432,7 @@ template&lt;class CharT , class Hash  = tsl::str_hash&lt;CharT&gt;, class KeyEqu
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class CharT , class Hash  = tsl::str_hash&lt;CharT&gt;, class KeyEqual  = tsl::str_equal&lt;CharT&gt;, bool StoreNullTerminator = true, class KeySizeT  = std::uint16_t, class IndexSizeT  = std::uint32_t, class GrowthPolicy  = tsl::power_of_two_growth_policy&lt;2&gt;&gt; </div>
+template&lt;class CharT , class Hash  = tsl::str_hash_ah&lt;CharT&gt;, class KeyEqual  = tsl::str_equal_ah&lt;CharT&gt;, bool StoreNullTerminator = true, class KeySizeT  = std::uint16_t, class IndexSizeT  = std::uint32_t, class GrowthPolicy  = tsl::power_of_two_growth_policy_ah&lt;2&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -1459,7 +1459,7 @@ template&lt;class CharT , class Hash  = tsl::str_hash&lt;CharT&gt;, class KeyEqu
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class CharT , class Hash  = tsl::str_hash&lt;CharT&gt;, class KeyEqual  = tsl::str_equal&lt;CharT&gt;, bool StoreNullTerminator = true, class KeySizeT  = std::uint16_t, class IndexSizeT  = std::uint32_t, class GrowthPolicy  = tsl::power_of_two_growth_policy&lt;2&gt;&gt; </div>
+template&lt;class CharT , class Hash  = tsl::str_hash_ah&lt;CharT&gt;, class KeyEqual  = tsl::str_equal_ah&lt;CharT&gt;, bool StoreNullTerminator = true, class KeySizeT  = std::uint16_t, class IndexSizeT  = std::uint32_t, class GrowthPolicy  = tsl::power_of_two_growth_policy_ah&lt;2&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -1486,7 +1486,7 @@ template&lt;class CharT , class Hash  = tsl::str_hash&lt;CharT&gt;, class KeyEqu
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class CharT , class Hash  = tsl::str_hash&lt;CharT&gt;, class KeyEqual  = tsl::str_equal&lt;CharT&gt;, bool StoreNullTerminator = true, class KeySizeT  = std::uint16_t, class IndexSizeT  = std::uint32_t, class GrowthPolicy  = tsl::power_of_two_growth_policy&lt;2&gt;&gt; </div>
+template&lt;class CharT , class Hash  = tsl::str_hash_ah&lt;CharT&gt;, class KeyEqual  = tsl::str_equal_ah&lt;CharT&gt;, bool StoreNullTerminator = true, class KeySizeT  = std::uint16_t, class IndexSizeT  = std::uint32_t, class GrowthPolicy  = tsl::power_of_two_growth_policy_ah&lt;2&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -1513,7 +1513,7 @@ template&lt;class CharT , class Hash  = tsl::str_hash&lt;CharT&gt;, class KeyEqu
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class CharT , class Hash  = tsl::str_hash&lt;CharT&gt;, class KeyEqual  = tsl::str_equal&lt;CharT&gt;, bool StoreNullTerminator = true, class KeySizeT  = std::uint16_t, class IndexSizeT  = std::uint32_t, class GrowthPolicy  = tsl::power_of_two_growth_policy&lt;2&gt;&gt; </div>
+template&lt;class CharT , class Hash  = tsl::str_hash_ah&lt;CharT&gt;, class KeyEqual  = tsl::str_equal_ah&lt;CharT&gt;, bool StoreNullTerminator = true, class KeySizeT  = std::uint16_t, class IndexSizeT  = std::uint32_t, class GrowthPolicy  = tsl::power_of_two_growth_policy_ah&lt;2&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -1540,7 +1540,7 @@ template&lt;class CharT , class Hash  = tsl::str_hash&lt;CharT&gt;, class KeyEqu
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class CharT , class Hash  = tsl::str_hash&lt;CharT&gt;, class KeyEqual  = tsl::str_equal&lt;CharT&gt;, bool StoreNullTerminator = true, class KeySizeT  = std::uint16_t, class IndexSizeT  = std::uint32_t, class GrowthPolicy  = tsl::power_of_two_growth_policy&lt;2&gt;&gt; </div>
+template&lt;class CharT , class Hash  = tsl::str_hash_ah&lt;CharT&gt;, class KeyEqual  = tsl::str_equal_ah&lt;CharT&gt;, bool StoreNullTerminator = true, class KeySizeT  = std::uint16_t, class IndexSizeT  = std::uint32_t, class GrowthPolicy  = tsl::power_of_two_growth_policy_ah&lt;2&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -1567,7 +1567,7 @@ template&lt;class CharT , class Hash  = tsl::str_hash&lt;CharT&gt;, class KeyEqu
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class CharT , class Hash  = tsl::str_hash&lt;CharT&gt;, class KeyEqual  = tsl::str_equal&lt;CharT&gt;, bool StoreNullTerminator = true, class KeySizeT  = std::uint16_t, class IndexSizeT  = std::uint32_t, class GrowthPolicy  = tsl::power_of_two_growth_policy&lt;2&gt;&gt; </div>
+template&lt;class CharT , class Hash  = tsl::str_hash_ah&lt;CharT&gt;, class KeyEqual  = tsl::str_equal_ah&lt;CharT&gt;, bool StoreNullTerminator = true, class KeySizeT  = std::uint16_t, class IndexSizeT  = std::uint32_t, class GrowthPolicy  = tsl::power_of_two_growth_policy_ah&lt;2&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -1595,7 +1595,7 @@ template&lt;class CharT , class Hash  = tsl::str_hash&lt;CharT&gt;, class KeyEqu
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class CharT , class Hash  = tsl::str_hash&lt;CharT&gt;, class KeyEqual  = tsl::str_equal&lt;CharT&gt;, bool StoreNullTerminator = true, class KeySizeT  = std::uint16_t, class IndexSizeT  = std::uint32_t, class GrowthPolicy  = tsl::power_of_two_growth_policy&lt;2&gt;&gt; </div>
+template&lt;class CharT , class Hash  = tsl::str_hash_ah&lt;CharT&gt;, class KeyEqual  = tsl::str_equal_ah&lt;CharT&gt;, bool StoreNullTerminator = true, class KeySizeT  = std::uint16_t, class IndexSizeT  = std::uint32_t, class GrowthPolicy  = tsl::power_of_two_growth_policy_ah&lt;2&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -1622,7 +1622,7 @@ template&lt;class CharT , class Hash  = tsl::str_hash&lt;CharT&gt;, class KeyEqu
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class CharT , class Hash  = tsl::str_hash&lt;CharT&gt;, class KeyEqual  = tsl::str_equal&lt;CharT&gt;, bool StoreNullTerminator = true, class KeySizeT  = std::uint16_t, class IndexSizeT  = std::uint32_t, class GrowthPolicy  = tsl::power_of_two_growth_policy&lt;2&gt;&gt; </div>
+template&lt;class CharT , class Hash  = tsl::str_hash_ah&lt;CharT&gt;, class KeyEqual  = tsl::str_equal_ah&lt;CharT&gt;, bool StoreNullTerminator = true, class KeySizeT  = std::uint16_t, class IndexSizeT  = std::uint32_t, class GrowthPolicy  = tsl::power_of_two_growth_policy_ah&lt;2&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -1650,7 +1650,7 @@ template&lt;class CharT , class Hash  = tsl::str_hash&lt;CharT&gt;, class KeyEqu
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class CharT , class Hash  = tsl::str_hash&lt;CharT&gt;, class KeyEqual  = tsl::str_equal&lt;CharT&gt;, bool StoreNullTerminator = true, class KeySizeT  = std::uint16_t, class IndexSizeT  = std::uint32_t, class GrowthPolicy  = tsl::power_of_two_growth_policy&lt;2&gt;&gt; </div>
+template&lt;class CharT , class Hash  = tsl::str_hash_ah&lt;CharT&gt;, class KeyEqual  = tsl::str_equal_ah&lt;CharT&gt;, bool StoreNullTerminator = true, class KeySizeT  = std::uint16_t, class IndexSizeT  = std::uint32_t, class GrowthPolicy  = tsl::power_of_two_growth_policy_ah&lt;2&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -1678,7 +1678,7 @@ template&lt;class CharT , class Hash  = tsl::str_hash&lt;CharT&gt;, class KeyEqu
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class CharT , class Hash  = tsl::str_hash&lt;CharT&gt;, class KeyEqual  = tsl::str_equal&lt;CharT&gt;, bool StoreNullTerminator = true, class KeySizeT  = std::uint16_t, class IndexSizeT  = std::uint32_t, class GrowthPolicy  = tsl::power_of_two_growth_policy&lt;2&gt;&gt; </div>
+template&lt;class CharT , class Hash  = tsl::str_hash_ah&lt;CharT&gt;, class KeyEqual  = tsl::str_equal_ah&lt;CharT&gt;, bool StoreNullTerminator = true, class KeySizeT  = std::uint16_t, class IndexSizeT  = std::uint32_t, class GrowthPolicy  = tsl::power_of_two_growth_policy_ah&lt;2&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -1706,7 +1706,7 @@ template&lt;class CharT , class Hash  = tsl::str_hash&lt;CharT&gt;, class KeyEqu
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class CharT , class Hash  = tsl::str_hash&lt;CharT&gt;, class KeyEqual  = tsl::str_equal&lt;CharT&gt;, bool StoreNullTerminator = true, class KeySizeT  = std::uint16_t, class IndexSizeT  = std::uint32_t, class GrowthPolicy  = tsl::power_of_two_growth_policy&lt;2&gt;&gt; </div>
+template&lt;class CharT , class Hash  = tsl::str_hash_ah&lt;CharT&gt;, class KeyEqual  = tsl::str_equal_ah&lt;CharT&gt;, bool StoreNullTerminator = true, class KeySizeT  = std::uint16_t, class IndexSizeT  = std::uint32_t, class GrowthPolicy  = tsl::power_of_two_growth_policy_ah&lt;2&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -1734,7 +1734,7 @@ template&lt;class CharT , class Hash  = tsl::str_hash&lt;CharT&gt;, class KeyEqu
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class CharT , class Hash  = tsl::str_hash&lt;CharT&gt;, class KeyEqual  = tsl::str_equal&lt;CharT&gt;, bool StoreNullTerminator = true, class KeySizeT  = std::uint16_t, class IndexSizeT  = std::uint32_t, class GrowthPolicy  = tsl::power_of_two_growth_policy&lt;2&gt;&gt; </div>
+template&lt;class CharT , class Hash  = tsl::str_hash_ah&lt;CharT&gt;, class KeyEqual  = tsl::str_equal_ah&lt;CharT&gt;, bool StoreNullTerminator = true, class KeySizeT  = std::uint16_t, class IndexSizeT  = std::uint32_t, class GrowthPolicy  = tsl::power_of_two_growth_policy_ah&lt;2&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -1761,7 +1761,7 @@ template&lt;class CharT , class Hash  = tsl::str_hash&lt;CharT&gt;, class KeyEqu
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class CharT , class Hash  = tsl::str_hash&lt;CharT&gt;, class KeyEqual  = tsl::str_equal&lt;CharT&gt;, bool StoreNullTerminator = true, class KeySizeT  = std::uint16_t, class IndexSizeT  = std::uint32_t, class GrowthPolicy  = tsl::power_of_two_growth_policy&lt;2&gt;&gt; </div>
+template&lt;class CharT , class Hash  = tsl::str_hash_ah&lt;CharT&gt;, class KeyEqual  = tsl::str_equal_ah&lt;CharT&gt;, bool StoreNullTerminator = true, class KeySizeT  = std::uint16_t, class IndexSizeT  = std::uint32_t, class GrowthPolicy  = tsl::power_of_two_growth_policy_ah&lt;2&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -1788,7 +1788,7 @@ template&lt;class CharT , class Hash  = tsl::str_hash&lt;CharT&gt;, class KeyEqu
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class CharT , class Hash  = tsl::str_hash&lt;CharT&gt;, class KeyEqual  = tsl::str_equal&lt;CharT&gt;, bool StoreNullTerminator = true, class KeySizeT  = std::uint16_t, class IndexSizeT  = std::uint32_t, class GrowthPolicy  = tsl::power_of_two_growth_policy&lt;2&gt;&gt; </div>
+template&lt;class CharT , class Hash  = tsl::str_hash_ah&lt;CharT&gt;, class KeyEqual  = tsl::str_equal_ah&lt;CharT&gt;, bool StoreNullTerminator = true, class KeySizeT  = std::uint16_t, class IndexSizeT  = std::uint32_t, class GrowthPolicy  = tsl::power_of_two_growth_policy_ah&lt;2&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -1817,7 +1817,7 @@ template&lt;class CharT , class Hash  = tsl::str_hash&lt;CharT&gt;, class KeyEqu
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class CharT , class Hash  = tsl::str_hash&lt;CharT&gt;, class KeyEqual  = tsl::str_equal&lt;CharT&gt;, bool StoreNullTerminator = true, class KeySizeT  = std::uint16_t, class IndexSizeT  = std::uint32_t, class GrowthPolicy  = tsl::power_of_two_growth_policy&lt;2&gt;&gt; </div>
+template&lt;class CharT , class Hash  = tsl::str_hash_ah&lt;CharT&gt;, class KeyEqual  = tsl::str_equal_ah&lt;CharT&gt;, bool StoreNullTerminator = true, class KeySizeT  = std::uint16_t, class IndexSizeT  = std::uint32_t, class GrowthPolicy  = tsl::power_of_two_growth_policy_ah&lt;2&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -1855,7 +1855,7 @@ template&lt;class CharT , class Hash  = tsl::str_hash&lt;CharT&gt;, class KeyEqu
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class CharT , class Hash  = tsl::str_hash&lt;CharT&gt;, class KeyEqual  = tsl::str_equal&lt;CharT&gt;, bool StoreNullTerminator = true, class KeySizeT  = std::uint16_t, class IndexSizeT  = std::uint32_t, class GrowthPolicy  = tsl::power_of_two_growth_policy&lt;2&gt;&gt; </div>
+template&lt;class CharT , class Hash  = tsl::str_hash_ah&lt;CharT&gt;, class KeyEqual  = tsl::str_equal_ah&lt;CharT&gt;, bool StoreNullTerminator = true, class KeySizeT  = std::uint16_t, class IndexSizeT  = std::uint32_t, class GrowthPolicy  = tsl::power_of_two_growth_policy_ah&lt;2&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -1893,7 +1893,7 @@ template&lt;class CharT , class Hash  = tsl::str_hash&lt;CharT&gt;, class KeyEqu
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class CharT , class Hash  = tsl::str_hash&lt;CharT&gt;, class KeyEqual  = tsl::str_equal&lt;CharT&gt;, bool StoreNullTerminator = true, class KeySizeT  = std::uint16_t, class IndexSizeT  = std::uint32_t, class GrowthPolicy  = tsl::power_of_two_growth_policy&lt;2&gt;&gt; </div>
+template&lt;class CharT , class Hash  = tsl::str_hash_ah&lt;CharT&gt;, class KeyEqual  = tsl::str_equal_ah&lt;CharT&gt;, bool StoreNullTerminator = true, class KeySizeT  = std::uint16_t, class IndexSizeT  = std::uint32_t, class GrowthPolicy  = tsl::power_of_two_growth_policy_ah&lt;2&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -1932,7 +1932,7 @@ template&lt;class CharT , class Hash  = tsl::str_hash&lt;CharT&gt;, class KeyEqu
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class CharT , class Hash  = tsl::str_hash&lt;CharT&gt;, class KeyEqual  = tsl::str_equal&lt;CharT&gt;, bool StoreNullTerminator = true, class KeySizeT  = std::uint16_t, class IndexSizeT  = std::uint32_t, class GrowthPolicy  = tsl::power_of_two_growth_policy&lt;2&gt;&gt; </div>
+template&lt;class CharT , class Hash  = tsl::str_hash_ah&lt;CharT&gt;, class KeyEqual  = tsl::str_equal_ah&lt;CharT&gt;, bool StoreNullTerminator = true, class KeySizeT  = std::uint16_t, class IndexSizeT  = std::uint32_t, class GrowthPolicy  = tsl::power_of_two_growth_policy_ah&lt;2&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
