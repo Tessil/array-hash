@@ -266,6 +266,38 @@ public:
     }
     
     
+
+#ifdef TSL_HAS_STRING_VIEW 
+    /**
+     * @copydoc erase_ks(const CharT* key, size_type key_size, std::size_t precalculated_hash)
+     */
+    size_type erase(const std::basic_string_view<CharT>& key, std::size_t precalculated_hash) {
+        return m_ht.erase(key.data(), key.size(), precalculated_hash);
+    }
+#else    
+    /**
+     * @copydoc erase_ks(const CharT* key, size_type key_size, std::size_t precalculated_hash)
+     */
+    size_type erase(const CharT* key, std::size_t precalculated_hash) {
+        return m_ht.erase(key, std::strlen(key), precalculated_hash);
+    }
+    
+    /**
+     * @copydoc erase_ks(const CharT* key, size_type key_size, std::size_t precalculated_hash)
+     */
+    size_type erase(const std::basic_string<CharT>& key, std::size_t precalculated_hash) {
+        return m_ht.erase(key.data(), key.size(), precalculated_hash);
+    }
+#endif    
+    /**
+     * Use the hash value 'precalculated_hash' instead of hashing the key. The hash value should be the same
+     * as hash_function()(key). Usefull to speed-up the lookup to the value if you already have the hash.
+     */
+    size_type erase_ks(const CharT* key, size_type key_size, std::size_t precalculated_hash) {
+        return m_ht.erase(key, key_size, precalculated_hash);
+    }
+    
+    
     
     void swap(array_set& other) { other.m_ht.swap(m_ht); }
     
@@ -281,6 +313,38 @@ public:
     size_type count(const std::basic_string<CharT>& key) const { return m_ht.count(key.data(), key.size()); }
 #endif
     size_type count_ks(const CharT* key, size_type key_size) const { return m_ht.count(key, key_size); }
+    
+    
+    
+#ifdef TSL_HAS_STRING_VIEW 
+    /**
+     * @copydoc count_ks(const CharT* key, size_type key_size, std::size_t precalculated_hash) const
+     */
+    size_type count(const std::basic_string_view<CharT>& key, std::size_t precalculated_hash) const { 
+        return m_ht.count(key.data(), key.size(), precalculated_hash); 
+    }
+#else
+    /**
+     * @copydoc count_ks(const CharT* key, size_type key_size, std::size_t precalculated_hash) const
+     */
+    size_type count(const CharT* key, std::size_t precalculated_hash) const { 
+        return m_ht.count(key, std::strlen(key), precalculated_hash); 
+    }
+    
+    /**
+     * @copydoc count_ks(const CharT* key, size_type key_size, std::size_t precalculated_hash) const
+     */
+    size_type count(const std::basic_string<CharT>& key, std::size_t precalculated_hash) const { 
+        return m_ht.count(key.data(), key.size(), precalculated_hash); 
+    }
+#endif
+    /**
+     * Use the hash value 'precalculated_hash' instead of hashing the key. The hash value should be the same
+     * as hash_function()(key). Usefull to speed-up the lookup to the value if you already have the hash.
+     */
+    size_type count_ks(const CharT* key, size_type key_size, std::size_t precalculated_hash) const { 
+        return m_ht.count(key, key_size, precalculated_hash); 
+    }
     
     
     
@@ -317,6 +381,66 @@ public:
         return m_ht.find(key, key_size);
     }
     
+    
+
+#ifdef TSL_HAS_STRING_VIEW 
+    /**
+     * @copydoc find_ks(const CharT* key, size_type key_size, std::size_t precalculated_hash)
+     */
+    iterator find(const std::basic_string_view<CharT>& key, std::size_t precalculated_hash) {
+        return m_ht.find(key.data(), key.size(), precalculated_hash);
+    }
+    
+    /**
+     * @copydoc find_ks(const CharT* key, size_type key_size, std::size_t precalculated_hash)
+     */
+    const_iterator find(const std::basic_string_view<CharT>& key, std::size_t precalculated_hash) const {
+        return m_ht.find(key.data(), key.size(), precalculated_hash);
+    }
+#else
+    /**
+     * @copydoc find_ks(const CharT* key, size_type key_size, std::size_t precalculated_hash)
+     */
+    iterator find(const CharT* key, std::size_t precalculated_hash) {
+        return m_ht.find(key, std::strlen(key), precalculated_hash);
+    }
+    
+    /**
+     * @copydoc find_ks(const CharT* key, size_type key_size, std::size_t precalculated_hash)
+     */
+    const_iterator find(const CharT* key, std::size_t precalculated_hash) const {
+        return m_ht.find(key, std::strlen(key), precalculated_hash);
+    }
+    
+    /**
+     * @copydoc find_ks(const CharT* key, size_type key_size, std::size_t precalculated_hash)
+     */
+    iterator find(const std::basic_string<CharT>& key, std::size_t precalculated_hash) {
+        return m_ht.find(key.data(), key.size(), precalculated_hash);
+    }
+    
+    /**
+     * @copydoc find_ks(const CharT* key, size_type key_size, std::size_t precalculated_hash)
+     */
+    const_iterator find(const std::basic_string<CharT>& key, std::size_t precalculated_hash) const {
+        return m_ht.find(key.data(), key.size(), precalculated_hash);
+    }
+#endif    
+    /**
+     * Use the hash value 'precalculated_hash' instead of hashing the key. The hash value should be the same
+     * as hash_function()(key). Usefull to speed-up the lookup to the value if you already have the hash.
+     */
+    iterator find_ks(const CharT* key, size_type key_size, std::size_t precalculated_hash) {
+        return m_ht.find(key, key_size, precalculated_hash);
+    }
+    
+    /**
+     * @copydoc find_ks(const CharT* key, size_type key_size, std::size_t precalculated_hash)
+     */
+    const_iterator find_ks(const CharT* key, size_type key_size, std::size_t precalculated_hash) const {
+        return m_ht.find(key, key_size, precalculated_hash);
+    }
+    
 
     
 #ifdef TSL_HAS_STRING_VIEW 
@@ -350,6 +474,66 @@ public:
     
     std::pair<const_iterator, const_iterator> equal_range_ks(const CharT* key, size_type key_size) const {
         return m_ht.equal_range(key, key_size);
+    }
+    
+
+    
+#ifdef TSL_HAS_STRING_VIEW 
+    /**
+     * @copydoc equal_range_ks(const CharT* key, size_type key_size, std::size_t precalculated_hash)
+     */
+    std::pair<iterator, iterator> equal_range(const std::basic_string_view<CharT>& key, std::size_t precalculated_hash) {
+        return m_ht.equal_range(key.data(), key.size(), precalculated_hash);
+    }
+    
+    /**
+     * @copydoc equal_range_ks(const CharT* key, size_type key_size, std::size_t precalculated_hash)
+     */
+    std::pair<const_iterator, const_iterator> equal_range(const std::basic_string_view<CharT>& key, std::size_t precalculated_hash) const {
+        return m_ht.equal_range(key.data(), key.size(), precalculated_hash);
+    }
+#else
+    /**
+     * @copydoc equal_range_ks(const CharT* key, size_type key_size, std::size_t precalculated_hash)
+     */
+    std::pair<iterator, iterator> equal_range(const CharT* key, std::size_t precalculated_hash) {
+        return m_ht.equal_range(key, std::strlen(key), precalculated_hash);
+    }
+    
+    /**
+     * @copydoc equal_range_ks(const CharT* key, size_type key_size, std::size_t precalculated_hash)
+     */
+    std::pair<const_iterator, const_iterator> equal_range(const CharT* key, std::size_t precalculated_hash) const {
+        return m_ht.equal_range(key, std::strlen(key), precalculated_hash);
+    }
+    
+    /**
+     * @copydoc equal_range_ks(const CharT* key, size_type key_size, std::size_t precalculated_hash)
+     */
+    std::pair<iterator, iterator> equal_range(const std::basic_string<CharT>& key, std::size_t precalculated_hash) {
+        return m_ht.equal_range(key.data(), key.size(), precalculated_hash);
+    }
+    
+    /**
+     * @copydoc equal_range_ks(const CharT* key, size_type key_size, std::size_t precalculated_hash)
+     */
+    std::pair<const_iterator, const_iterator> equal_range(const std::basic_string<CharT>& key, std::size_t precalculated_hash) const {
+        return m_ht.equal_range(key.data(), key.size(), precalculated_hash);
+    }
+#endif    
+    /**
+     * Use the hash value 'precalculated_hash' instead of hashing the key. The hash value should be the same
+     * as hash_function()(key). Usefull to speed-up the lookup to the value if you already have the hash.
+     */
+    std::pair<iterator, iterator> equal_range_ks(const CharT* key, size_type key_size, std::size_t precalculated_hash) {
+        return m_ht.equal_range(key, key_size, precalculated_hash);
+    }
+    
+    /**
+     * @copydoc equal_range_ks(const CharT* key, size_type key_size, std::size_t precalculated_hash)
+     */
+    std::pair<const_iterator, const_iterator> equal_range_ks(const CharT* key, size_type key_size, std::size_t precalculated_hash) const {
+        return m_ht.equal_range(key, key_size, precalculated_hash);
     }
     
     

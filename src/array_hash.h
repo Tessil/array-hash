@@ -1078,6 +1078,8 @@ public:
         m_nb_elements = 0;
     }
     
+    
+    
     template<class... ValueArgs>
     std::pair<iterator, bool> emplace(const CharT* key, size_type key_size, ValueArgs&&... value_args) {
         const std::size_t hash = hash_key(key, key_size);
@@ -1106,6 +1108,8 @@ public:
         return it;
     }
     
+    
+    
     iterator erase(const_iterator pos) {
         if(shoud_clear_old_erased_values()) {
             clear_old_erased_values();
@@ -1131,12 +1135,18 @@ public:
         return to_delete;
     }
     
+    
+    
     size_type erase(const CharT* key, size_type key_size) {
+        return erase(key, key_size, hash_key(key, key_size));
+    }
+    
+    size_type erase(const CharT* key, size_type key_size, std::size_t hash) {
         if(shoud_clear_old_erased_values()) {
             clear_old_erased_values();
         }
         
-        const std::size_t ibucket = bucket_for_hash(hash_key(key, key_size));
+        const std::size_t ibucket = bucket_for_hash(hash);
         if(m_buckets[ibucket].erase(key, key_size)) {
             m_nb_elements--;
             return 1;
@@ -1145,6 +1155,8 @@ public:
             return 0;
         }
     }
+    
+    
     
     void swap(array_hash& other) {
         using std::swap;
@@ -1163,12 +1175,22 @@ public:
      */
     template<class U = T, typename std::enable_if<has_mapped_type<U>::value>::type* = nullptr>
     U& at(const CharT* key, size_type key_size) {
-        return const_cast<U&>(static_cast<const array_hash*>(this)->at(key, key_size));
+        return at(key, key_size, hash_key(key, key_size));      
     }
     
     template<class U = T, typename std::enable_if<has_mapped_type<U>::value>::type* = nullptr>
     const U& at(const CharT* key, size_type key_size) const {
-        const std::size_t ibucket = bucket_for_hash(hash_key(key, key_size));
+        return at(key, key_size, hash_key(key, key_size));      
+    }
+    
+    template<class U = T, typename std::enable_if<has_mapped_type<U>::value>::type* = nullptr>
+    U& at(const CharT* key, size_type key_size, std::size_t hash) {
+        return const_cast<U&>(static_cast<const array_hash*>(this)->at(key, key_size, hash));
+    }
+    
+    template<class U = T, typename std::enable_if<has_mapped_type<U>::value>::type* = nullptr>
+    const U& at(const CharT* key, size_type key_size, std::size_t hash) const {
+        const std::size_t ibucket = bucket_for_hash(hash);
         auto it_find = m_buckets[ibucket].find_or_end_of_bucket(key, key_size);
         if(it_find.second) {
             return this->m_values[it_find.first.value()];
@@ -1177,6 +1199,8 @@ public:
             throw std::out_of_range("Couldn't find key.");
         }        
     }
+    
+    
     
     template<class U = T, typename std::enable_if<has_mapped_type<U>::value>::type* = nullptr>
     U& access_operator(const CharT* key, size_type key_size) {
@@ -1197,8 +1221,14 @@ public:
         }
     }
     
+    
+    
     size_type count(const CharT* key, size_type key_size) const {
-        const std::size_t ibucket = bucket_for_hash(hash_key(key, key_size));
+        return count(key, key_size, hash_key(key, key_size));
+    }
+    
+    size_type count(const CharT* key, size_type key_size, std::size_t hash) const {
+        const std::size_t ibucket = bucket_for_hash(hash);
         auto it_find = m_buckets[ibucket].find_or_end_of_bucket(key, key_size);
         if(it_find.second) {
             return 1;
@@ -1208,8 +1238,18 @@ public:
         }
     }
     
+    
+    
     iterator find(const CharT* key, size_type key_size) {
-        const std::size_t ibucket = bucket_for_hash(hash_key(key, key_size));
+        return find(key, key_size, hash_key(key, key_size));
+    }
+    
+    const_iterator find(const CharT* key, size_type key_size) const {
+        return find(key, key_size, hash_key(key, key_size));
+    }
+    
+    iterator find(const CharT* key, size_type key_size, std::size_t hash) {
+        const std::size_t ibucket = bucket_for_hash(hash);
         auto it_find = m_buckets[ibucket].find_or_end_of_bucket(key, key_size);
         if(it_find.second) {
             return iterator(m_buckets.begin() + ibucket, it_find.first, this);
@@ -1219,8 +1259,8 @@ public:
         }
     }
     
-    const_iterator find(const CharT* key, size_type key_size) const {
-        const std::size_t ibucket = bucket_for_hash(hash_key(key, key_size));
+    const_iterator find(const CharT* key, size_type key_size, std::size_t hash) const {
+        const std::size_t ibucket = bucket_for_hash(hash);
         auto it_find = m_buckets[ibucket].find_or_end_of_bucket(key, key_size);
         if(it_find.second) {
             return const_iterator(m_buckets.cbegin() + ibucket, it_find.first, this);
@@ -1230,13 +1270,25 @@ public:
         }
     }
     
+    
+    
     std::pair<iterator, iterator> equal_range(const CharT* key, size_type key_size) {
-        iterator it = find(key, key_size);
-        return std::make_pair(it, (it == end())?it:std::next(it));
+        return equal_range(key, key_size, hash_key(key, key_size));
     }
     
     std::pair<const_iterator, const_iterator> equal_range(const CharT* key, size_type key_size) const {
-        const_iterator it = find(key, key_size);
+        return equal_range(key, key_size, hash_key(key, key_size));
+    }
+    
+    std::pair<iterator, iterator> equal_range(const CharT* key, size_type key_size, std::size_t hash) {
+        iterator it = find(key, key_size, hash);
+        return std::make_pair(it, (it == end())?it:std::next(it));
+    }
+    
+    std::pair<const_iterator, const_iterator> equal_range(const CharT* key, size_type key_size, 
+                                                          std::size_t hash) const 
+    {
+        const_iterator it = find(key, key_size, hash);
         return std::make_pair(it, (it == cend())?it:std::next(it));
     }
     

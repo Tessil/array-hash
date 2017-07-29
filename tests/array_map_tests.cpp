@@ -510,4 +510,67 @@ BOOST_AUTO_TEST_CASE(test_empty_map) {
     BOOST_CHECK_EQUAL(map["new value"], int{});
 }
 
+
+
+/**
+ * Test precalculated hash
+ */
+BOOST_AUTO_TEST_CASE(test_precalculated_hash) {
+    tsl::array_map<char, int> map = {{"k1", -1}, {"k2", -2}, {"k3", -3}, {"k4", -4}, {"k5", -5}};
+    const tsl::array_map<char, int> map_const = map;
+    
+    /**
+     * find
+     */
+    BOOST_REQUIRE(map.find("k3", map.hash_function()("k3", strlen("k3"))) != map.end());
+    BOOST_CHECK_EQUAL(map.find("k3", map.hash_function()("k3", strlen("k3"))).value(), -3);
+    
+    BOOST_REQUIRE(map_const.find("k3", map.hash_function()("k3", strlen("k3"))) != map_const.end());
+    BOOST_CHECK_EQUAL(map_const.find("k3", map.hash_function()("k3", strlen("k3"))).value(), -3);
+    
+    BOOST_REQUIRE_NE(map.hash_function()("k2", strlen("k2")), map.hash_function()("k3", strlen("k3")));
+    BOOST_CHECK(map.find("k3", map.hash_function()("k2", strlen("k2"))) == map.end());
+    
+    /**
+     * at
+     */
+    BOOST_CHECK_EQUAL(map.at("k3", map.hash_function()("k3", strlen("k3"))), -3);
+    BOOST_CHECK_EQUAL(map_const.at("k3", map_const.hash_function()("k3", strlen("k3"))), -3);
+    
+    BOOST_REQUIRE_NE(map.hash_function()("k2", strlen("k2")), map.hash_function()("k3", strlen("k3")));
+    BOOST_CHECK_THROW(map.at("k3", map.hash_function()("k2", strlen("k2"))), std::out_of_range);
+    
+    /**
+     * count
+     */
+    BOOST_CHECK_EQUAL(map.count("k3", map.hash_function()("k3", strlen("k3"))), 1);
+    BOOST_CHECK_EQUAL(map_const.count("k3", map_const.hash_function()("k3", strlen("k3"))), 1);
+    
+    BOOST_REQUIRE_NE(map.hash_function()("k2", strlen("k2")), map.hash_function()("k3", strlen("k3")));
+    BOOST_CHECK_EQUAL(map.count("k3", map.hash_function()("k2", strlen("k2"))), 0);
+    
+    /**
+     * equal_range
+     */
+    auto it_range = map.equal_range("k3", map.hash_function()("k3", strlen("k3")));
+    BOOST_REQUIRE_EQUAL(std::distance(it_range.first, it_range.second), 1);
+    BOOST_CHECK_EQUAL(it_range.first.value(), -3);
+    
+    auto it_range_const = map_const.equal_range("k3", map_const.hash_function()("k3", strlen("k3")));
+    BOOST_REQUIRE_EQUAL(std::distance(it_range_const.first, it_range_const.second), 1);
+    BOOST_CHECK_EQUAL(it_range_const.first.value(), -3);
+    
+    it_range = map.equal_range("k3", map.hash_function()("k2", strlen("k2")));
+    BOOST_REQUIRE_NE(map.hash_function()("k2", strlen("k2")), map.hash_function()("k3", strlen("k3")));
+    BOOST_CHECK_EQUAL(std::distance(it_range.first, it_range.second), 0);
+    
+    /**
+     * erase
+     */
+    BOOST_CHECK_EQUAL(map.erase("k3", map.hash_function()("k3", strlen("k3"))), 1);
+    
+    BOOST_REQUIRE_NE(map.hash_function()("k2", strlen("k2")), map.hash_function()("k4", strlen("k4")));
+    BOOST_CHECK_EQUAL(map.erase("k4", map.hash_function()("k2", strlen("k2"))), 0);
+}
+
 BOOST_AUTO_TEST_SUITE_END()
