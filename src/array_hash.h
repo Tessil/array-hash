@@ -1096,6 +1096,16 @@ public:
         return emplace_impl(ibucket, it_find.first, key, key_size, std::forward<ValueArgs>(value_args)...);
     }
     
+    template<class M>
+    std::pair<iterator, bool> insert_or_assign(const CharT* key, size_type key_size, M&& obj) { 
+        auto it = emplace(key, key_size, std::forward<M>(obj));
+        if(!it.second) {
+            it.first.value() = std::forward<M>(obj);
+        }
+        
+        return it;
+    }
+    
     iterator erase(const_iterator pos) {
         if(shoud_clear_old_erased_values()) {
             clear_old_erased_values();

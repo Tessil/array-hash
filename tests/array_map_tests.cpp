@@ -122,6 +122,31 @@ BOOST_AUTO_TEST_CASE(test_range_insert) {
     }    
 }
 
+
+
+/**
+ * insert_or_assign
+ */
+BOOST_AUTO_TEST_CASE(test_insert_or_assign) {
+    tsl::array_map<char, move_only_test> map;
+    tsl::array_map<char, move_only_test>::iterator it;    
+    bool inserted;
+    
+    
+    const std::string key1 = "key1";
+    
+    std::tie(it, inserted) = map.insert_or_assign(key1, move_only_test(1));
+    BOOST_CHECK(map.key_eq()(it.key(), it.key_size(), key1.data(), key1.size()));
+    BOOST_CHECK_EQUAL(it.value(), move_only_test(1));
+    BOOST_CHECK(inserted);
+    
+    
+    std::tie(it, inserted) = map.insert_or_assign("key1", move_only_test(3));
+    BOOST_CHECK(map.key_eq()(it.key(), it.key_size(), key1.data(), key1.size()));
+    BOOST_CHECK_EQUAL(it.value(), move_only_test(3));
+    BOOST_CHECK(!inserted);
+}
+
 /**
  * emplace
  */

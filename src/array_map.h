@@ -241,6 +241,29 @@ public:
     
     
 #ifdef TSL_HAS_STRING_VIEW
+    template<class M>
+    std::pair<iterator, bool> insert_or_assign(const std::basic_string_view<CharT>& key, M&& obj) { 
+        return m_ht.insert_or_assign(key.data(), key.size(), std::forward<M>(obj)); 
+    }
+#else
+    template<class M>
+    std::pair<iterator, bool> insert_or_assign(const CharT* key, M&& obj) { 
+        return m_ht.insert_or_assign(key, std::strlen(key), std::forward<M>(obj)); 
+    }
+    
+    template<class M>
+    std::pair<iterator, bool> insert_or_assign(const std::basic_string<CharT>& key, M&& obj) { 
+        return m_ht.insert_or_assign(key.data(), key.size(), std::forward<M>(obj)); 
+    }
+#endif 
+    template<class M>
+    std::pair<iterator, bool> insert_or_assign_ks(const CharT* key, size_type key_size, M&& obj) { 
+        return m_ht.insert_or_assign(key, key_size, std::forward<M>(obj)); 
+    }
+    
+    
+    
+#ifdef TSL_HAS_STRING_VIEW
     template<class... Args>
     std::pair<iterator, bool> emplace(const std::basic_string_view<CharT>& key, Args&&... args) {
         return m_ht.emplace(key.data(), key.size(), std::forward<Args>(args)...);
