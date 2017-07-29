@@ -8,6 +8,9 @@
 #include "utils.h"
 
 
+BOOST_AUTO_TEST_SUITE(test_array_set)
+
+
 using test_types = boost::mpl::list<
                         tsl::array_set<char>,
                         tsl::array_set<wchar_t>,
@@ -17,7 +20,7 @@ using test_types = boost::mpl::list<
                         tsl::array_set<wchar_t, tsl::str_hash_ah<wchar_t>, tsl::str_equal_ah<wchar_t>, false>,
                         tsl::array_set<char16_t, tsl::str_hash_ah<char16_t>, tsl::str_equal_ah<char16_t>, false>,
                         tsl::array_set<char32_t, tsl::str_hash_ah<char32_t>, tsl::str_equal_ah<char32_t>, false>
-                        >;
+                    >;
 
 
 /**
@@ -58,3 +61,31 @@ BOOST_AUTO_TEST_CASE_TEMPLATE(test_insert, ASet, test_types) {
         BOOST_CHECK(map.key_eq()(it.key(), it.key_size(), key.c_str(), key.size()));
     }
 }
+
+BOOST_AUTO_TEST_CASE(test_insert_more_than_max_size) {
+    tsl::array_set<char, tsl::str_hash_ah<char>, tsl::str_equal_ah<char>, true, 
+                   std::uint16_t, std::uint8_t> map;
+    for(std::size_t i=0; i < map.max_size(); i++) {
+        map.insert(utils::get_key<char>(i));
+    }
+    
+    BOOST_CHECK_EQUAL(map.size(), map.max_size());
+    BOOST_CHECK_THROW(map.insert(utils::get_key<char>(map.max_size())), 
+                      std::length_error);
+}
+
+BOOST_AUTO_TEST_CASE(test_insert_with_too_long_string) {
+    tsl::array_set<char, tsl::str_hash_ah<char>, tsl::str_equal_ah<char>, true,
+                   std::uint8_t, std::uint16_t> map;
+    for(std::size_t i=0; i < 10; i++) {
+        map.insert(utils::get_key<char>(i));
+    }
+    
+    const std::string long_string("a", map.max_key_size());
+    BOOST_CHECK(map.insert(long_string).second);
+    
+    const std::string too_long_string("a", map.max_key_size() + 1);
+    BOOST_CHECK_THROW(map.insert(too_long_string), std::length_error);
+}
+
+BOOST_AUTO_TEST_SUITE_END()

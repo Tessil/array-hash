@@ -39,7 +39,10 @@ namespace tsl {
 /**
  * Implementation of a cache-conscious string hash map.
  * 
- * The map stores the strings as `const CharT*`.
+ * The map stores the strings as `const CharT*`. If StoreNullTerminator is true,
+ * the strings are stored with the a null-terminator (the key() method of the iterators
+ * will return a pointer to this null-terminated string). Otherwise the null character
+ * is not stored (which allow an economy of 1 byte per string).
  * 
  * The value T must be either nothrow move-constructible, copy-constuctible or both.
  * 
@@ -92,8 +95,8 @@ public:
     
     template<class InputIt>
     array_map(InputIt first, InputIt last,
-             size_type bucket_count = ht::DEFAULT_INIT_BUCKET_COUNT,
-             const Hash& hash = Hash()): array_map(bucket_count, hash)
+              size_type bucket_count = ht::DEFAULT_INIT_BUCKET_COUNT,
+              const Hash& hash = Hash()): array_map(bucket_count, hash)
     {
         insert(first, last);
     }
@@ -121,6 +124,8 @@ public:
 #ifdef TSL_HAS_STRING_VIEW
     array_map& operator=(std::initializer_list<std::pair<std::basic_string_view<CharT>, T>> ilist) {
         clear();
+        
+        reserve(ilist.size());
         insert(ilist);
         
         return *this;
@@ -128,6 +133,8 @@ public:
 #else
     array_map& operator=(std::initializer_list<std::pair<const CharT*, T>> ilist) {
         clear();
+        
+        reserve(ilist.size());
         insert(ilist);
         
         return *this;
@@ -165,46 +172,53 @@ public:
     
 #ifdef TSL_HAS_STRING_VIEW
     std::pair<iterator, bool> insert(const std::basic_string_view<CharT>& key, const T& value) {
-        return m_ht.insert(key.data(), key.size(), value); 
+        return m_ht.emplace(key.data(), key.size(), value); 
     }
 #else
     std::pair<iterator, bool> insert(const CharT* key, const T& value) {
-        return m_ht.insert(key, std::strlen(key), value);
+        return m_ht.emplace(key, std::strlen(key), value);
     }
     
     std::pair<iterator, bool> insert(const std::basic_string<CharT>& key, const T& value) {
-        return m_ht.insert(key.data(), key.size(), value); 
+        return m_ht.emplace(key.data(), key.size(), value); 
     }
 #endif
     std::pair<iterator, bool> insert_ks(const CharT* key, size_type key_size, const T& value) {
-        return m_ht.insert(key, key_size, value);
+        return m_ht.emplace(key, key_size, value);
     }
     
     
    
 #ifdef TSL_HAS_STRING_VIEW
     std::pair<iterator, bool> insert(const std::basic_string_view<CharT>& key, T&& value) {
-        return m_ht.insert(key.data(), key.size(), std::move(value));
+        return m_ht.emplace(key.data(), key.size(), std::move(value));
     }
 #else
     std::pair<iterator, bool> insert(const CharT* key, T&& value) {
-        return m_ht.insert(key, std::strlen(key), std::move(value));
+        return m_ht.emplace(key, std::strlen(key), std::move(value));
     }
     
     std::pair<iterator, bool> insert(const std::basic_string<CharT>& key, T&& value) {
-        return m_ht.insert(key.data(), key.size(), std::move(value));
+        return m_ht.emplace(key.data(), key.size(), std::move(value));
     }
 #endif    
     std::pair<iterator, bool> insert_ks(const CharT* key, size_type key_size, T&& value) {
-        return m_ht.insert(key, key_size, std::move(value));
+        return m_ht.emplace(key, key_size, std::move(value));
     }
        
        
        
     template<class InputIt>
     void insert(InputIt first, InputIt last) {
-        if(std::is_base_of<std::forward_iterator_tag, typename std::iterator_traits<InputIt>::iterator_category>::value) {
-            reserve(std::distance(first, last));
+        if(std::is_base_of<std::forward_iterator_tag, 
+                           typename std::iterator_traits<InputIt>::iterator_category>::value) 
+        {
+            const auto nb_elements_insert = std::distance(first, last);
+            const std::size_t nb_free_buckets = std::size_t(float(bucket_count())*max_load_factor()) - size();
+            
+            if(nb_elements_insert > 0 && nb_free_buckets < std::size_t(nb_elements_insert)) {
+                reserve(size() + std::size_t(nb_elements_insert));
+            }
         }
         
         for(auto it = first; it != last; ++it) {
@@ -229,22 +243,22 @@ public:
 #ifdef TSL_HAS_STRING_VIEW
     template<class... Args>
     std::pair<iterator, bool> emplace(const std::basic_string_view<CharT>& key, Args&&... args) {
-        return m_ht.insert(key.data(), key.size(), std::forward<Args>(args)...);
+        return m_ht.emplace(key.data(), key.size(), std::forward<Args>(args)...);
     }
 #else
     template<class... Args>
     std::pair<iterator, bool> emplace(const CharT* key, Args&&... args) {
-        return m_ht.insert(key, std::strlen(key), std::forward<Args>(args)...);
+        return m_ht.emplace(key, std::strlen(key), std::forward<Args>(args)...);
     }
     
     template<class... Args>
     std::pair<iterator, bool> emplace(const std::basic_string<CharT>& key, Args&&... args) {
-        return m_ht.insert(key.data(), key.size(), std::forward<Args>(args)...);
+        return m_ht.emplace(key.data(), key.size(), std::forward<Args>(args)...);
     }
 #endif    
     template<class... Args>
     std::pair<iterator, bool> emplace_ks(const CharT* key, size_type key_size, Args&&... args) {
-        return m_ht.insert(key, key_size, std::forward<Args>(args)...);
+        return m_ht.emplace(key, key_size, std::forward<Args>(args)...);
     }
     
     

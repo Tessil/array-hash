@@ -12,19 +12,21 @@
 #include "array_map.h"
 #include "utils.h"
 
+BOOST_AUTO_TEST_SUITE(test_array_map)
 
-using test_types = boost::mpl::list<
-                tsl::array_map<char, int64_t>,
-                tsl::array_map<char, std::string>,
-                tsl::array_map<char, move_only_test>,
-                tsl::array_map<wchar_t, move_only_test>,
-                tsl::array_map<char16_t, move_only_test>,
-                tsl::array_map<char32_t, move_only_test>,
-                tsl::array_map<char, move_only_test, tsl::str_hash_ah<char>, tsl::str_equal_ah<char>, false>,
-                tsl::array_map<wchar_t, move_only_test, tsl::str_hash_ah<wchar_t>, tsl::str_equal_ah<wchar_t>, false>,
-                tsl::array_map<char16_t, move_only_test, tsl::str_hash_ah<char16_t>, tsl::str_equal_ah<char16_t>, false>,
-                tsl::array_map<char32_t, move_only_test, tsl::str_hash_ah<char32_t>, tsl::str_equal_ah<char32_t>, false>
-                >;
+using test_types = 
+    boost::mpl::list<
+        tsl::array_map<char, int64_t>,
+        tsl::array_map<char, std::string>,
+        tsl::array_map<char, move_only_test>,
+        tsl::array_map<wchar_t, move_only_test>,
+        tsl::array_map<char16_t, move_only_test>,
+        tsl::array_map<char32_t, move_only_test>,
+        tsl::array_map<char, move_only_test, tsl::str_hash_ah<char>, tsl::str_equal_ah<char>, false>,
+        tsl::array_map<wchar_t, move_only_test, tsl::str_hash_ah<wchar_t>, tsl::str_equal_ah<wchar_t>, false>,
+        tsl::array_map<char16_t, move_only_test, tsl::str_hash_ah<char16_t>, tsl::str_equal_ah<char16_t>, false>,
+        tsl::array_map<char32_t, move_only_test, tsl::str_hash_ah<char32_t>, tsl::str_equal_ah<char32_t>, false>
+    >;
 
 
 /**
@@ -83,20 +85,6 @@ BOOST_AUTO_TEST_CASE(test_insert_more_than_max_size) {
                       std::length_error);
 }
 
-BOOST_AUTO_TEST_CASE(test_insert_more_than_max_size_with_erase) {
-    tsl::array_map<char, int64_t, tsl::str_hash_ah<char>, tsl::str_equal_ah<char>, true, 
-                   std::uint16_t, std::uint8_t> map;
-    for(std::size_t i=0; i < map.max_size(); i++) {
-        map.insert(utils::get_key<char>(i), utils::get_value<int64_t>(i));
-    }
-    map.erase(utils::get_key<char>(0));
-    
-    BOOST_CHECK_EQUAL(map.size(), map.max_size()-1);
-    BOOST_CHECK_THROW(map.insert(utils::get_key<char>(map.max_size()), 
-                                 utils::get_value<int64_t>(map.max_size())), 
-                      std::length_error);
-}
-
 BOOST_AUTO_TEST_CASE(test_insert_with_too_long_string) {
     tsl::array_map<char, int64_t, tsl::str_hash_ah<char>, tsl::str_equal_ah<char>, true,
                    std::uint8_t, std::uint16_t> map;
@@ -111,6 +99,41 @@ BOOST_AUTO_TEST_CASE(test_insert_with_too_long_string) {
     BOOST_CHECK_THROW(map.insert(too_long_string, utils::get_value<int64_t>(11)), std::length_error);
 }
 
+
+BOOST_AUTO_TEST_CASE(test_range_insert) {
+    // insert x values in vector, range insert x-15 values from vector to map, check values
+    const int nb_values = 1000;
+    std::vector<std::pair<std::string, std::size_t>> values;
+    for(std::size_t i = 0; i < nb_values; i++) {
+        values.push_back(std::make_pair(utils::get_key<char>(i), i+1));
+    }
+    
+    
+    tsl::array_map<char, std::size_t> map = {{"range_key_1", 1}, {"range_key_2", 2}};
+    map.insert(std::next(values.begin(), 10), std::prev(values.end(), 5));
+    
+    BOOST_CHECK_EQUAL(map.size(), 987);
+    
+    BOOST_CHECK_EQUAL(map["range_key_1"], 1);
+    BOOST_CHECK_EQUAL(map["range_key_2"], 2);
+    
+    for(std::size_t i = 10; i < nb_values - 5; i++) {
+        BOOST_CHECK_EQUAL(map[utils::get_key<char>(i)], i+1);
+    }    
+}
+
+/**
+ * emplace
+ */
+BOOST_AUTO_TEST_CASE(test_emplace) {
+    tsl::array_map<char, move_only_test> map;
+    map.emplace("test1", 1);
+    map.emplace_ks("testIgnore", 4, 3);
+    
+    BOOST_CHECK_EQUAL(map.size(), 2);
+    BOOST_CHECK(map.at("test1") ==  move_only_test(1));
+    BOOST_CHECK(map.at("test") == move_only_test(3));
+}
 
 /**
  * erase
@@ -188,7 +211,7 @@ BOOST_AUTO_TEST_CASE_TEMPLATE(test_insert_erase_insert, AMap, test_types) {
     }
     BOOST_CHECK_EQUAL(map.size(), nb_values/4);
     
-    
+    // Insert other half
     for(size_t i = nb_values/2; i < nb_values; i++) {
         const auto key = utils::get_key<char_tt>(i);
         std::tie(it, inserted) = map.insert(key, utils::get_value<value_tt>(i));
@@ -199,6 +222,7 @@ BOOST_AUTO_TEST_CASE_TEMPLATE(test_insert_erase_insert, AMap, test_types) {
     }
     BOOST_CHECK_EQUAL(map.size(), nb_values-nb_values/4);
     
+    // Check values
     for(size_t i = 0; i < nb_values; i++) {
         const auto key = utils::get_key<char_tt>(i);
         it = map.find(key);
@@ -211,19 +235,6 @@ BOOST_AUTO_TEST_CASE_TEMPLATE(test_insert_erase_insert, AMap, test_types) {
             BOOST_CHECK_EQUAL(*it, utils::get_value<value_tt>(i));
         }
     }
-}
-
-/**
- * emplace
- */
-BOOST_AUTO_TEST_CASE(test_emplace) {
-    tsl::array_map<char, move_only_test> map;
-    map.emplace("test1", 1);
-    map.emplace_ks("testIgnore", 4, 3);
-    
-    BOOST_CHECK_EQUAL(map.size(), 2);
-    BOOST_CHECK(map.at("test1") ==  move_only_test(1));
-    BOOST_CHECK(map.at("test") == move_only_test(3));
 }
 
 /**
@@ -259,6 +270,14 @@ BOOST_AUTO_TEST_CASE(test_clear) {
     BOOST_CHECK_EQUAL(map.size(), 0);
     BOOST_CHECK(map.begin() == map.end());
     BOOST_CHECK(map.cbegin() == map.cend());
+    
+    map.insert("test3", 30);
+    map.insert({{"test4", 40}, {"test5", 50}, {"test6", 60}, {"test7", 70}});
+    
+    BOOST_CHECK(map == (
+                        tsl::array_map<char, int64_t>({{"test3", 30}, {"test4", 40}, {"test5", 50}, 
+                                                       {"test6", 60}, {"test7", 70}})
+                ));
 }
 
 
@@ -278,6 +297,11 @@ BOOST_AUTO_TEST_CASE(test_shrink_to_fit) {
     }
     
     map.shrink_to_fit();
+    BOOST_CHECK(map == map2);
+    
+    
+    map.insert({{"shrink_test1", 10}, {"shrink_test2", 20}, {"shrink_test3", 30}, {"shrink_test4", 40}});
+    map2.insert({{"shrink_test1", 10}, {"shrink_test2", 20}, {"shrink_test3", 30}, {"shrink_test4", 40}});
     BOOST_CHECK(map == map2);
 }
 
@@ -372,7 +396,6 @@ BOOST_AUTO_TEST_CASE(test_equal_range) {
  * operator[]
  */
 BOOST_AUTO_TEST_CASE(test_access_operator) {
-    // insert x values, use at for known and unknown values.
     tsl::array_map<char, int64_t> map = {{"test1", 10}, {"test2", 20}};
     
     BOOST_CHECK_EQUAL(map["test1"], 10);
@@ -380,6 +403,22 @@ BOOST_AUTO_TEST_CASE(test_access_operator) {
     BOOST_CHECK_EQUAL(map["test3"], int64_t());
     
     BOOST_CHECK_EQUAL(map.size(), 3);
+}
+
+BOOST_AUTO_TEST_CASE(test_access_operator_2) {
+    // insert x values, use at for known and unknown values.
+    tsl::array_map<char, int64_t> map;
+    
+    std::size_t nb_values = 200;
+    for(std::size_t i = 0; i < nb_values; i++) {
+        map[utils::get_key<char>(i)] = int64_t(i);
+    }
+    
+    for(std::size_t i = 0; i < nb_values; i++) {
+        BOOST_CHECK_EQUAL(map[utils::get_key<char>(i)], int64_t(i));
+    }
+    
+    BOOST_CHECK_EQUAL(map.size(), nb_values);
 }
 
 /**
@@ -445,3 +484,5 @@ BOOST_AUTO_TEST_CASE(test_empty_map) {
     
     BOOST_CHECK_EQUAL(map["new value"], int{});
 }
+
+BOOST_AUTO_TEST_SUITE_END()
