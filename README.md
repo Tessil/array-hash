@@ -12,7 +12,7 @@ Due to its cache friendliness, the structure is well-adapted to store strings lo
 The library provides two classes: `tsl::array_map` and `tsl::array_set`.
 
 ### Overview
-- Header-only library, just include [src/](src/) to your include path and you're ready to go.
+- Header-only library, just add the project to your include path and you are ready to go.
 - Low memory usage with good performances.
 - By default the maximum allowed size for a key is set to 65 535. This can be raised through the `KeySizeT` template parameter.
 - By default the maximum size of the map is limited to 4 294 967 296 elements. This can be raised through the `IndexSizeT` template parameter.
@@ -70,7 +70,7 @@ tsl::array_map<char, int, str_hash> map;
 The `std::hash<std::string>` can't be used efficiently as the structure doesn't store any `std::string` object. Any time a hash would be needed a temporary `std::string` would have to be created.
 
 ### Installation
-To use array-hash, just add the [src/](src/) directory to your include path. It's a **header-only** library.
+To use array-hash, just add the project to your include path. It is a **header-only** library.
 
 The code should work with any C++11 standard-compliant compiler and has been tested with GCC 4.8.4, Clang 3.5.0 and Visual Studio 2015.
 
@@ -96,8 +96,8 @@ The API can be found [here](https://tessil.github.io/array-hash/doc_without_stri
 ### Example
 ```c++
 #include <iostream>
-#include "array_map.h"
-#include "array_set.h"
+#include <tsl/array_map.h>
+#include <tsl/array_set.h>
 
 
 int main() {
