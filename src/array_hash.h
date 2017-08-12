@@ -181,6 +181,7 @@ private:
     
 private:
     static const std::size_t MIN_BUCKETS_SIZE = 2;
+    static_assert(is_power_of_two(GrowthFactor), "GrowthFactor must be a power of two.");
     
     std::size_t m_mask;
 };
