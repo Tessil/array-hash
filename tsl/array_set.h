@@ -38,18 +38,18 @@ namespace tsl {
 /**
  * Implementation of a cache-conscious string hash set.
  * 
- * The set stores the strings as `const CharT*`. If StoreNullTerminator is true,
- * the strings are stored with the a null-terminator (the key() method of the iterators
+ * The set stores the strings as `const CharT*`. If `StoreNullTerminator` is true,
+ * the strings are stored with the a null-terminator (the `key()` method of the iterators
  * will return a pointer to this null-terminated string). Otherwise the null character
  * is not stored (which allow an economy of 1 byte per string).
  * 
- * The size of a key string is limited to std::numeric_limits<KeySizeT>::max() - 1. 
- * That is 65 535 characters by default, but can be raised with the KeySizeT template parameter. 
- * See max_key_size() for an easy access to this limit.
+ * The size of a key string is limited to `std::numeric_limits<KeySizeT>::max() - 1`. 
+ * That is 65 535 characters by default, but can be raised with the `KeySizeT` template parameter. 
+ * See `max_key_size()` for an easy access to this limit.
  * 
- * The number of elements in the set is limited to std::numeric_limits<IndexSizeT>::max().
- * That is 4 294 967 296 elements, but can be raised with the IndexSizeT template parameter. 
- * See max_size() for an easy access to this limit.
+ * The number of elements in the set is limited to `std::numeric_limits<IndexSizeT>::max()`.
+ * That is 4 294 967 296 elements, but can be raised with the `IndexSizeT` template parameter. 
+ * See `max_size()` for an easy access to this limit.
  * 
  * Iterators invalidation:
  *  - clear, operator=: always invalidate the iterators.
@@ -597,6 +597,20 @@ public:
 private:
     ht m_ht;
 };
+
+
+/**
+ * Same as 
+ * `tsl::array_set<CharT, Hash, KeyEqual, StoreNullTerminator, KeySizeT, IndexSizeT, tsl::prime_growth_policy_ah>`.
+ */
+template<class CharT,
+         class Hash = tsl::str_hash_ah<CharT>,
+         class KeyEqual = tsl::str_equal_ah<CharT>,
+         bool StoreNullTerminator = true,
+         class KeySizeT = std::uint16_t,
+         class IndexSizeT = std::uint32_t>         
+using array_pg_set = array_set<CharT, Hash, KeyEqual, StoreNullTerminator, 
+                               KeySizeT, IndexSizeT, tsl::prime_growth_policy_ah>;
 
 } //end namespace tsl
 

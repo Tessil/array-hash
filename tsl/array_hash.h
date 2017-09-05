@@ -27,7 +27,6 @@
 #include <algorithm>
 #include <cassert>
 #include <cmath>
-#include <climits>
 #include <cstddef>
 #include <cstdint>
 #include <cstdlib>
@@ -616,7 +615,7 @@ public:
 protected:
     static constexpr float VECTOR_GROWTH_RATE = 1.5f;
     
-    // TODO use a sparse array?
+    // TODO use a sparse array? or a std::dequeu
     std::vector<T> m_values;
 };
 

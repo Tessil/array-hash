@@ -42,7 +42,10 @@ using test_types = boost::mpl::list<
                         tsl::array_set<char, tsl::str_hash_ah<char>, tsl::str_equal_ah<char>, false>,
                         tsl::array_set<wchar_t, tsl::str_hash_ah<wchar_t>, tsl::str_equal_ah<wchar_t>, false>,
                         tsl::array_set<char16_t, tsl::str_hash_ah<char16_t>, tsl::str_equal_ah<char16_t>, false>,
-                        tsl::array_set<char32_t, tsl::str_hash_ah<char32_t>, tsl::str_equal_ah<char32_t>, false>
+                        tsl::array_set<char32_t, tsl::str_hash_ah<char32_t>, tsl::str_equal_ah<char32_t>, false>,
+                        tsl::array_pg_set<char16_t>,
+                        tsl::array_set<char16_t, tsl::str_hash_ah<char16_t>, tsl::str_equal_ah<char16_t>, false,
+                                       std::uint16_t, std::uint16_t, tsl::mod_growth_policy_ah<>>
                     >;
 
 

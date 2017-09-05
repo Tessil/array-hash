@@ -48,7 +48,10 @@ using test_types =
         tsl::array_map<char, move_only_test, tsl::str_hash_ah<char>, tsl::str_equal_ah<char>, false>,
         tsl::array_map<wchar_t, move_only_test, tsl::str_hash_ah<wchar_t>, tsl::str_equal_ah<wchar_t>, false>,
         tsl::array_map<char16_t, move_only_test, tsl::str_hash_ah<char16_t>, tsl::str_equal_ah<char16_t>, false>,
-        tsl::array_map<char32_t, move_only_test, tsl::str_hash_ah<char32_t>, tsl::str_equal_ah<char32_t>, false>
+        tsl::array_map<char32_t, move_only_test, tsl::str_hash_ah<char32_t>, tsl::str_equal_ah<char32_t>, false>,
+        tsl::array_pg_map<char16_t, move_only_test>,
+        tsl::array_map<char16_t, move_only_test, tsl::str_hash_ah<char16_t>, tsl::str_equal_ah<char16_t>, false,
+                       std::uint16_t, std::uint16_t, tsl::mod_growth_policy_ah<>>
     >;
 
 
