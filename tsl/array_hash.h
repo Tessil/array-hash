@@ -811,11 +811,11 @@ public:
     array_hash(size_type bucket_count, 
                const Hash& hash,
                float max_load_factor): Hash(hash), GrowthPolicy((bucket_count == 0)?++bucket_count:bucket_count), 
-                                       m_buckets(0), m_nb_elements(0) 
+                                       m_buckets(bucket_count > max_bucket_count()? 
+                                                    throw std::length_error("The map exceeds its maxmimum size."):
+                                                    bucket_count), 
+                                       m_nb_elements(0) 
     {
-        tsl_assert(bucket_count > 0);
-        m_buckets.resize(bucket_count);
-        
         this->max_load_factor(max_load_factor);
     }
     
