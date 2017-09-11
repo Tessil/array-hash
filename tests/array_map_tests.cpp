@@ -32,7 +32,7 @@
 #include <boost/test/unit_test.hpp>
 #include <boost/mpl/list.hpp>
 
-#include "tsl/array_map.h"
+#include <tsl/array_map.h>
 #include "utils.h"
 
 BOOST_AUTO_TEST_SUITE(test_array_map)

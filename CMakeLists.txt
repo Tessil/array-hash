@@ -10,7 +10,8 @@ set(TEST_EXECUTABLE "test_array_hash")
 add_executable("${TEST_EXECUTABLE}" "tests/main.cpp" 
                                     "tests/array_bucket_test.cpp" 
                                     "tests/array_map_tests.cpp" 
-                                    "tests/array_set_tests.cpp")
+                                    "tests/array_set_tests.cpp"
+                                    "tests/policy_tests.cpp")
                                     
 target_include_directories("${TEST_EXECUTABLE}" PRIVATE "${Boost_INCLUDE_DIRS}" ".") 
 target_link_libraries("${TEST_EXECUTABLE}" ${Boost_LIBRARIES})
