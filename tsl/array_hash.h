@@ -144,7 +144,7 @@ class array_bucket {
     static_assert(std::is_unsigned<KeySizeT>::value, "KeySizeT should be an unsigned type.");
     
 public:
-    template<bool is_const>
+    template<bool IsConst>
     class array_bucket_iterator;
     
     using char_type = CharT;
@@ -223,11 +223,11 @@ private:
     }
     
 public:    
-    template<bool is_const>
+    template<bool IsConst>
     class array_bucket_iterator {
         friend class array_bucket;
         
-        using buffer_type = typename std::conditional<is_const, const CharT, CharT>::type;
+        using buffer_type = typename std::conditional<IsConst, const CharT, CharT>::type;
         
         explicit array_bucket_iterator(buffer_type* position) noexcept: m_position(position) {
         }
@@ -257,7 +257,7 @@ public:
         }
         
         
-        template<class U = T, typename std::enable_if<has_mapped_type<U>::value && !is_const>::type* = nullptr>
+        template<class U = T, typename std::enable_if<has_mapped_type<U>::value && !IsConst>::type* = nullptr>
         void set_value(U value) noexcept {
             std::memcpy(m_position + size_as_char_t<key_size_type>() + key_size() + KEY_EXTRA_SIZE, 
                         &value, sizeof(value));
@@ -659,7 +659,7 @@ private:
                                                               KeyEqual, KeySizeT, StoreNullTerminator>;
     
 public:
-    template<bool is_const>
+    template<bool IsConst>
     class array_hash_iterator;
     
     using char_type = CharT;
@@ -676,18 +676,18 @@ public:
  * Iterator classes
  */ 
 public:
-    template<bool is_const>
+    template<bool IsConst>
     class array_hash_iterator {
         friend class array_hash;
         
     private:
         using iterator_array_bucket = typename array_bucket::const_iterator;
                                                             
-        using iterator_buckets = typename std::conditional<is_const, 
+        using iterator_buckets = typename std::conditional<IsConst, 
                                                            typename std::vector<array_bucket>::const_iterator, 
                                                            typename std::vector<array_bucket>::iterator>::type;
                                                             
-        using array_hash_ptr = typename std::conditional<is_const, 
+        using array_hash_ptr = typename std::conditional<IsConst, 
                                                          const array_hash*, 
                                                          array_hash*>::type;
 
@@ -697,12 +697,12 @@ public:
         using difference_type = std::ptrdiff_t;
         using reference = typename std::conditional<has_mapped_type<T>::value, 
                                                     typename std::conditional<
-                                                                is_const, 
+                                                                IsConst, 
                                                                 typename std::add_lvalue_reference<const T>::type,
                                                                 typename std::add_lvalue_reference<T>::type>::type, 
                                                     void>::type;
         using pointer = typename std::conditional<has_mapped_type<T>::value, 
-                                                  typename std::conditional<is_const, const T*, T*>::type, 
+                                                  typename std::conditional<IsConst, const T*, T*>::type, 
                                                   void>::type;
         
                                                         
