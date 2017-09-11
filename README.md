@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/Tessil/array-hash.svg?branch=master)](https://travis-ci.org/Tessil/array-hash) [![Build status](https://ci.appveyor.com/api/projects/status/t50rr5bm6ejf350x/branch/master?svg=true)](https://ci.appveyor.com/project/Tessil/array-hash/branch/master)
+
 ## A C++ implementation of a fast and memory efficient hash map/set for strings 
 
 Cache conscious hash map and hash set for strings based on the "Cache-conscious collision resolution in string hash tables." (Askitis Nikolas and Justin Zobel, 2005) paper.
@@ -14,6 +15,7 @@ Four classes are provided: `tsl::array_map`, `tsl::array_set`, `tsl::array_pg_ma
 A **benchmark** of `tsl::array_map` against other hash maps can be found [here](https://tessil.github.io/2016/08/29/benchmark-hopscotch-map.html). This page also gives some advices on which hash table structure you should try for your use case (useful if you are a bit lost with the multiple hash tables implementations in the `tsl` namespace). You can also find another benchmark on the [`tsl::hat-trie`](https://github.com/Tessil/hat-trie#benchmark) page.
 
 ### Overview
+
 - Header-only library, just add the project to your include path and you are ready to go.
 - Low memory usage with good performances, see the [benchmark](https://tessil.github.io/2016/08/29/benchmark-hopscotch-map.html) for some numbers.
 - Support for move-only and non-default constructible values.
@@ -23,6 +25,7 @@ A **benchmark** of `tsl::array_map` against other hash maps can be found [here](
 - By default the maximum size of the map is limited to 4 294 967 296 elements. This can be raised through the `IndexSizeT` template parameter.
 
 ### Differences compare to `std::unordered_map`
+
 `tsl::array_map` tries to have an interface similar to `std::unordered_map`, but some differences exist:
 - Iterator invalidation doesn't behave in the same way, any operation modifying the hash table invalidate them (see [API](https://tessil.github.io/array-hash/doc/html/classtsl_1_1array__map.html#details) for details).
 - References and pointers to keys or values in the map are invalidated in the same way as iterators to these keys-values.
@@ -99,6 +102,7 @@ struct custom_policy {
 ```
 
 ### Installation
+
 To use array-hash, just add the project to your include path. It is a **header-only** library.
 
 The code should work with any C++11 standard-compliant compiler and has been tested with GCC 4.8.4, Clang 3.5.0 and Visual Studio 2015.
@@ -123,6 +127,7 @@ The API can be found [here](https://tessil.github.io/array-hash/doc_without_stri
 
 
 ### Example
+
 ```c++
 #include <iostream>
 #include <tsl/array_map.h>
