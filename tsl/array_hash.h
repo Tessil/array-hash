@@ -73,11 +73,12 @@
  */
 namespace tsl {
     
+namespace ah {
 /**
  * FNV-1a hash
  */    
 template<class CharT>
-struct str_hash_ah {
+struct str_hash {
     std::size_t operator()(const CharT* key, std::size_t key_size) const {
         static const std::size_t init = std::size_t((sizeof(std::size_t) == 8)?0xcbf29ce484222325:0x811c9dc5);
         static const std::size_t multiplier = std::size_t((sizeof(std::size_t) == 8)?0x100000001b3:0x1000193);
@@ -93,7 +94,7 @@ struct str_hash_ah {
 };  
 
 template<class CharT>
-struct str_equal_ah {
+struct str_equal {
     bool operator()(const CharT* key_lhs, std::size_t key_size_lhs,
                     const CharT* key_rhs, std::size_t key_size_rhs) const
     {
@@ -105,6 +106,7 @@ struct str_equal_ah {
         }
     }
 }; 
+}
 
 
 namespace detail_array_hash {

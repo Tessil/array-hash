@@ -32,11 +32,11 @@
 BOOST_AUTO_TEST_SUITE(test_array_bucket)
 using test_types = 
     boost::mpl::list<
-        tsl::detail_array_hash::array_bucket<char, std::uint64_t, tsl::str_equal_ah<char>, std::uint16_t, true>,
-        tsl::detail_array_hash::array_bucket<wchar_t, std::uint32_t, tsl::str_equal_ah<wchar_t>, std::uint8_t, true>,
-        tsl::detail_array_hash::array_bucket<char16_t, std::uint32_t, tsl::str_equal_ah<char16_t>, std::uint8_t, true>,
-        tsl::detail_array_hash::array_bucket<char32_t, std::uint8_t, tsl::str_equal_ah<char32_t>, std::uint32_t, true>,
-        tsl::detail_array_hash::array_bucket<char16_t, std::uint16_t, tsl::str_equal_ah<char16_t>, std::uint32_t, false>
+        tsl::detail_array_hash::array_bucket<char, std::uint64_t, tsl::ah::str_equal<char>, std::uint16_t, true>,
+        tsl::detail_array_hash::array_bucket<wchar_t, std::uint32_t, tsl::ah::str_equal<wchar_t>, std::uint8_t, true>,
+        tsl::detail_array_hash::array_bucket<char16_t, std::uint32_t, tsl::ah::str_equal<char16_t>, std::uint8_t, true>,
+        tsl::detail_array_hash::array_bucket<char32_t, std::uint8_t, tsl::ah::str_equal<char32_t>, std::uint32_t, true>,
+        tsl::detail_array_hash::array_bucket<char16_t, std::uint16_t, tsl::ah::str_equal<char16_t>, std::uint32_t, false>
     >;
 
 
@@ -182,7 +182,7 @@ BOOST_AUTO_TEST_CASE_TEMPLATE(test_erase_all, ABucket, test_types) {
  * iterator
  */
 BOOST_AUTO_TEST_CASE(test_iterator) {
-    using ABucket = tsl::detail_array_hash::array_bucket<char, void, tsl::str_equal_ah<char>, std::uint16_t, true>;
+    using ABucket = tsl::detail_array_hash::array_bucket<char, void, tsl::ah::str_equal<char>, std::uint16_t, true>;
     ABucket bucket;
     
     BOOST_CHECK(bucket.empty());

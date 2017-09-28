@@ -62,12 +62,12 @@ namespace tsl {
  */    
 template<class CharT,
          class T, 
-         class Hash = tsl::str_hash_ah<CharT>,
-         class KeyEqual = tsl::str_equal_ah<CharT>,
+         class Hash = tsl::ah::str_hash<CharT>,
+         class KeyEqual = tsl::ah::str_equal<CharT>,
          bool StoreNullTerminator = true,
          class KeySizeT = std::uint16_t,
          class IndexSizeT = std::uint32_t,
-         class GrowthPolicy = tsl::power_of_two_growth_policy_ah<2>>
+         class GrowthPolicy = tsl::ah::power_of_two_growth_policy<2>>
 class array_map {
 private:
     using ht = tsl::detail_array_hash::array_hash<CharT, T, Hash, KeyEqual, StoreNullTerminator, 
@@ -788,17 +788,17 @@ private:
 
 /**
  * Same as 
- * `tsl::array_map<CharT, T, Hash, KeyEqual, StoreNullTerminator, KeySizeT, IndexSizeT, tsl::prime_growth_policy_ah>`.
+ * `tsl::array_map<CharT, T, Hash, KeyEqual, StoreNullTerminator, KeySizeT, IndexSizeT, tsl::ah::prime_growth_policy>`.
  */
 template<class CharT,
          class T, 
-         class Hash = tsl::str_hash_ah<CharT>,
-         class KeyEqual = tsl::str_equal_ah<CharT>,
+         class Hash = tsl::ah::str_hash<CharT>,
+         class KeyEqual = tsl::ah::str_equal<CharT>,
          bool StoreNullTerminator = true,
          class KeySizeT = std::uint16_t,
          class IndexSizeT = std::uint32_t>         
 using array_pg_map = array_map<CharT, T, Hash, KeyEqual, StoreNullTerminator, 
-                               KeySizeT, IndexSizeT, tsl::prime_growth_policy_ah>;
+                               KeySizeT, IndexSizeT, tsl::ah::prime_growth_policy>;
 
 } //end namespace tsl
 
