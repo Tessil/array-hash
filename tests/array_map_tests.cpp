@@ -398,7 +398,8 @@ BOOST_AUTO_TEST_CASE(test_copy) {
 
 BOOST_AUTO_TEST_CASE(test_move) {
     tsl::array_map<char, int64_t> map = {{"test1", 10}, {"test2", 20}};
-    tsl::array_map<char, int64_t> map2 = std::move(map);
+    tsl::array_map<char, int64_t> map2 = {{"test1", 10}};
+    map2 = std::move(map);
     
     BOOST_CHECK(map.empty());
     BOOST_CHECK(map.begin() == map.end());
