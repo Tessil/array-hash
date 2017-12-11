@@ -2,7 +2,7 @@
 
 ## A C++ implementation of a fast and memory efficient hash map/set for strings 
 
-Cache conscious hash map and hash set for strings based on the "Cache-conscious collision resolution in string hash tables." (Askitis Nikolas and Justin Zobel, 2005) paper.
+Cache conscious hash map and hash set for strings based on the "Cache-conscious collision resolution in string hash tables." (Askitis Nikolas and Justin Zobel, 2005) paper. You can find some details regarding the structure [here](https://tessil.github.io/2017/06/22/hat-trie.html#array-hash-table).
 
 Thanks to its cache friendliness, the structure provides fast lookups while keeping a low memory usage. The main drawback is the rehash process which is a bit slow and need some spare memory to copy the strings from the old hash table to the new hash table (it can’t use `std::move` as the other hash tables using `std::string` as key).
 
@@ -75,7 +75,7 @@ The `std::hash<std::string>` can't be used efficiently as the structure doesn't 
 
 ### Growth policy
 
-The library supports multiple growth policies through the `GrowthPolicy` template parameter. Three policies are provided by the library but you can easly implement your own if needed.
+The library supports multiple growth policies through the `GrowthPolicy` template parameter. Three policies are provided by the library but you can easily implement your own if needed.
 
 * **[tsl::ah::power_of_two_growth_policy.](https://tessil.github.io/array-hash/doc/html/classtsl_1_1ah_1_1power__of__two__growth__policy.html)** Default policy used by `tsl::array_map/set`. This policy keeps the size of the bucket array of the hash table to a power of two. This constraint allows the policy to avoid the usage of the slow modulo operation to map a hash to a bucket, instead of <code>hash % 2<sup>n</sup></code>, it uses <code>hash & (2<sup>n</sup> - 1)</code> (see [fast modulo](https://en.wikipedia.org/wiki/Modulo_operation#Performance_issues)). Fast but this may cause a lot of collisions with a poor hash function as the modulo with a power of two only masks the most significant bits in the end.
 * **[tsl::ah::prime_growth_policy.](https://tessil.github.io/array-hash/doc/html/classtsl_1_1ah_1_1prime__growth__policy.html)** Default policy used by `tsl::array_pg_map/set`. The policy keeps the size of the bucket array of the hash table to a prime number. When mapping a hash to a bucket, using a prime number as modulo will result in a better distribution of the hash across the buckets even with a poor hash function. To allow the compiler to optimize the modulo operation, the policy use a lookup table with constant primes modulos (see [API](https://tessil.github.io/array-hash/doc/html/classtsl_1_1ah_1_1prime__growth__policy.html#details) for details). Slower than `tsl::ah::power_of_two_growth_policy` but more secure.
