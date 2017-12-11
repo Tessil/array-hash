@@ -1201,7 +1201,7 @@ public:
      * Observers
      */
     hasher hash_function() const { 
-        return static_cast<hasher>(*this); 
+        return static_cast<const hasher&>(*this); 
     }
     
     // TODO add support for statefull KeyEqual
