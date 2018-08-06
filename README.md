@@ -16,7 +16,7 @@ A **benchmark** of `tsl::array_map` against other hash maps can be found [here](
 
 ### Overview
 
-- Header-only library, just add the project to your include path and you are ready to go.
+- Header-only library, just add the [include](include/) directory to your include path and you are ready to go. If you use CMake, you can also use the `tsl::array_hash` exported target from the [CMakeLists.txt](CMakeLists.txt).
 - Low memory usage with good performances, see the [benchmark](https://tessil.github.io/2016/08/29/benchmark-hopscotch-map.html) for some numbers.
 - Support for move-only and non-default constructible values.
 - Strings with null characters inside them are supported (you can thus store binary data as key).
@@ -103,20 +103,26 @@ struct custom_policy {
 
 ### Installation
 
-To use array-hash, just add the project to your include path. It is a **header-only** library.
+To use the library, just add the [include](include/) directory to your include path. It is a **header-only** library.
 
+If you use CMake, you can also use the `tsl::array_hash` exported target from the [CMakeLists.txt](CMakeLists.txt) with `target_link_libraries`. 
+```cmake
+# Example where the array-hash project is stored in a third-party directory
+add_subdirectory(third-party/array-hash)
+target_link_libraries(your_target PRIVATE tsl::array_hash)  
+```
 The code should work with any C++11 standard-compliant compiler and has been tested with GCC 4.8.4, Clang 3.5.0 and Visual Studio 2015.
 
 To run the tests you will need the Boost Test library and CMake. 
 
 ```bash
 git clone https://github.com/Tessil/array-hash.git
-cd array-hash
+cd array-hash/tests
 mkdir build
 cd build
 cmake ..
-make
-./test_array_hash
+cmake --build .
+./tsl_array_hash_tests
 ```
 
 
