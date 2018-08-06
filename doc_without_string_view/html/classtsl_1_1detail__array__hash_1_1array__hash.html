@@ -1249,6 +1249,8 @@ template&lt;class CharT, class T, class Hash, class KeyEqual, bool StoreNullTerm
   </tr>
 </table>
 </div><div class="memdoc">
+<p>When erasing an element from a bucket with erase_from_bucket, it invalidates all the iterators in the array bucket of the element (m_array_bucket_iterator) but not the iterators of the buckets itself (m_buckets_iterator).</p>
+<p>So first erase all the values between first and last which are not part of the bucket of last, and then erase carefully the values in last's bucket.</p>
 
 </div>
 </div>
@@ -2088,7 +2090,7 @@ template&lt;class CharT, class T, class Hash, class KeyEqual, bool StoreNullTerm
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>tsl/<a class="el" href="array__hash_8h_source.html">array_hash.h</a></li>
+<li>include/tsl/<a class="el" href="array__hash_8h_source.html">array_hash.h</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
