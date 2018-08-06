@@ -1,25 +1,19 @@
-cmake_minimum_required(VERSION 2.8.12)
-project(test_array_hash)
-enable_testing()
+cmake_minimum_required(VERSION 3.1)
 
-find_package(Boost 1.54.0 REQUIRED COMPONENTS unit_test_framework) 
+project(tsl_array_hash)
+
+add_library(tsl_array_hash INTERFACE)
+# Use tsl::array_hash as target, more consistent with other libraries conventions (Boost, Qt, ...)
+add_library(tsl::array_hash ALIAS tsl_array_hash)
+
+target_include_directories(tsl_array_hash INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}/include")
+target_sources(tsl_array_hash INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}/include/tsl/array_growth_policy.h"
+                                        "${CMAKE_CURRENT_SOURCE_DIR}/include/tsl/array_hash.h"
+                                        "${CMAKE_CURRENT_SOURCE_DIR}/include/tsl/array_map.h"
+                                        "${CMAKE_CURRENT_SOURCE_DIR}/include/tsl/array_set.h")
 
 
-set(TEST_EXECUTABLE "test_array_hash")
-
-add_executable("${TEST_EXECUTABLE}" "tests/main.cpp" 
-                                    "tests/array_bucket_test.cpp" 
-                                    "tests/array_map_tests.cpp" 
-                                    "tests/array_set_tests.cpp"
-                                    "tests/policy_tests.cpp")
-                                    
-target_include_directories("${TEST_EXECUTABLE}" PRIVATE "${Boost_INCLUDE_DIRS}" "include") 
-target_link_libraries("${TEST_EXECUTABLE}" ${Boost_LIBRARIES})
-
-if(CMAKE_CXX_COMPILER_ID MATCHES "Clang" OR CMAKE_CXX_COMPILER_ID MATCHES "GNU")
-    target_compile_options("${TEST_EXECUTABLE}" PRIVATE -std=c++11 -Werror -Wall -Wextra -Wold-style-cast -O3 -DTSL_DEBUG)
-elseif(CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
-    target_compile_options("${TEST_EXECUTABLE}" PRIVATE /bigobj /WX /W3 /DTSL_DEBUG)
+if(${CMAKE_VERSION} VERSION_GREATER "3.7") 
+    # Only available since version 3.8
+    target_compile_features(tsl_array_hash INTERFACE cxx_std_11)
 endif()
-
-add_test(NAME "all_tests" COMMAND "${TEST_EXECUTABLE}")
