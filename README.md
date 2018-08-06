@@ -20,9 +20,9 @@ A **benchmark** of `tsl::array_map` against other hash maps can be found [here](
 - Low memory usage with good performances, see the [benchmark](https://tessil.github.io/2016/08/29/benchmark-hopscotch-map.html) for some numbers.
 - Support for move-only and non-default constructible values.
 - Strings with null characters inside them are supported (you can thus store binary data as key).
-- If the hash is known before a lookup, it is possible to pass it as parameter to speed-up the lookup.
-- By default the maximum allowed size for a key is set to 65 535. This can be raised through the `KeySizeT` template parameter.
-- By default the maximum size of the map is limited to 4 294 967 296 elements. This can be raised through the `IndexSizeT` template parameter.
+- If the hash is known before a lookup, it is possible to pass it as parameter to speed-up the lookup (see `precalculated_hash` parameter in [API](https://tessil.github.io/array-hash/doc/html/classtsl_1_1array__map.html)).
+- By default the maximum allowed size for a key is set to 65 535. This can be raised through the `KeySizeT` template parameter (see [API](https://tessil.github.io/array-hash/doc/html/classtsl_1_1array__map.html#details) for details).
+- By default the maximum size of the map is limited to 4 294 967 296 elements. This can be raised through the `IndexSizeT` template parameter (see [API](https://tessil.github.io/array-hash/doc/html/classtsl_1_1array__map.html#details) for details).
 
 ### Differences compare to `std::unordered_map`
 
@@ -32,7 +32,7 @@ A **benchmark** of `tsl::array_map` against other hash maps can be found [here](
 - Erase operations have an amortized runtime complexity of O(1) for `tsl::array_map`. An erase operation will delete the key immediatly but for the value part of the map, the deletion may be delayed. The destructor of the value is only called when the ratio between the size of the map and the size of the map + the number of deleted values still stored is low enough. The method `shrink_to_fit` may be called to force the deletion.
 - The key and the value are stored separatly and not in a `std::pair<const Key, T>`. Methods like `insert` or `emplace` take the key and the value separatly instead of a `std::pair`. The insert method looks like `std::pair<iterator, bool> insert(const CharT* key, const T& value)` instead of `std::pair<iterator, bool> insert(const std::pair<const Key, T>& value)` (see [API](https://tessil.github.io/array-hash/doc/html/classtsl_1_1array__map.html) for details).
 - For iterators, `operator*()` and `operator->()` return a reference and a pointer to the value `T` instead of `std::pair<const Key, T>`. For an access to the key string, the `key()` (which returns a `const CharT*`) or `key_sv()` (which returns a `std::basic_string_view<CharT>`) method of the iterator must be called.
-- No support for some bucket related methods (like bucket_size, bucket, ...).
+- No support for some bucket related methods (like `bucket_size`, `bucket`, ...).
 
 
 These differences also apply between `std::unordered_set` and `tsl::array_set`.
@@ -41,7 +41,7 @@ Thread-safety and exception guarantees are similar to the STL containers.
 
 ### Hash function
 
-To avoid dependencies, the default hash function is a simple [FNV-1a](https://en.wikipedia.org/wiki/Fowler%E2%80%93Noll%E2%80%93Vo_hash_function#FNV-1a_hash) hash function. If you can, I recommend to use something like [CityHash](https://github.com/google/cityhash), MurmurHash, [FarmHash](https://github.com/google/farmhash), ... for better performances. On the tests I did, CityHash64 offers a ~40% improvement on reads compared to FNV-1a.
+To avoid dependencies, the default hash function is a simple [FNV-1a](https://en.wikipedia.org/wiki/Fowler%E2%80%93Noll%E2%80%93Vo_hash_function#FNV-1a_hash) hash function. If you can, we recommend to use something like [CityHash](https://github.com/google/cityhash), MurmurHash, [FarmHash](https://github.com/google/farmhash), ... for better performances. On the tests we did, CityHash64 offers a ~40% improvement on reads compared to FNV-1a.
 
 
 ```c++
