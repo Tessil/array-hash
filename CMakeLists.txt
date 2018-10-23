@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.1)
 
-project(tsl_array_hash VERSION 0.5.1)
+project(tsl_array_hash VERSION 0.6.0)
 
 add_library(array_hash INTERFACE)
 # Use tsl::array_hash as target, more consistent with other libraries conventions (Boost, Qt, ...)
