@@ -41,7 +41,9 @@ Thread-safety and exception guarantees are similar to the STL containers.
 
 ### Hash function
 
-To avoid dependencies, the default hash function is a simple [FNV-1a](https://en.wikipedia.org/wiki/Fowler%E2%80%93Noll%E2%80%93Vo_hash_function#FNV-1a_hash) hash function. If you can, we recommend to use something like [CityHash](https://github.com/google/cityhash), MurmurHash, [FarmHash](https://github.com/google/farmhash), ... for better performances. On the tests we did, CityHash64 offers a ~40% improvement on reads compared to FNV-1a.
+The default hash function used by the structure depends on the presence of `std::string_view`. If it is available, `std::hash<std::string_view>` is used, otherwise a simple [FNV-1a](https://en.wikipedia.org/wiki/Fowler%E2%80%93Noll%E2%80%93Vo_hash_function#FNV-1a_hash) hash function is used to avoid any dependency.
+
+If you can't use C++17 or later, we recommend to replace the hash function with something like [CityHash](https://github.com/google/cityhash), MurmurHash, [FarmHash](https://github.com/google/farmhash), ... for better performances. On the tests we did, CityHash64 offers a ~40% improvement on reads compared to FNV-1a.
 
 
 ```c++
@@ -50,20 +52,6 @@ To avoid dependencies, the default hash function is a simple [FNV-1a](https://en
 struct str_hash {
     std::size_t operator()(const char* key, std::size_t key_size) const {
         return CityHash64(key, key_size);
-    }
-};
-
-tsl::array_map<char, int, str_hash> map;
-```
-
-If you have access to `std::string_view` and you want to use the compiler provided hash implementation for strings.
-
-```c++
-#include <string_view>
-
-struct str_hash {
-    std::size_t operator()(const char* key, std::size_t key_size) const {
-        return std::hash<std::string_view>()(std::string_view(key, key_size));
     }
 };
 
