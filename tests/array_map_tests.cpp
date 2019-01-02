@@ -65,7 +65,9 @@ BOOST_AUTO_TEST_CASE_TEMPLATE(test_insert, AMap, test_types) {
     
     
     const size_t nb_values = 1000;
-    AMap map;
+    AMap map(0);
+    BOOST_CHECK_EQUAL(map.bucket_count(), 0);
+    
     typename AMap::iterator it;
     bool inserted;
     
@@ -385,7 +387,17 @@ BOOST_AUTO_TEST_CASE(test_assign_operator) {
 }
 
 
-BOOST_AUTO_TEST_CASE(test_copy) {
+/**
+ * move/copy constructor/operator
+ */
+BOOST_AUTO_TEST_CASE(test_copy_constructor) {
+    tsl::array_map<char, int64_t> map = {{"test1", 10}, {"test2", 20}, {"test3", 30}, {"test4", 40}};
+    tsl::array_map<char, int64_t> map2(map);
+    
+    BOOST_CHECK(map == map2);
+}
+
+BOOST_AUTO_TEST_CASE(test_copy_operator) {
     tsl::array_map<char, int64_t> map = {{"test1", 10}, {"test2", 20}, {"test3", 30}, {"test4", 40}};
     tsl::array_map<char, int64_t> map2 = map;
     tsl::array_map<char, int64_t> map3;
@@ -395,28 +407,86 @@ BOOST_AUTO_TEST_CASE(test_copy) {
     BOOST_CHECK(map == map3);
 }
 
+BOOST_AUTO_TEST_CASE(test_move_constructor) {
+    tsl::array_map<char, int64_t> map = {{"test1", 10}, {"test2", 20}};
+    tsl::array_map<char, int64_t> map2(std::move(map));
+    
+    BOOST_CHECK(map.empty());
+    BOOST_CHECK(map.begin() == map.end());
+    
+    BOOST_CHECK_EQUAL(map2.size(), 2);
+    BOOST_CHECK(map2 == (tsl::array_map<char, int64_t>{{"test1", 10}, {"test2", 20}}));
+    
+    map = {{"test1", 10}};
+    BOOST_CHECK(map == (tsl::array_map<char, int64_t>{{"test1", 10}}));
+}
 
-BOOST_AUTO_TEST_CASE(test_move) {
+BOOST_AUTO_TEST_CASE(test_move_operator) {
     tsl::array_map<char, int64_t> map = {{"test1", 10}, {"test2", 20}};
     tsl::array_map<char, int64_t> map2 = {{"test1", 10}};
     map2 = std::move(map);
     
     BOOST_CHECK(map.empty());
     BOOST_CHECK(map.begin() == map.end());
+    
     BOOST_CHECK_EQUAL(map2.size(), 2);
     BOOST_CHECK(map2 == (tsl::array_map<char, int64_t>{{"test1", 10}, {"test2", 20}}));
     
     
-    tsl::array_map<char, int64_t> map3;
-    map3 = std::move(map2);
+    tsl::array_map<char, int64_t> map3(std::move(map2));
     
     BOOST_CHECK(map2.empty());
     BOOST_CHECK(map2.begin() == map2.end());
+    
     BOOST_CHECK_EQUAL(map3.size(), 2);
     BOOST_CHECK(map3 == (tsl::array_map<char, int64_t>{{"test1", 10}, {"test2", 20}}));
     
     map2 = {{"test1", 10}};
     BOOST_CHECK(map2 == (tsl::array_map<char, int64_t>{{"test1", 10}}));
+}
+
+BOOST_AUTO_TEST_CASE(test_use_after_move_constructor) {
+    tsl::array_map<char, int64_t> map = {{"test1", 10}, {"test2", 20}, {"test3", 30}, {"test4", 40}};
+    tsl::array_map<char, int64_t> map2(std::move(map));
+    
+    BOOST_CHECK(map.empty());
+    BOOST_CHECK(map2 == (tsl::array_map<char, int64_t>{{"test1", 10}, {"test2", 20}, {"test3", 30}, {"test4", 40}}));
+    
+    
+    BOOST_CHECK_EQUAL(map.bucket_count(), 0);
+    BOOST_CHECK(map.find("test1") == map.end());
+    BOOST_CHECK_EQUAL(map.erase("test1"), 0);
+    
+    const std::size_t nb_values = 100;
+    for(std::size_t i = 0; i < nb_values; i++) {
+        map.insert(utils::get_key<char>(i), utils::get_value<int64_t>(i));
+    }
+    
+    for(std::size_t i = 0; i < nb_values; i++) {
+        BOOST_CHECK_EQUAL(map.at(utils::get_key<char>(i)), utils::get_value<int64_t>(i));
+    }
+}
+
+BOOST_AUTO_TEST_CASE(test_use_after_move_operator) {
+    tsl::array_map<char, int64_t> map = {{"test1", 10}, {"test2", 20}, {"test3", 30}, {"test4", 40}};
+    tsl::array_map<char, int64_t> map2 = std::move(map);
+    
+    BOOST_CHECK(map.empty());
+    BOOST_CHECK(map2 == (tsl::array_map<char, int64_t>{{"test1", 10}, {"test2", 20}, {"test3", 30}, {"test4", 40}}));
+    
+    
+    BOOST_CHECK_EQUAL(map.bucket_count(), 0);
+    BOOST_CHECK(map.find("test1") == map.end());
+    BOOST_CHECK_EQUAL(map.erase("test1"), 0);
+    
+    const std::size_t nb_values = 100;
+    for(std::size_t i = 0; i < nb_values; i++) {
+        map.insert(utils::get_key<char>(i), utils::get_value<int64_t>(i));
+    }
+    
+    for(std::size_t i = 0; i < nb_values; i++) {
+        BOOST_CHECK_EQUAL(map.at(utils::get_key<char>(i)), utils::get_value<int64_t>(i));
+    }
 }
 
 /**
@@ -528,6 +598,7 @@ BOOST_AUTO_TEST_CASE(test_ci_traits) {
 BOOST_AUTO_TEST_CASE(test_empty_map) {
     tsl::array_map<char, int> map(0);
     
+    BOOST_CHECK_EQUAL(map.bucket_count(), 0);
     BOOST_CHECK_EQUAL(map.size(), 0);
     BOOST_CHECK(map.empty());
     
