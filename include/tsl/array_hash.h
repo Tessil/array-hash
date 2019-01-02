@@ -556,12 +556,18 @@ public:
     template<class Deserializer>
     static array_bucket deserialize(const Deserializer& deserializer) {
         array_bucket bucket;
-        const slz_size_type bucket_size = deserialize_value<slz_size_type>(deserializer);
+        const slz_size_type bucket_size_ds = deserialize_value<slz_size_type>(deserializer);
         
-        if(bucket_size == 0) {
+        if(bucket_size_ds == 0) {
             return bucket;
         }
         
+        
+        if(bucket_size_ds > std::numeric_limits<std::size_t>::max()) {
+            throw std::runtime_error("Deserialized bucket_size is bigger than the max value of std::size_t on the current platform.");
+        }
+
+        const std::size_t bucket_size = static_cast<std::size_t>(bucket_size_ds);
         bucket.m_buffer = static_cast<CharT*>(std::malloc(bucket_size*sizeof(CharT) + size_as_char_t<decltype(END_OF_BUCKET)>()));
         if(bucket.m_buffer == nullptr) {
             throw std::bad_alloc();
