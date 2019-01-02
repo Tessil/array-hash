@@ -758,6 +758,19 @@ public:
      */
     iterator mutable_iterator(const_iterator it) noexcept { return m_ht.mutable_iterator(it); }
     
+    template<class Serializer>
+    void serialize(const Serializer& serializer) {
+        m_ht.serialize(serializer);
+    }
+
+    template<class Deserializer>
+    static array_map deserialize(const Deserializer& deserializer, bool hash_compatible = false) {
+        array_map map(0);
+        map.m_ht.deserialize(deserializer, hash_compatible);
+
+        return map;
+    }
+    
     friend bool operator==(const array_map& lhs, const array_map& rhs) {
         if(lhs.size() != rhs.size()) {
             return false;

@@ -128,6 +128,24 @@ static constexpr bool is_power_of_two(std::size_t value) {
     return value != 0 && (value & (value - 1)) == 0;
 }
 
+
+
+/**
+ * Fixed size type used to represent size_type values on serialization. Need to be big enough
+ * to represent a std::size_t on 32 and 64 bits platforms, and must be the same size on both platforms.
+ */
+using slz_size_type = std::uint64_t;
+
+template<class T, class Deserializer>
+static T deserialize_value(const Deserializer& deserializer) {
+    // MSVC < 2017 is not conformant, circumvent the problem by removing the template keyword
+#if defined (_MSC_VER) && _MSC_VER < 1910
+    return deserializer.Deserializer::operator()<T>();
+#else
+    return deserializer.Deserializer::template operator()<T>();
+#endif
+}
+
 /**
  * For each string in the bucket, store the size of the string, the chars of the string 
  * and T, if it's not void. T should be either void or an unsigned type.
@@ -316,8 +334,25 @@ public:
         return const_iterator(nullptr);
     }
     
-public:    
-    array_bucket() : m_buffer(nullptr) {
+public:
+    array_bucket(): m_buffer(nullptr) {
+    }
+    
+    /**
+     * Reserve 'size' in the buffer of the bucket. The created bucket is empty.
+     */
+    array_bucket(std::size_t size): m_buffer(nullptr) {
+        if(size == 0) {
+            return;
+        }
+        
+        m_buffer = static_cast<CharT*>(std::malloc(size*sizeof(CharT) + sizeof_in_buff<decltype(END_OF_BUCKET)>()));
+        if(m_buffer == nullptr) {
+            throw std::bad_alloc();
+        }
+        
+        const auto end_of_bucket = END_OF_BUCKET;
+        std::memcpy(m_buffer, &end_of_bucket, sizeof(end_of_bucket));
     }
     
     ~array_bucket() {
@@ -330,13 +365,16 @@ public:
             return;
         }
         
-        const size_type other_buffer_size = other.size_bytes();
-        m_buffer = static_cast<CharT*>(std::malloc(other_buffer_size));
+        const size_type other_buffer_size = other.size();
+        m_buffer = static_cast<CharT*>(std::malloc(other_buffer_size*sizeof(CharT) + sizeof_in_buff<decltype(END_OF_BUCKET)>()));
         if(m_buffer == nullptr) {
             throw std::bad_alloc();
         }
         
-        std::memcpy(m_buffer, other.m_buffer, other_buffer_size);
+        std::memcpy(m_buffer, other.m_buffer, other_buffer_size*sizeof(CharT));
+        
+        const auto end_of_bucket = END_OF_BUCKET;
+        std::memcpy(m_buffer + other_buffer_size, &end_of_bucket, sizeof(end_of_bucket));
     }
     
     array_bucket(array_bucket&& other) noexcept: m_buffer(other.m_buffer) {
@@ -479,20 +517,6 @@ public:
         }
     }
     
-    void reserve(size_type size) {
-        if(m_buffer != nullptr || size == 0) {
-            throw std::invalid_argument("Should reserve a size > 0 on empty bucket.");
-        }
-        
-        m_buffer = static_cast<CharT*>(std::malloc(size + sizeof_in_buff<decltype(END_OF_BUCKET)>()));
-        if(m_buffer == nullptr) {
-            throw std::bad_alloc();
-        }
-        
-        const auto end_of_bucket = END_OF_BUCKET;
-        std::memcpy(m_buffer, &end_of_bucket, sizeof(end_of_bucket));
-    }
-    
     /**
      * Bucket should be big enough and there is no check to see if the key already exists.
      * No check on key_size.
@@ -518,6 +542,40 @@ public:
     
     iterator mutable_iterator(const_iterator pos) noexcept {
         return iterator(m_buffer + (pos.m_position - m_buffer)); 
+    }
+    
+    template<class Serializer>
+    void serialize(const Serializer& serializer) const {
+        const slz_size_type bucket_size = size();
+        tsl_ah_assert(m_buffer != nullptr || bucket_size == 0);
+        
+        serializer(bucket_size);
+        serializer(static_cast<const char*>(m_buffer), bucket_size*sizeof(CharT));
+    }
+    
+    template<class Deserializer>
+    static array_bucket deserialize(const Deserializer& deserializer) {
+        array_bucket bucket;
+        const slz_size_type bucket_size = deserialize_value<slz_size_type>(deserializer);
+        
+        if(bucket_size == 0) {
+            return bucket;
+        }
+        
+        bucket.m_buffer = static_cast<CharT*>(std::malloc(bucket_size*sizeof(CharT) + size_as_char_t<decltype(END_OF_BUCKET)>()));
+        if(bucket.m_buffer == nullptr) {
+            throw std::bad_alloc();
+        }
+        
+        
+        deserializer(static_cast<char*>(bucket.m_buffer), bucket_size*sizeof(CharT));
+        
+        const auto end_of_bucket = END_OF_BUCKET;
+        std::memcpy(bucket.m_buffer + bucket_size, &end_of_bucket, sizeof(end_of_bucket));
+        
+        
+        tsl_ah_assert(bucket.size() == bucket_size);
+        return bucket;
     }
     
 private:
@@ -589,7 +647,11 @@ private:
         std::memcpy(buffer_append_pos, &end_of_bucket, sizeof(end_of_bucket));
     }
     
-    size_type size_bytes() const noexcept {
+    /**
+     * Return the number of CharT in m_buffer. As the size of the buffer is not stored to gain some space, 
+     * the method need to find the EOF marker and is thus in O(n).
+     */
+    size_type size() const noexcept {
         if(m_buffer == nullptr) {
             return 0;
         }
@@ -598,9 +660,8 @@ private:
         while(!is_end_of_bucket(buffer_ptr)) {
             buffer_ptr += entry_size_bytes(buffer_ptr)/sizeof(CharT);
         }
-        buffer_ptr += size_as_char_t<decltype(END_OF_BUCKET)>();
         
-        return (buffer_ptr - m_buffer)*sizeof(CharT);
+        return buffer_ptr - m_buffer;
     }
     
 private:
@@ -1268,6 +1329,16 @@ public:
         return iterator(it_bucket, it.m_array_bucket_iterator, this);
     }
     
+    template<class Serializer>
+    void serialize(const Serializer& serializer) {
+        serialize_impl(serializer);
+    }
+
+    template<class Deserializer>
+    void deserialize(const Deserializer& deserializer, bool hash_compatible) {
+        deserialize_impl(deserializer, hash_compatible);
+    }
+    
 private:
     std::size_t hash_key(const CharT* key, size_type key_size) const {
         return Hash::operator()(key, key_size);
@@ -1436,18 +1507,17 @@ private:
         
         
         
-        std::vector<array_bucket> new_buckets(bucket_count);
+        std::vector<array_bucket> new_buckets;
+        new_buckets.reserve(bucket_count);
         for(std::size_t ibucket = 0; ibucket < bucket_count; ibucket++) {
-            if(required_size_for_bucket[ibucket] > 0) {
-                new_buckets[ibucket].reserve(required_size_for_bucket[ibucket]);
-            }
+            new_buckets.emplace_back(required_size_for_bucket[ibucket]);
         }
         
         
         ivalue = 0;
         for(auto it = begin(); it != end(); ++it) {
             const std::size_t ibucket = bucket_for_ivalue[ivalue];
-            append(new_buckets[ibucket], it);
+            append_iterator_in_reserved_bucket_no_check(new_buckets[ibucket], it);
             
             ivalue++;
         }
@@ -1464,13 +1534,148 @@ private:
     }
     
     template<class U = T, typename std::enable_if<!has_mapped_type<U>::value>::type* = nullptr>
-    void append(array_bucket& bucket, iterator it) {
+    void append_iterator_in_reserved_bucket_no_check(array_bucket& bucket, iterator it) {
         bucket.append_in_reserved_bucket_no_check(it.key(), it.key_size());
     }
     
     template<class U = T, typename std::enable_if<has_mapped_type<U>::value>::type* = nullptr>
-    void append(array_bucket& bucket, iterator it) {
+    void append_iterator_in_reserved_bucket_no_check(array_bucket& bucket, iterator it) {
         bucket.append_in_reserved_bucket_no_check(it.key(), it.key_size(), it.value_position());
+    }
+    
+    
+    
+    
+    template<class Serializer>
+    void serialize_impl(const Serializer& serializer) {
+        clear_old_erased_values();
+        
+        const slz_size_type version = SERIALIZATION_PROTOCOL_VERSION;
+        serializer(version);
+        
+        const slz_size_type bucket_count = m_buckets.size();
+        serializer(bucket_count);
+        
+        const slz_size_type nb_elements = m_nb_elements;
+        serializer(nb_elements);
+        
+        const float max_load_factor = m_max_load_factor;
+        serializer(max_load_factor);
+        
+        for(const array_bucket& bucket: m_buckets) {
+            bucket.serialize(serializer);
+        }
+        
+        serialize_values(serializer);
+    }
+    
+    template<class Serializer, class U = T,
+             typename std::enable_if<!has_mapped_type<U>::value>::type* = nullptr>
+    void serialize_values(const Serializer& /*serializer*/) {
+    }
+    
+    template<class Serializer, class U = T,
+             typename std::enable_if<has_mapped_type<U>::value>::type* = nullptr>
+    void serialize_values(const Serializer& serializer) {
+        for(const auto& value: this->m_values) {
+            serializer(value);
+        }
+    }
+
+    template<class Deserializer>
+    void deserialize_impl(const Deserializer& deserializer, bool hash_compatible) {
+        tsl_ah_assert(m_buckets.empty()); // Current hash table must be empty
+        
+        const slz_size_type version = deserialize_value<slz_size_type>(deserializer);
+        // For now we only have one version of the serialization protocol. 
+        // If it doesn't match there is a problem with the file.
+        if(version != SERIALIZATION_PROTOCOL_VERSION) {
+            throw std::runtime_error("Can't deserialize the array_map/set. The protocol version header is invalid.");
+        }
+        
+        const slz_size_type bucket_count_ds = deserialize_value<slz_size_type>(deserializer);
+        const slz_size_type nb_elements = deserialize_value<slz_size_type>(deserializer);
+        const float max_load_factor = deserialize_value<float>(deserializer);
+        
+        
+        if(bucket_count_ds > std::numeric_limits<std::size_t>::max() || 
+           nb_elements > std::numeric_limits<std::size_t>::max()) 
+        {
+            throw std::runtime_error("Deserialized bucket_count and/or nb_elements is bigger "
+                                     "than the max value of std::size_t on the current platform.");
+        }
+        
+        
+        
+        
+        m_nb_elements = static_cast<std::size_t>(nb_elements);
+        
+        std::size_t bucket_count = static_cast<std::size_t>(bucket_count_ds);
+        GrowthPolicy::operator=(GrowthPolicy(bucket_count));
+        
+        this->max_load_factor(max_load_factor);
+        
+        
+        if(hash_compatible) {
+            if(bucket_count != bucket_count_ds) {
+                throw std::runtime_error("The GrowthPolicy is not the same even though hash_compatible is true.");
+            }
+
+            m_buckets.reserve(bucket_count);
+            for(std::size_t i = 0; i < bucket_count; i++) {
+                m_buckets.push_back(array_bucket::deserialize(deserializer));
+            }
+        }
+        else {
+            m_buckets.resize(bucket_count);
+            for(std::size_t i = 0; i < bucket_count; i++) {
+                // TODO use buffer to avoid reallocation on each deserialization.
+                const array_bucket bucket = array_bucket::deserialize(deserializer);
+                for(auto it_val = bucket.cbegin(); it_val != bucket.cend(); ++it_val) {
+                    const std::size_t ibucket = bucket_for_hash(hash_key(it_val.key(), it_val.key_size()));
+                    
+                    auto it_find = m_buckets[ibucket].find_or_end_of_bucket(it_val.key(), it_val.key_size());
+                    if(it_find.second) {
+                        throw std::runtime_error("Error on deserialization, the same key is presents multiple times.");
+                    }
+                    
+                    append_array_bucket_iterator_in_bucket(m_buckets[ibucket], it_find.first, it_val);
+                }
+            }
+        }
+        
+        deserialize_values(deserializer, m_nb_elements);
+        m_first_or_empty_bucket = m_buckets.data();;
+    }
+    
+    template<class Deserializer, class U = T,
+             typename std::enable_if<!has_mapped_type<U>::value>::type* = nullptr>
+    void deserialize_values(const Deserializer& /*deserializer*/, std::size_t /*nb_elements*/) {
+    }
+    
+    template<class Deserializer, class U = T,
+             typename std::enable_if<has_mapped_type<U>::value>::type* = nullptr>
+    void deserialize_values(const Deserializer& deserializer, std::size_t nb_elements) {
+        this->m_values.reserve(nb_elements);
+        for(std::size_t i = 0; i < nb_elements; i++) {
+            this->m_values.emplace_back(deserialize_value<U>(deserializer));
+        }
+    }
+    
+    template<class U = T, typename std::enable_if<!has_mapped_type<U>::value>::type* = nullptr>
+    void append_array_bucket_iterator_in_bucket(array_bucket& bucket, 
+                                                typename array_bucket::const_iterator end_of_bucket, 
+                                                typename array_bucket::const_iterator it_val) 
+    {
+        bucket.append(end_of_bucket, it_val.key(), it_val.key_size());
+    }
+    
+    template<class U = T, typename std::enable_if<has_mapped_type<U>::value>::type* = nullptr>
+    void append_array_bucket_iterator_in_bucket(array_bucket& bucket, 
+                                                typename array_bucket::const_iterator end_of_bucket, 
+                                                typename array_bucket::const_iterator it_val) 
+    {
+        bucket.append(end_of_bucket, it_val.key(), it_val.key_size(), it_val.value());
     }
     
 public:    
@@ -1479,6 +1684,12 @@ public:
     static const size_type MAX_KEY_SIZE = array_bucket::MAX_KEY_SIZE;
     
 private:
+    /**
+     * Protocol version currenlty used for serialization.
+     */
+    static const slz_size_type SERIALIZATION_PROTOCOL_VERSION = 1;
+    
+    
     static constexpr float DEFAULT_CLEAR_OLD_ERASED_VALUE_THRESHOLD = 0.6f;
     
     

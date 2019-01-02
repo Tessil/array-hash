@@ -115,7 +115,6 @@ BOOST_AUTO_TEST_CASE_TEMPLATE(test_append_in_reserved, ABucket, test_types) {
     using mapped_tt = typename ABucket::mapped_type; 
     using key_equal = typename ABucket::key_equal;
     
-    ABucket bucket;
     
     const std::size_t nb_values = 1000;
     
@@ -124,7 +123,7 @@ BOOST_AUTO_TEST_CASE_TEMPLATE(test_append_in_reserved, ABucket, test_types) {
         required_size += ABucket::entry_required_bytes(utils::get_key<char_tt>(i).size());
     }
     
-    bucket.reserve(required_size);
+    ABucket bucket(required_size);
     
     for(std::size_t i = 0; i < nb_values; i++) {
         const auto key = utils::get_key<char_tt>(i);

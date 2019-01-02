@@ -571,13 +571,26 @@ public:
      */
     iterator mutable_iterator(const_iterator it) noexcept { return m_ht.mutable_iterator(it); }
     
+    template<class Serializer>
+    void serialize(const Serializer& serializer) {
+        m_ht.serialize(serializer);
+    }
+
+    template<class Deserializer>
+    static array_set deserialize(const Deserializer& deserializer, bool hash_compatible = false) {
+        array_set set(0);
+        set.m_ht.deserialize(deserializer, hash_compatible);
+
+        return set;
+    }
+    
     friend bool operator==(const array_set& lhs, const array_set& rhs) {
         if(lhs.size() != rhs.size()) {
             return false;
         }
         
         for(auto it = lhs.cbegin(); it != lhs.cend(); ++it) {
-            const auto it_element_rhs = rhs.find(it.key(), it.key_size());
+            const auto it_element_rhs = rhs.find_ks(it.key(), it.key_size());
             if(it_element_rhs == rhs.cend()) {
                 return false;
             }
