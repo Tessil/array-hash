@@ -577,7 +577,7 @@ public:
         }
         
         for(auto it = lhs.cbegin(); it != lhs.cend(); ++it) {
-            const auto it_element_rhs = rhs.find(it.key(), it.key_size());
+            const auto it_element_rhs = rhs.find_ks(it.key(), it.key_size());
             if(it_element_rhs == rhs.cend()) {
                 return false;
             }
