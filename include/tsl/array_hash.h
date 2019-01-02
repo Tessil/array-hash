@@ -1604,20 +1604,19 @@ private:
         const float max_load_factor = deserialize_value<float>(deserializer);
         
         
-        if(bucket_count_ds > std::numeric_limits<std::size_t>::max() || 
-           nb_elements > std::numeric_limits<std::size_t>::max()) 
-        {
-            throw std::runtime_error("Deserialized bucket_count and/or nb_elements is bigger "
-                                     "than the max value of std::size_t on the current platform.");
+        
+        if(nb_elements > std::numeric_limits<IndexSizeT>::max()) {
+            throw std::runtime_error("Deserialized nb_elements is bigger than the max value of IndexSizeT.");
         }
+        m_nb_elements = static_cast<IndexSizeT>(nb_elements);
         
         
-        
-        
-        m_nb_elements = static_cast<std::size_t>(nb_elements);
-        
+        if(bucket_count_ds > std::numeric_limits<std::size_t>::max()) {
+            throw std::runtime_error("Deserialized bucket_count is bigger than the max value of std::size_t on the current platform.");
+        }
         std::size_t bucket_count = static_cast<std::size_t>(bucket_count_ds);
         GrowthPolicy::operator=(GrowthPolicy(bucket_count));
+        
         
         this->max_load_factor(max_load_factor);
         
