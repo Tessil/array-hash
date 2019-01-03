@@ -290,7 +290,7 @@ public:
         }
         
         
-        template<class U = T, typename std::enable_if<has_mapped_type<U>::value && !IsConst>::type* = nullptr>
+        template<class U = T, typename std::enable_if<has_mapped_type<U>::value && !IsConst && std::is_same<U, T>::value>::type* = nullptr>
         void set_value(U value) noexcept {
             std::memcpy(m_position + size_as_char_t<key_size_type>() + key_size() + KEY_EXTRA_SIZE, 
                         &value, sizeof(value));
@@ -1336,7 +1336,7 @@ public:
     }
     
     template<class Serializer>
-    void serialize(const Serializer& serializer) {
+    void serialize(const Serializer& serializer) const {
         serialize_impl(serializer);
     }
 
@@ -1553,9 +1553,7 @@ private:
     
     
     template<class Serializer>
-    void serialize_impl(const Serializer& serializer) {
-        clear_old_erased_values();
-        
+    void serialize_impl(const Serializer& serializer) const {
         const slz_size_type version = SERIALIZATION_PROTOCOL_VERSION;
         serializer(version);
         
@@ -1570,21 +1568,20 @@ private:
         
         for(const array_bucket& bucket: m_buckets) {
             bucket.serialize(serializer);
+            serialize_bucket_values(serializer, bucket);
         }
-        
-        serialize_values(serializer);
     }
     
     template<class Serializer, class U = T,
              typename std::enable_if<!has_mapped_type<U>::value>::type* = nullptr>
-    void serialize_values(const Serializer& /*serializer*/) {
+    void serialize_bucket_values(const Serializer& /*serializer*/, const array_bucket& /*bucket*/) const {
     }
     
     template<class Serializer, class U = T,
              typename std::enable_if<has_mapped_type<U>::value>::type* = nullptr>
-    void serialize_values(const Serializer& serializer) {
-        for(const auto& value: this->m_values) {
-            serializer(value);
+    void serialize_bucket_values(const Serializer& serializer, const array_bucket& bucket) const {
+        for(auto it = bucket.begin(); it != bucket.end(); ++it) {
+            serializer(this->m_values[it.value()]);
         }
     }
 
@@ -1629,13 +1626,16 @@ private:
             m_buckets.reserve(bucket_count);
             for(std::size_t i = 0; i < bucket_count; i++) {
                 m_buckets.push_back(array_bucket::deserialize(deserializer));
+                deserialize_bucket_values(deserializer, m_buckets.back());
             }
         }
         else {
             m_buckets.resize(bucket_count);
             for(std::size_t i = 0; i < bucket_count; i++) {
                 // TODO use buffer to avoid reallocation on each deserialization.
-                const array_bucket bucket = array_bucket::deserialize(deserializer);
+                array_bucket bucket = array_bucket::deserialize(deserializer);
+                deserialize_bucket_values(deserializer, bucket);
+                
                 for(auto it_val = bucket.cbegin(); it_val != bucket.cend(); ++it_val) {
                     const std::size_t ibucket = bucket_for_hash(hash_key(it_val.key(), it_val.key_size()));
                     
@@ -1649,21 +1649,22 @@ private:
             }
         }
         
-        deserialize_values(deserializer, m_nb_elements);
-        m_first_or_empty_bucket = m_buckets.data();;
+        m_first_or_empty_bucket = m_buckets.data();
     }
     
     template<class Deserializer, class U = T,
              typename std::enable_if<!has_mapped_type<U>::value>::type* = nullptr>
-    void deserialize_values(const Deserializer& /*deserializer*/, std::size_t /*nb_elements*/) {
+    void deserialize_bucket_values(const Deserializer& /*deserializer*/, array_bucket& /*bucket*/) {
     }
     
     template<class Deserializer, class U = T,
              typename std::enable_if<has_mapped_type<U>::value>::type* = nullptr>
-    void deserialize_values(const Deserializer& deserializer, std::size_t nb_elements) {
-        this->m_values.reserve(nb_elements);
-        for(std::size_t i = 0; i < nb_elements; i++) {
+    void deserialize_bucket_values(const Deserializer& deserializer, array_bucket& bucket) {
+        for(auto it = bucket.begin(); it != bucket.end(); ++it) {
             this->m_values.emplace_back(deserialize_value<U>(deserializer));
+            
+            tsl_ah_assert(this->m_values.size() - 1 <= std::numeric_limits<IndexSizeT>::max());
+            it.set_value(static_cast<IndexSizeT>(this->m_values.size() - 1));
         }
     }
     
