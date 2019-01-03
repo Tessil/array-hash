@@ -607,8 +607,8 @@ BOOST_AUTO_TEST_CASE(test_serialize_desearialize_empty) {
     auto empty_map_deserialized = decltype(empty_map)::deserialize(dserial, true);
     BOOST_CHECK(empty_map_deserialized == empty_map);
 
-    dserial = deserializer(serial.str());
-    empty_map_deserialized = decltype(empty_map)::deserialize(dserial, false);
+    deserializer dserial2(serial.str());
+    empty_map_deserialized = decltype(empty_map)::deserialize(dserial2, false);
     BOOST_CHECK(empty_map_deserialized == empty_map);
 }
 
@@ -639,8 +639,8 @@ BOOST_AUTO_TEST_CASE(test_serialize_desearialize) {
     auto map_deserialized = decltype(map)::deserialize(dserial, true);
     BOOST_CHECK(map == map_deserialized);
 
-    dserial = deserializer(serial.str());
-    map_deserialized = decltype(map)::deserialize(dserial, false);
+    deserializer dserial2(serial.str());
+    map_deserialized = decltype(map)::deserialize(dserial2, false);
     BOOST_CHECK(map_deserialized == map);
 }
 

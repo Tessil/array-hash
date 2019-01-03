@@ -144,8 +144,8 @@ BOOST_AUTO_TEST_CASE(test_serialize_desearialize) {
     auto set_deserialized = decltype(set)::deserialize(dserial, true);
     BOOST_CHECK(set_deserialized == set);
 
-    dserial = deserializer(serial.str());
-    set_deserialized = decltype(set)::deserialize(dserial, false);
+    deserializer dserial2(serial.str());
+    set_deserialized = decltype(set)::deserialize(dserial2, false);
     BOOST_CHECK(set_deserialized == set);
 }
 
