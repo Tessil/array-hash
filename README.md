@@ -187,6 +187,85 @@ int main() {
 }
 ```
 
+#### Serialization
+
+```c++
+#include <cassert>
+#include <fstream>
+#include <type_traits>
+#include <tsl/array_map.h>
+
+
+class serializer {
+public:
+    serializer(const char* file_name) {
+        m_ostream.exceptions(m_ostream.badbit | m_ostream.failbit);
+        m_ostream.open(file_name);
+    }
+    
+    template<class T,
+             typename std::enable_if<std::is_arithmetic<T>::value>::type* = nullptr>
+    void operator()(const T& value) {
+        m_ostream.write(reinterpret_cast<const char*>(&value), sizeof(T));
+    }
+    
+    void operator()(const char32_t* value, std::size_t value_size) {
+        m_ostream.write(reinterpret_cast<const char*>(value), value_size*sizeof(char32_t));
+    }
+
+private:
+    std::ofstream m_ostream;
+};
+
+class deserializer {
+public:
+    deserializer(const char* file_name) {
+        m_istream.exceptions(m_istream.badbit | m_istream.failbit | m_istream.eofbit);
+        m_istream.open(file_name);
+    }
+    
+    template<class T,
+             typename std::enable_if<std::is_arithmetic<T>::value>::type* = nullptr>
+    T operator()() {
+        T value;
+        m_istream.read(reinterpret_cast<char*>(&value), sizeof(T));
+        
+        return value;
+    }
+    
+    void operator()(char32_t* value_out, std::size_t value_size) {
+        m_istream.read(reinterpret_cast<char*>(value_out), value_size*sizeof(char32_t));
+    }
+
+private:
+    std::ifstream m_istream;
+};
+
+int main() {
+    const tsl::array_map<char32_t, int> map = {{U"one", 1}, {U"two", 2}, {U"three", 3}, {U"four", 4}};
+    
+    
+    const char* file_name = "array_map.data";
+    {
+        serializer serial(file_name);
+        map.serialize(serial);
+    }
+    
+    {
+        deserializer dserial(file_name);
+        auto map_deserialized = tsl::array_map<char32_t, int>::deserialize(dserial);
+        
+        assert(map == map_deserialized);
+    }
+    
+    {
+        deserializer dserial(file_name);
+        auto map_deserialized = tsl::array_map<char32_t, int>::deserialize(dserial, true);
+        
+        assert(map == map_deserialized);
+    }
+}
+```
 
 ### License
 
