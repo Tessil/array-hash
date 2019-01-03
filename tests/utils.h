@@ -238,8 +238,8 @@ public:
         serialize_impl(val);
     }
     
-    void operator()(const char* data, std::uint64_t size) {
-        m_ostream.write(data, size);
+    void operator()(const char32_t* data, std::uint64_t size) {
+        m_ostream.write(reinterpret_cast<const char*>(data), size*sizeof(char32_t));
     }
     
     std::string str() const {
@@ -277,8 +277,8 @@ public:
         return deserialize_impl<T>();
     }
     
-    void operator()(char* data_out, std::uint64_t size) {
-        m_istream.read(data_out, boost::numeric_cast<std::size_t>(size));
+    void operator()(char32_t* data_out, std::uint64_t size) {
+        m_istream.read(reinterpret_cast<char*>(data_out), boost::numeric_cast<std::size_t>(size)*sizeof(char32_t));
     }
 
 private:

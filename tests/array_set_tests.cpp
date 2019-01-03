@@ -123,15 +123,15 @@ BOOST_AUTO_TEST_CASE(test_serialize_desearialize) {
     const std::size_t nb_values = 1000;
 
     
-    tsl::array_set<char> set(0);
+    tsl::array_set<char32_t> set(0);
     
-    set.insert("");
+    set.insert(U"");
     for(std::size_t i = 1; i < nb_values + 40; i++) {
-        set.insert(utils::get_key<char>(i));
+        set.insert(utils::get_key<char32_t>(i));
     }
 
     for(std::size_t i = nb_values; i < nb_values + 40; i++) {
-        set.erase(utils::get_key<char>(i));
+        set.erase(utils::get_key<char32_t>(i));
     }
     BOOST_CHECK_EQUAL(set.size(), nb_values);
 

@@ -597,7 +597,7 @@ BOOST_AUTO_TEST_CASE(test_ci_traits) {
 BOOST_AUTO_TEST_CASE(test_serialize_desearialize_empty) {
     // serialize empty map; deserialize in new map; check equal.
     // for deserialization, test it with and without hash compatibility.
-    const tsl::array_map<char, move_only_test> empty_map(0);
+    const tsl::array_map<char32_t, move_only_test> empty_map(0);
     
     
     serializer serial;
@@ -618,15 +618,15 @@ BOOST_AUTO_TEST_CASE(test_serialize_desearialize) {
     const std::size_t nb_values = 1000;
 
     
-    tsl::array_map<char, move_only_test> map(0);
+    tsl::array_map<char32_t, move_only_test> map(0);
     
-    map.insert("", utils::get_value<move_only_test>(0));
+    map.insert(U"", utils::get_value<move_only_test>(0));
     for(std::size_t i = 1; i < nb_values + 40; i++) {
-        map.insert(utils::get_key<char>(i), utils::get_value<move_only_test>(i));
+        map.insert(utils::get_key<char32_t>(i), utils::get_value<move_only_test>(i));
     }
 
     for(std::size_t i = nb_values; i < nb_values + 40; i++) {
-        map.erase(utils::get_key<char>(i));
+        map.erase(utils::get_key<char32_t>(i));
     }
     BOOST_CHECK_EQUAL(map.size(), nb_values);
 
@@ -647,8 +647,8 @@ BOOST_AUTO_TEST_CASE(test_serialize_desearialize) {
 BOOST_AUTO_TEST_CASE(test_serialize_desearialize_with_different_hash) {
     // insert x values; delete some values; serialize map; deserialize it in a new map with an incompatible hash; check equal.
     struct str_hash {
-        std::size_t operator()(const char* key, std::size_t key_size) const {
-            return tsl::ah::str_hash<char>()(key, key_size) + 123;
+        std::size_t operator()(const char32_t* key, std::size_t key_size) const {
+            return tsl::ah::str_hash<char32_t>()(key, key_size) + 123;
         }
     };
     
@@ -656,15 +656,15 @@ BOOST_AUTO_TEST_CASE(test_serialize_desearialize_with_different_hash) {
     const std::size_t nb_values = 1000;
 
 
-    tsl::array_map<char, move_only_test> map(0);
+    tsl::array_map<char32_t, move_only_test> map(0);
     
-    map.insert("", utils::get_value<move_only_test>(0));
+    map.insert(U"", utils::get_value<move_only_test>(0));
     for(std::size_t i = 1; i < nb_values + 40; i++) {
-        map.insert(utils::get_key<char>(i), utils::get_value<move_only_test>(i));
+        map.insert(utils::get_key<char32_t>(i), utils::get_value<move_only_test>(i));
     }
 
     for(std::size_t i = nb_values; i < nb_values + 40; i++) {
-        map.erase(utils::get_key<char>(i));
+        map.erase(utils::get_key<char32_t>(i));
     }
     BOOST_CHECK_EQUAL(map.size(), nb_values);
 
@@ -674,7 +674,7 @@ BOOST_AUTO_TEST_CASE(test_serialize_desearialize_with_different_hash) {
     map.serialize(serial);
 
     deserializer dserial(serial.str());
-    auto map_deserialized = tsl::array_map<char, move_only_test, str_hash>::deserialize(dserial);
+    auto map_deserialized = tsl::array_map<char32_t, move_only_test, str_hash>::deserialize(dserial);
     
     BOOST_CHECK_EQUAL(map.size(), map_deserialized.size());
     for(auto it = map.cbegin(); it != map.cend(); ++it) {

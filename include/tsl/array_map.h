@@ -183,7 +183,7 @@ public:
     }
 #else
     std::pair<iterator, bool> insert(const CharT* key, const T& value) {
-        return m_ht.emplace(key, std::strlen(key), value);
+        return m_ht.emplace(key, std::char_traits<CharT>::length(key), value);
     }
     
     std::pair<iterator, bool> insert(const std::basic_string<CharT>& key, const T& value) {
@@ -202,7 +202,7 @@ public:
     }
 #else
     std::pair<iterator, bool> insert(const CharT* key, T&& value) {
-        return m_ht.emplace(key, std::strlen(key), std::move(value));
+        return m_ht.emplace(key, std::char_traits<CharT>::length(key), std::move(value));
     }
     
     std::pair<iterator, bool> insert(const std::basic_string<CharT>& key, T&& value) {
@@ -255,7 +255,7 @@ public:
 #else
     template<class M>
     std::pair<iterator, bool> insert_or_assign(const CharT* key, M&& obj) { 
-        return m_ht.insert_or_assign(key, std::strlen(key), std::forward<M>(obj)); 
+        return m_ht.insert_or_assign(key, std::char_traits<CharT>::length(key), std::forward<M>(obj)); 
     }
     
     template<class M>
@@ -278,7 +278,7 @@ public:
 #else
     template<class... Args>
     std::pair<iterator, bool> emplace(const CharT* key, Args&&... args) {
-        return m_ht.emplace(key, std::strlen(key), std::forward<Args>(args)...);
+        return m_ht.emplace(key, std::char_traits<CharT>::length(key), std::forward<Args>(args)...);
     }
     
     template<class... Args>
@@ -323,7 +323,7 @@ public:
      * @copydoc erase(const_iterator pos)
      */
     size_type erase(const CharT* key) {
-        return m_ht.erase(key, std::strlen(key));
+        return m_ht.erase(key, std::char_traits<CharT>::length(key));
     }
     
     /**
@@ -354,7 +354,7 @@ public:
      * @copydoc erase_ks(const CharT* key, size_type key_size, std::size_t precalculated_hash)
      */
     size_type erase(const CharT* key, std::size_t precalculated_hash) {
-        return m_ht.erase(key, std::strlen(key), precalculated_hash);
+        return m_ht.erase(key, std::char_traits<CharT>::length(key), precalculated_hash);
     }
     
     /**
@@ -393,11 +393,11 @@ public:
     }
 #else    
     T& at(const CharT* key) { 
-        return m_ht.at(key, std::strlen(key)); 
+        return m_ht.at(key, std::char_traits<CharT>::length(key)); 
     }
     
     const T& at(const CharT* key) const { 
-        return m_ht.at(key, std::strlen(key)); 
+        return m_ht.at(key, std::char_traits<CharT>::length(key)); 
     }
     
     T& at(const std::basic_string<CharT>& key) { 
@@ -437,14 +437,14 @@ public:
      * @copydoc at_ks(const CharT* key, size_type key_size, std::size_t precalculated_hash)
      */
     T& at(const CharT* key, std::size_t precalculated_hash) { 
-        return m_ht.at(key, std::strlen(key), precalculated_hash); 
+        return m_ht.at(key, std::char_traits<CharT>::length(key), precalculated_hash); 
     }
     
     /**
      * @copydoc at_ks(const CharT* key, size_type key_size, std::size_t precalculated_hash)
      */
     const T& at(const CharT* key, std::size_t precalculated_hash) const { 
-        return m_ht.at(key, std::strlen(key), precalculated_hash); 
+        return m_ht.at(key, std::char_traits<CharT>::length(key), precalculated_hash); 
     }
     
     /**
@@ -481,7 +481,7 @@ public:
 #ifdef TSL_AH_HAS_STRING_VIEW 
     T& operator[](const std::basic_string_view<CharT>& key) { return m_ht.access_operator(key.data(), key.size()); }
 #else
-    T& operator[](const CharT* key) { return m_ht.access_operator(key, std::strlen(key)); }
+    T& operator[](const CharT* key) { return m_ht.access_operator(key, std::char_traits<CharT>::length(key)); }
     T& operator[](const std::basic_string<CharT>& key) { return m_ht.access_operator(key.data(), key.size()); }
 #endif    
     
@@ -493,7 +493,7 @@ public:
     }
 #else
     size_type count(const CharT* key) const { 
-        return m_ht.count(key, std::strlen(key)); 
+        return m_ht.count(key, std::char_traits<CharT>::length(key)); 
     }
     
     size_type count(const std::basic_string<CharT>& key) const { 
@@ -518,7 +518,7 @@ public:
      * @copydoc count_ks(const CharT* key, size_type key_size, std::size_t precalculated_hash) const
      */
     size_type count(const CharT* key, std::size_t precalculated_hash) const { 
-        return m_ht.count(key, std::strlen(key), precalculated_hash); 
+        return m_ht.count(key, std::char_traits<CharT>::length(key), precalculated_hash); 
     }
     
     /**
@@ -548,11 +548,11 @@ public:
     }
 #else
     iterator find(const CharT* key) {
-        return m_ht.find(key, std::strlen(key));
+        return m_ht.find(key, std::char_traits<CharT>::length(key));
     }
     
     const_iterator find(const CharT* key) const {
-        return m_ht.find(key, std::strlen(key));
+        return m_ht.find(key, std::char_traits<CharT>::length(key));
     }
     
     iterator find(const std::basic_string<CharT>& key) {
@@ -592,14 +592,14 @@ public:
      * @copydoc find_ks(const CharT* key, size_type key_size, std::size_t precalculated_hash)
      */
     iterator find(const CharT* key, std::size_t precalculated_hash) {
-        return m_ht.find(key, std::strlen(key), precalculated_hash);
+        return m_ht.find(key, std::char_traits<CharT>::length(key), precalculated_hash);
     }
     
     /**
      * @copydoc find_ks(const CharT* key, size_type key_size, std::size_t precalculated_hash)
      */
     const_iterator find(const CharT* key, std::size_t precalculated_hash) const {
-        return m_ht.find(key, std::strlen(key), precalculated_hash);
+        return m_ht.find(key, std::char_traits<CharT>::length(key), precalculated_hash);
     }
     
     /**
@@ -643,11 +643,11 @@ public:
     }
 #else
     std::pair<iterator, iterator> equal_range(const CharT* key) {
-        return m_ht.equal_range(key, std::strlen(key));
+        return m_ht.equal_range(key, std::char_traits<CharT>::length(key));
     }
     
     std::pair<const_iterator, const_iterator> equal_range(const CharT* key) const {
-        return m_ht.equal_range(key, std::strlen(key));
+        return m_ht.equal_range(key, std::char_traits<CharT>::length(key));
     }
     
     std::pair<iterator, iterator> equal_range(const std::basic_string<CharT>& key) {
@@ -687,14 +687,14 @@ public:
      * @copydoc equal_range_ks(const CharT* key, size_type key_size, std::size_t precalculated_hash)
      */
     std::pair<iterator, iterator> equal_range(const CharT* key, std::size_t precalculated_hash) {
-        return m_ht.equal_range(key, std::strlen(key), precalculated_hash);
+        return m_ht.equal_range(key, std::char_traits<CharT>::length(key), precalculated_hash);
     }
     
     /**
      * @copydoc equal_range_ks(const CharT* key, size_type key_size, std::size_t precalculated_hash)
      */
     std::pair<const_iterator, const_iterator> equal_range(const CharT* key, std::size_t precalculated_hash) const {
-        return m_ht.equal_range(key, std::strlen(key), precalculated_hash);
+        return m_ht.equal_range(key, std::char_traits<CharT>::length(key), precalculated_hash);
     }
     
     /**

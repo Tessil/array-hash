@@ -550,7 +550,7 @@ public:
         tsl_ah_assert(m_buffer != nullptr || bucket_size == 0);
         
         serializer(bucket_size);
-        serializer(static_cast<const char*>(m_buffer), bucket_size*sizeof(CharT));
+        serializer(m_buffer, bucket_size);
     }
     
     template<class Deserializer>
@@ -574,7 +574,7 @@ public:
         }
         
         
-        deserializer(static_cast<char*>(bucket.m_buffer), bucket_size*sizeof(CharT));
+        deserializer(bucket.m_buffer, bucket_size);
         
         const auto end_of_bucket = END_OF_BUCKET;
         std::memcpy(bucket.m_buffer + bucket_size, &end_of_bucket, sizeof(end_of_bucket));
