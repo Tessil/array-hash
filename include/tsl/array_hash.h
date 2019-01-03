@@ -137,7 +137,7 @@ static constexpr bool is_power_of_two(std::size_t value) {
 using slz_size_type = std::uint64_t;
 
 template<class T, class Deserializer>
-static T deserialize_value(const Deserializer& deserializer) {
+static T deserialize_value(Deserializer& deserializer) {
     // MSVC < 2017 is not conformant, circumvent the problem by removing the template keyword
 #if defined (_MSC_VER) && _MSC_VER < 1910
     return deserializer.Deserializer::operator()<T>();
@@ -545,7 +545,7 @@ public:
     }
     
     template<class Serializer>
-    void serialize(const Serializer& serializer) const {
+    void serialize(Serializer& serializer) const {
         const slz_size_type bucket_size = size();
         tsl_ah_assert(m_buffer != nullptr || bucket_size == 0);
         
@@ -554,7 +554,7 @@ public:
     }
     
     template<class Deserializer>
-    static array_bucket deserialize(const Deserializer& deserializer) {
+    static array_bucket deserialize(Deserializer& deserializer) {
         array_bucket bucket;
         const slz_size_type bucket_size_ds = deserialize_value<slz_size_type>(deserializer);
         
@@ -1336,12 +1336,12 @@ public:
     }
     
     template<class Serializer>
-    void serialize(const Serializer& serializer) const {
+    void serialize(Serializer& serializer) const {
         serialize_impl(serializer);
     }
 
     template<class Deserializer>
-    void deserialize(const Deserializer& deserializer, bool hash_compatible) {
+    void deserialize(Deserializer& deserializer, bool hash_compatible) {
         deserialize_impl(deserializer, hash_compatible);
     }
     
@@ -1553,7 +1553,7 @@ private:
     
     
     template<class Serializer>
-    void serialize_impl(const Serializer& serializer) const {
+    void serialize_impl(Serializer& serializer) const {
         const slz_size_type version = SERIALIZATION_PROTOCOL_VERSION;
         serializer(version);
         
@@ -1574,19 +1574,19 @@ private:
     
     template<class Serializer, class U = T,
              typename std::enable_if<!has_mapped_type<U>::value>::type* = nullptr>
-    void serialize_bucket_values(const Serializer& /*serializer*/, const array_bucket& /*bucket*/) const {
+    void serialize_bucket_values(Serializer& /*serializer*/, const array_bucket& /*bucket*/) const {
     }
     
     template<class Serializer, class U = T,
              typename std::enable_if<has_mapped_type<U>::value>::type* = nullptr>
-    void serialize_bucket_values(const Serializer& serializer, const array_bucket& bucket) const {
+    void serialize_bucket_values(Serializer& serializer, const array_bucket& bucket) const {
         for(auto it = bucket.begin(); it != bucket.end(); ++it) {
             serializer(this->m_values[it.value()]);
         }
     }
 
     template<class Deserializer>
-    void deserialize_impl(const Deserializer& deserializer, bool hash_compatible) {
+    void deserialize_impl(Deserializer& deserializer, bool hash_compatible) {
         tsl_ah_assert(m_buckets.empty()); // Current hash table must be empty
         
         const slz_size_type version = deserialize_value<slz_size_type>(deserializer);
@@ -1654,12 +1654,12 @@ private:
     
     template<class Deserializer, class U = T,
              typename std::enable_if<!has_mapped_type<U>::value>::type* = nullptr>
-    void deserialize_bucket_values(const Deserializer& /*deserializer*/, array_bucket& /*bucket*/) {
+    void deserialize_bucket_values(Deserializer& /*deserializer*/, array_bucket& /*bucket*/) {
     }
     
     template<class Deserializer, class U = T,
              typename std::enable_if<has_mapped_type<U>::value>::type* = nullptr>
-    void deserialize_bucket_values(const Deserializer& deserializer, array_bucket& bucket) {
+    void deserialize_bucket_values(Deserializer& deserializer, array_bucket& bucket) {
         for(auto it = bucket.begin(); it != bucket.end(); ++it) {
             this->m_values.emplace_back(deserialize_value<U>(deserializer));
             

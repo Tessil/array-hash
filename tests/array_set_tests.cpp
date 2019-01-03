@@ -122,10 +122,7 @@ BOOST_AUTO_TEST_CASE(test_serialize_desearialize) {
     // for deserialization, test it with and without hash compatibility.
     const std::size_t nb_values = 1000;
 
-    std::stringstream buffer;
-    buffer.exceptions(buffer.badbit | buffer.failbit | buffer.eofbit);
-
-
+    
     tsl::array_set<char> set(0);
     
     set.insert("");
@@ -138,16 +135,17 @@ BOOST_AUTO_TEST_CASE(test_serialize_desearialize) {
     }
     BOOST_CHECK_EQUAL(set.size(), nb_values);
 
-    set.serialize(serializer(buffer));
+    
+    
+    serializer serial;
+    set.serialize(serial);
 
+    deserializer dserial(serial.str());
+    auto set_deserialized = decltype(set)::deserialize(dserial, true);
+    BOOST_CHECK(set_deserialized == set);
 
-
-
-    auto set_deserialized = decltype(set)::deserialize(deserializer(buffer), true);
-    BOOST_CHECK(set == set_deserialized);
-
-    buffer.seekg(0);
-    set_deserialized = decltype(set)::deserialize(deserializer(buffer), false);
+    dserial = deserializer(serial.str());
+    set_deserialized = decltype(set)::deserialize(dserial, false);
     BOOST_CHECK(set_deserialized == set);
 }
 
