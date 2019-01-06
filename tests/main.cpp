@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-#define BOOST_TEST_MODULE hopscotch_tests
+#define BOOST_TEST_MODULE array_hash_tests
 #define BOOST_TEST_DYN_LINK
 
 #include <boost/test/unit_test.hpp>

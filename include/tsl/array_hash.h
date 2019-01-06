@@ -689,6 +689,14 @@ public:
     void clear() noexcept {
         m_values.clear();
     }
+    
+    void reserve(std::size_t new_cap) {
+        m_values.reserve(new_cap);
+    }
+    
+    void shrink_to_fit() {
+        m_values.shrink_to_fit();
+    }
 
     friend void swap(value_container& lhs, value_container& rhs) {
         lhs.m_values.swap(rhs.m_values);
@@ -705,6 +713,12 @@ template<>
 class value_container<void> {
 public:
     void clear() noexcept {
+    }
+    
+    void shrink_to_fit() {
+    }
+    
+    void reserve(std::size_t /*new_cap*/) {
     }
 };
 
@@ -1018,15 +1032,9 @@ public:
         return MAX_KEY_SIZE;
     }
     
-    template<class U = T, typename std::enable_if<!has_mapped_type<U>::value>::type* = nullptr>
-    void shrink_to_fit() {
-        rehash_impl(size_type(std::ceil(float(size())/max_load_factor())));
-    }
-    
-    template<class U = T, typename std::enable_if<has_mapped_type<U>::value>::type* = nullptr>
     void shrink_to_fit() {
         clear_old_erased_values();
-        this->m_values.shrink_to_fit();
+        value_container<T>::shrink_to_fit();
         
         rehash_impl(size_type(std::ceil(float(size())/max_load_factor())));
     }
@@ -1302,7 +1310,7 @@ public:
     }
     
     void max_load_factor(float ml) {
-        m_max_load_factor = ml;
+        m_max_load_factor = std::max(0.1f, ml);
         m_load_threshold = size_type(float(bucket_count())*m_max_load_factor);
     }
     
@@ -1616,6 +1624,7 @@ private:
         
         
         this->max_load_factor(max_load_factor);
+        value_container<T>::reserve(m_nb_elements);
         
         
         if(hash_compatible) {
@@ -1650,6 +1659,11 @@ private:
         }
         
         m_first_or_empty_bucket = m_buckets.data();
+        
+        
+        if(load_factor() > this->max_load_factor()) {
+            throw std::runtime_error("");
+        }
     }
     
     template<class Deserializer, class U = T,
@@ -1714,6 +1728,8 @@ private:
      * Points to m_buckets.data() if !m_buckets.empty() otherwise points to static_empty_bucket_ptr.
      * This variable is useful to avoid the cost of checking if m_buckets is empty when trying 
      * to find an element.
+     * 
+     * TODO Remove m_buckets and only use a pointer+size instead of a pointer+vector to save some space in the array_hash object.
      */
     array_bucket* m_first_or_empty_bucket;
     

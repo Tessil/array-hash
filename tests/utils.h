@@ -229,7 +229,7 @@ inline AMap utils::get_filled_map(size_t nb_elements) {
  */
 class serializer {
 public:
-    serializer(const std::string& init_str = ""): m_ostream(init_str) {
+    serializer() {
         m_ostream.exceptions(m_ostream.badbit | m_ostream.failbit);
     }
     
