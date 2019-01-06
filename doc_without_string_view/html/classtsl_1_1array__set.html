@@ -44,6 +44,7 @@ $(function() {
   <div class="summary">
 <a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="#pub-static-attribs">Static Public Attributes</a> &#124;
 <a href="#friends">Friends</a> &#124;
 <a href="classtsl_1_1array__set-members.html">List of all members</a>  </div>
@@ -79,9 +80,9 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a5edfc8164222c5fd3eb40fd2b05b849c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a94d8a753be6b87337e5995055e409347"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsl_1_1array__set.html#a94d8a753be6b87337e5995055e409347">array_set</a> (<a class="el" href="classtsl_1_1array__set.html#ad60cee37c2bf6944e35842f461c356a8">size_type</a> <a class="el" href="classtsl_1_1array__set.html#a57af81f01399e401ec0589e05c1923df">bucket_count</a>, const Hash &amp;hash=Hash())</td></tr>
 <tr class="separator:a94d8a753be6b87337e5995055e409347"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5eb76a360dbd104e1f463f8c4514ed80"><td class="memTemplParams" colspan="2">template&lt;class InputIt &gt; </td></tr>
-<tr class="memitem:a5eb76a360dbd104e1f463f8c4514ed80"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classtsl_1_1array__set.html#a5eb76a360dbd104e1f463f8c4514ed80">array_set</a> (InputIt first, InputIt last, <a class="el" href="classtsl_1_1array__set.html#ad60cee37c2bf6944e35842f461c356a8">size_type</a> <a class="el" href="classtsl_1_1array__set.html#a57af81f01399e401ec0589e05c1923df">bucket_count</a>=<a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#ae22200e3f987ec4d9c430e5bd06f720a">ht::DEFAULT_INIT_BUCKET_COUNT</a>, const Hash &amp;hash=Hash())</td></tr>
-<tr class="separator:a5eb76a360dbd104e1f463f8c4514ed80"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af0b273c4712597a34440dacfb8ae8752"><td class="memTemplParams" colspan="2">template&lt;class InputIt , typename std::enable_if&lt; is_iterator&lt; InputIt &gt;::value &gt;::type *  = nullptr&gt; </td></tr>
+<tr class="memitem:af0b273c4712597a34440dacfb8ae8752"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classtsl_1_1array__set.html#af0b273c4712597a34440dacfb8ae8752">array_set</a> (InputIt first, InputIt last, <a class="el" href="classtsl_1_1array__set.html#ad60cee37c2bf6944e35842f461c356a8">size_type</a> <a class="el" href="classtsl_1_1array__set.html#a57af81f01399e401ec0589e05c1923df">bucket_count</a>=<a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#ae22200e3f987ec4d9c430e5bd06f720a">ht::DEFAULT_INIT_BUCKET_COUNT</a>, const Hash &amp;hash=Hash())</td></tr>
+<tr class="separator:af0b273c4712597a34440dacfb8ae8752"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a13c400b67d1e31e43de372e324dc842f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsl_1_1array__set.html#a13c400b67d1e31e43de372e324dc842f">array_set</a> (std::initializer_list&lt; const CharT *&gt; init, <a class="el" href="classtsl_1_1array__set.html#ad60cee37c2bf6944e35842f461c356a8">size_type</a> <a class="el" href="classtsl_1_1array__set.html#a57af81f01399e401ec0589e05c1923df">bucket_count</a>=<a class="el" href="classtsl_1_1detail__array__hash_1_1array__hash.html#ae22200e3f987ec4d9c430e5bd06f720a">ht::DEFAULT_INIT_BUCKET_COUNT</a>, const Hash &amp;hash=Hash())</td></tr>
 <tr class="separator:a13c400b67d1e31e43de372e324dc842f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a63937629bc925fb1d3c23b51305ceb57"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtsl_1_1array__set.html">array_set</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsl_1_1array__set.html#a63937629bc925fb1d3c23b51305ceb57">operator=</a> (std::initializer_list&lt; const CharT *&gt; ilist)</td></tr>
@@ -116,9 +117,9 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a29b67745779d9ca8abe6aa44ad708da0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8e3169c7ea2cdf9e0f8bf10edaa4c48a"><td class="memItemLeft" align="right" valign="top">std::pair&lt; <a class="el" href="classtsl_1_1array__set.html#a48a951228b7b837c63429985a0f7d68e">iterator</a>, bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsl_1_1array__set.html#a8e3169c7ea2cdf9e0f8bf10edaa4c48a">insert_ks</a> (const CharT *key, <a class="el" href="classtsl_1_1array__set.html#ad60cee37c2bf6944e35842f461c356a8">size_type</a> key_size)</td></tr>
 <tr class="separator:a8e3169c7ea2cdf9e0f8bf10edaa4c48a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6f6c4c547a9a16c5766a1328a3525f65"><td class="memTemplParams" colspan="2">template&lt;class InputIt &gt; </td></tr>
-<tr class="memitem:a6f6c4c547a9a16c5766a1328a3525f65"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classtsl_1_1array__set.html#a6f6c4c547a9a16c5766a1328a3525f65">insert</a> (InputIt first, InputIt last)</td></tr>
-<tr class="separator:a6f6c4c547a9a16c5766a1328a3525f65"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ade622e47d4e7cba6e5b21b07f5ceb202"><td class="memTemplParams" colspan="2">template&lt;class InputIt , typename std::enable_if&lt; is_iterator&lt; InputIt &gt;::value &gt;::type *  = nullptr&gt; </td></tr>
+<tr class="memitem:ade622e47d4e7cba6e5b21b07f5ceb202"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classtsl_1_1array__set.html#ade622e47d4e7cba6e5b21b07f5ceb202">insert</a> (InputIt first, InputIt last)</td></tr>
+<tr class="separator:ade622e47d4e7cba6e5b21b07f5ceb202"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6bb20cfde4bcca57ac5cfa4b26578c20"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsl_1_1array__set.html#a6bb20cfde4bcca57ac5cfa4b26578c20">insert</a> (std::initializer_list&lt; const CharT *&gt; ilist)</td></tr>
 <tr class="separator:a6bb20cfde4bcca57ac5cfa4b26578c20"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6b9fec6ffae423d9ef4e7b27d5921ad5"><td class="memItemLeft" align="right" valign="top">std::pair&lt; <a class="el" href="classtsl_1_1array__set.html#a48a951228b7b837c63429985a0f7d68e">iterator</a>, bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsl_1_1array__set.html#a6b9fec6ffae423d9ef4e7b27d5921ad5">emplace</a> (const CharT *key)</td></tr>
@@ -225,6 +226,15 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:ae628d8adf5ccca4a76c199ff7851b9be"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a11427c6507c91777901674ebc77e3ad6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtsl_1_1array__set.html#a48a951228b7b837c63429985a0f7d68e">iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsl_1_1array__set.html#a11427c6507c91777901674ebc77e3ad6">mutable_iterator</a> (<a class="el" href="classtsl_1_1array__set.html#a9ad20ea69f59541f4d1836e6d9da1ca1">const_iterator</a> it) noexcept</td></tr>
 <tr class="separator:a11427c6507c91777901674ebc77e3ad6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa8dbe36f7d99cf8506898b10209f2905"><td class="memTemplParams" colspan="2">template&lt;class Serializer &gt; </td></tr>
+<tr class="memitem:aa8dbe36f7d99cf8506898b10209f2905"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classtsl_1_1array__set.html#aa8dbe36f7d99cf8506898b10209f2905">serialize</a> (Serializer &amp;serializer) const</td></tr>
+<tr class="separator:aa8dbe36f7d99cf8506898b10209f2905"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:ab9e1bf3b0f031f27298135451527de7b"><td class="memTemplParams" colspan="2">template&lt;class Deserializer &gt; </td></tr>
+<tr class="memitem:ab9e1bf3b0f031f27298135451527de7b"><td class="memTemplItemLeft" align="right" valign="top">static <a class="el" href="classtsl_1_1array__set.html">array_set</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classtsl_1_1array__set.html#ab9e1bf3b0f031f27298135451527de7b">deserialize</a> (Deserializer &amp;deserializer, bool hash_compatible=false)</td></tr>
+<tr class="separator:ab9e1bf3b0f031f27298135451527de7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
@@ -449,15 +459,15 @@ template&lt;class CharT , class Hash  = tsl::ah::str_hash&lt;CharT&gt;, class Ke
 
 </div>
 </div>
-<a id="a5eb76a360dbd104e1f463f8c4514ed80"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5eb76a360dbd104e1f463f8c4514ed80">&#9670;&nbsp;</a></span>array_set() <span class="overload">[3/4]</span></h2>
+<a id="af0b273c4712597a34440dacfb8ae8752"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af0b273c4712597a34440dacfb8ae8752">&#9670;&nbsp;</a></span>array_set() <span class="overload">[3/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
 template&lt;class CharT , class Hash  = tsl::ah::str_hash&lt;CharT&gt;, class KeyEqual  = tsl::ah::str_equal&lt;CharT&gt;, bool StoreNullTerminator = true, class KeySizeT  = std::uint16_t, class IndexSizeT  = std::uint32_t, class GrowthPolicy  = tsl::ah::power_of_two_growth_policy&lt;2&gt;&gt; </div>
 <div class="memtemplate">
-template&lt;class InputIt &gt; </div>
+template&lt;class InputIt , typename std::enable_if&lt; is_iterator&lt; InputIt &gt;::value &gt;::type *  = nullptr&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -926,6 +936,54 @@ template&lt;class CharT , class Hash  = tsl::ah::str_hash&lt;CharT&gt;, class Ke
 </table>
 </div><div class="memdoc">
 <p>Use the hash value 'precalculated_hash' instead of hashing the key. The hash value should be the same as <a class="el" href="classtsl_1_1array__set.html#afdc61a8e36f073f21600152c9a294ace">hash_function()</a>(key). Usefull to speed-up the lookup to the value if you already have the hash. </p>
+
+</div>
+</div>
+<a id="ab9e1bf3b0f031f27298135451527de7b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab9e1bf3b0f031f27298135451527de7b">&#9670;&nbsp;</a></span>deserialize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class CharT , class Hash  = tsl::ah::str_hash&lt;CharT&gt;, class KeyEqual  = tsl::ah::str_equal&lt;CharT&gt;, bool StoreNullTerminator = true, class KeySizeT  = std::uint16_t, class IndexSizeT  = std::uint32_t, class GrowthPolicy  = tsl::ah::power_of_two_growth_policy&lt;2&gt;&gt; </div>
+<div class="memtemplate">
+template&lt;class Deserializer &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static <a class="el" href="classtsl_1_1array__set.html">array_set</a> <a class="el" href="classtsl_1_1array__set.html">tsl::array_set</a>&lt; CharT, Hash, KeyEqual, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt;::deserialize </td>
+          <td>(</td>
+          <td class="paramtype">Deserializer &amp;&#160;</td>
+          <td class="paramname"><em>deserializer</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>hash_compatible</em> = <code>false</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Deserialize a previouly serialized set through the <code>deserializer</code> parameter.</p>
+<p>The <code>deserializer</code> parameter must be a function object that supports the following calls:</p><ul>
+<li><code>template&lt;typename U&gt; U operator()();</code> where the types <code>std::uint64_t</code>, <code>float</code> and <code>T</code> must be supported for U.</li>
+<li><code>void operator()(CharT* value_out, std::size_t value_size);</code></li>
+</ul>
+<p>If the deserialized hash set type is hash compatible with the serialized set, the deserialization process can be sped up by setting <code>hash_compatible</code> to true. To be hash compatible, the Hash (take care of the 32-bits vs 64 bits), KeyEqual, GrowthPolicy, StoreNullTerminator, KeySizeT and IndexSizeT must behave the same than the one used on the serialazed set. Otherwise the behaviour is undefined with <code>hash_compatible</code> sets to true, .</p>
+<p>The behaviour is undefined if the type <code>CharT</code> of the <code><a class="el" href="classtsl_1_1array__set.html">array_set</a></code> is not the same as the types used during serialization.</p>
+<p>The implementation leaves binary compatibilty (endianness, IEEE 754 for floats, ...) of the types it deserializes in the hands of the <code>Deserializer</code> function object if compatibilty is required. </p>
 
 </div>
 </div>
@@ -2369,15 +2427,15 @@ template&lt;class CharT , class Hash  = tsl::ah::str_hash&lt;CharT&gt;, class Ke
 
 </div>
 </div>
-<a id="a6f6c4c547a9a16c5766a1328a3525f65"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6f6c4c547a9a16c5766a1328a3525f65">&#9670;&nbsp;</a></span>insert() <span class="overload">[3/4]</span></h2>
+<a id="ade622e47d4e7cba6e5b21b07f5ceb202"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ade622e47d4e7cba6e5b21b07f5ceb202">&#9670;&nbsp;</a></span>insert() <span class="overload">[3/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
 template&lt;class CharT , class Hash  = tsl::ah::str_hash&lt;CharT&gt;, class KeyEqual  = tsl::ah::str_equal&lt;CharT&gt;, bool StoreNullTerminator = true, class KeySizeT  = std::uint16_t, class IndexSizeT  = std::uint32_t, class GrowthPolicy  = tsl::ah::power_of_two_growth_policy&lt;2&gt;&gt; </div>
 <div class="memtemplate">
-template&lt;class InputIt &gt; </div>
+template&lt;class InputIt , typename std::enable_if&lt; is_iterator&lt; InputIt &gt;::value &gt;::type *  = nullptr&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -2690,6 +2748,7 @@ template&lt;class CharT , class Hash  = tsl::ah::str_hash&lt;CharT&gt;, class Ke
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Return the <code>const_iterator it</code> as an <code>iterator</code>. </p>
 
 </div>
 </div>
@@ -2774,6 +2833,42 @@ template&lt;class CharT , class Hash  = tsl::ah::str_hash&lt;CharT&gt;, class Ke
   </tr>
 </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa8dbe36f7d99cf8506898b10209f2905"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa8dbe36f7d99cf8506898b10209f2905">&#9670;&nbsp;</a></span>serialize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class CharT , class Hash  = tsl::ah::str_hash&lt;CharT&gt;, class KeyEqual  = tsl::ah::str_equal&lt;CharT&gt;, bool StoreNullTerminator = true, class KeySizeT  = std::uint16_t, class IndexSizeT  = std::uint32_t, class GrowthPolicy  = tsl::ah::power_of_two_growth_policy&lt;2&gt;&gt; </div>
+<div class="memtemplate">
+template&lt;class Serializer &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classtsl_1_1array__set.html">tsl::array_set</a>&lt; CharT, Hash, KeyEqual, StoreNullTerminator, KeySizeT, IndexSizeT, GrowthPolicy &gt;::serialize </td>
+          <td>(</td>
+          <td class="paramtype">Serializer &amp;&#160;</td>
+          <td class="paramname"><em>serializer</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Serialize the set through the <code>serializer</code> parameter.</p>
+<p>The <code>serializer</code> parameter must be a function object that supports the following calls:</p><ul>
+<li><code>void operator()(const U&amp; value);</code> where the types <code>std::uint64_t</code> and <code>float</code> must be supported for U.</li>
+<li><code>void operator()(const CharT* value, std::size_t value_size);</code></li>
+</ul>
+<p>The implementation leaves binary compatibilty (endianness, IEEE 754 for floats, ...) of the types it serializes in the hands of the <code>Serializer</code> function object if compatibilty is required. </p>
 
 </div>
 </div>
