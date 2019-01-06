@@ -1559,7 +1559,19 @@ private:
     
     
     
-    
+    /**
+     * On serialization the values of each bucket (if has_mapped_type is true) are serialized 
+     * next to the bucket. The potential old erased values in value_container are thus not serialized.
+     * 
+     * On deserialization, when hash_compatible is true, we reaffect the value index (IndexSizeT) of each
+     * bucket with set_value as the position of each value is no more the same in value_container compared
+     * to when they were serialized.
+     * 
+     * It's done this way as we can't call clear_old_erased_values() because we want the serialize 
+     * method to remain const and we don't want to serialize/deserialize old erased values. As we may
+     * not serialize all the values in value_container, the values we keep can change of index.
+     * We thus have to modify the value indexes in the buckets.
+     */
     template<class Serializer>
     void serialize_impl(Serializer& serializer) const {
         const slz_size_type version = SERIALIZATION_PROTOCOL_VERSION;
