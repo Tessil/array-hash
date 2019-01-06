@@ -1235,7 +1235,7 @@ public:
     }
     
     void max_load_factor(float ml) {
-        m_max_load_factor = ml;
+        m_max_load_factor = std::max(0.1f, ml);
         m_load_threshold = size_type(float(bucket_count())*m_max_load_factor);
     }
     
@@ -1497,6 +1497,8 @@ private:
      * Points to m_buckets.data() if !m_buckets.empty() otherwise points to static_empty_bucket_ptr.
      * This variable is useful to avoid the cost of checking if m_buckets is empty when trying 
      * to find an element.
+     *  
+     * TODO Remove m_buckets and only use a pointer+size instead of a pointer+vector to save some space in the array_hash object.
      */
     array_bucket* m_first_or_empty_bucket;
     
