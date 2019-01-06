@@ -568,7 +568,7 @@ public:
         }
 
         const std::size_t bucket_size = static_cast<std::size_t>(bucket_size_ds);
-        bucket.m_buffer = static_cast<CharT*>(std::malloc(bucket_size*sizeof(CharT) + size_as_char_t<decltype(END_OF_BUCKET)>()));
+        bucket.m_buffer = static_cast<CharT*>(std::malloc(bucket_size*sizeof(CharT) + sizeof_in_buff<decltype(END_OF_BUCKET)>()));
         if(bucket.m_buffer == nullptr) {
             throw std::bad_alloc();
         }
