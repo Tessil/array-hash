@@ -10,7 +10,7 @@ Thanks to its cache friendliness, the structure provides fast lookups while keep
   <img src="https://tessil.github.io/images/array_hash.png" width="500px" />
 </p>
 
-Four classes are provided: `tsl::array_map`, `tsl::array_set`, `tsl::array_pg_map` and `tsl::array_pg_set`. The first two are faster and use a power of two growth policy, the last two use a prime growth policy instead and are able to cope better with a poor hash function. Use the prime version if there is a chance of repeating patterns in the lower bits of your hash (e.g. you are storing pointers with an identity hash function). See [GrowthPolicy](https://github.com/Tessil/array-hash#growth-policy) for details.
+Four classes are provided: `tsl::array_map`, `tsl::array_set`, `tsl::array_pg_map` and `tsl::array_pg_set`. The first two are faster and use a power of two growth policy, the last two use a prime growth policy instead and are able to cope better with a poor hash function. Use the prime version if there is a chance of repeating patterns in the lower bits of your hash (e.g. you are storing pointers with an identity hash function). See [GrowthPolicy](#growth-policy) for details.
 
 A **benchmark** of `tsl::array_map` against other hash maps can be found [here](https://tessil.github.io/2016/08/29/benchmark-hopscotch-map.html). This page also gives some advices on which hash table structure you should try for your use case (useful if you are a bit lost with the multiple hash tables implementations in the `tsl` namespace). You can also find another benchmark on the [`tsl::hat-trie`](https://github.com/Tessil/hat-trie#benchmark) page.
 
@@ -21,6 +21,7 @@ A **benchmark** of `tsl::array_map` against other hash maps can be found [here](
 - Support for move-only and non-default constructible values.
 - Strings with null characters inside them are supported (you can thus store binary data as key).
 - If the hash is known before a lookup, it is possible to pass it as parameter to speed-up the lookup (see `precalculated_hash` parameter in [API](https://tessil.github.io/array-hash/doc/html/classtsl_1_1array__map.html)).
+- Support for efficient serialization and deserialization (see [example](#serialization) and the `serialize/deserialize` methods in the [API](https://tessil.github.io/array-hash/doc/html/classtsl_1_1array__map.html) for details).
 - By default the maximum allowed size for a key is set to 65 535. This can be raised through the `KeySizeT` template parameter (see [API](https://tessil.github.io/array-hash/doc/html/classtsl_1_1array__map.html#details) for details).
 - By default the maximum size of the map is limited to 4 294 967 296 elements. This can be raised through the `IndexSizeT` template parameter (see [API](https://tessil.github.io/array-hash/doc/html/classtsl_1_1array__map.html#details) for details).
 
@@ -187,6 +188,115 @@ int main() {
 }
 ```
 
+#### Serialization
+
+The library provides an efficient way to serialize and deserialize a map or a set so that it can be saved to a file or send through the network.
+To do so, it requires the user to provide a function object for both serialization and deserialization.
+
+```c++
+struct serializer {
+    // Must support the following types for U: std::uint64_t, float and T if a map is used.
+    void operator()(const U& value);
+    void operator()(const CharT* value, std::size_t value_size);
+};
+```
+
+```c++
+struct deserializer {
+    // Must support the following types for U: std::uint64_t, float and T if a map is used.
+    U operator()();
+    void operator()(CharT* value_out, std::size_t value_size);
+};
+```
+
+Note that the implementation leaves binary compatibilty (endianness, float binary representation, ...) of the types it serializes/deserializes in the hands of the provided function objects if compatibilty is required.
+
+More details regarding the `serialize` and `deserialize` methods can be found in the [API](https://tessil.github.io/array-hash/doc/html/classtsl_1_1array__map.html).
+
+```c++
+#include <cassert>
+#include <fstream>
+#include <type_traits>
+#include <tsl/array_map.h>
+
+
+class serializer {
+public:
+    serializer(const char* file_name) {
+        m_ostream.exceptions(m_ostream.badbit | m_ostream.failbit);
+        m_ostream.open(file_name);
+    }
+    
+    template<class T,
+             typename std::enable_if<std::is_arithmetic<T>::value>::type* = nullptr>
+    void operator()(const T& value) {
+        m_ostream.write(reinterpret_cast<const char*>(&value), sizeof(T));
+    }
+    
+    void operator()(const char32_t* value, std::size_t value_size) {
+        m_ostream.write(reinterpret_cast<const char*>(value), value_size*sizeof(char32_t));
+    }
+
+private:
+    std::ofstream m_ostream;
+};
+
+class deserializer {
+public:
+    deserializer(const char* file_name) {
+        m_istream.exceptions(m_istream.badbit | m_istream.failbit | m_istream.eofbit);
+        m_istream.open(file_name);
+    }
+    
+    template<class T,
+             typename std::enable_if<std::is_arithmetic<T>::value>::type* = nullptr>
+    T operator()() {
+        T value;
+        m_istream.read(reinterpret_cast<char*>(&value), sizeof(T));
+        
+        return value;
+    }
+    
+    void operator()(char32_t* value_out, std::size_t value_size) {
+        m_istream.read(reinterpret_cast<char*>(value_out), value_size*sizeof(char32_t));
+    }
+
+private:
+    std::ifstream m_istream;
+};
+
+int main() {
+    const tsl::array_map<char32_t, int> map = {{U"one", 1}, {U"two", 2}, {U"three", 3}, {U"four", 4}};
+    
+    
+    const char* file_name = "array_map.data";
+    {
+        serializer serial(file_name);
+        map.serialize(serial);
+    }
+    
+    {
+        deserializer dserial(file_name);
+        auto map_deserialized = tsl::array_map<char32_t, int>::deserialize(dserial);
+        
+        assert(map == map_deserialized);
+    }
+    
+    {
+        deserializer dserial(file_name);
+        
+        /**
+         * If the serialized and deserialized map are hash compatibles (see conditions in API), 
+         * setting the argument to true speed-up the deserialization process as we don't have 
+         * to recalculate the hash of each key. We also know how much space each bucket needs.
+         */
+        const bool hash_compatible = true;
+        auto map_deserialized = tsl::array_map<char32_t, int>::deserialize(dserial, hash_compatible);
+        
+        assert(map == map_deserialized);
+    }
+}
+```
 
 ### License
 
