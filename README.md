@@ -209,12 +209,13 @@ struct deserializer {
 };
 ```
 
-Note that the implementation leaves binary compatibilty (endianness, float binary representation, ...) of the types it serializes/deserializes in the hands of the provided function objects if compatibilty is required.
+Note that the implementation leaves binary compatibilty (endianness, float binary representation, size of int, ...) of the types it serializes/deserializes in the hands of the provided function objects if compatibilty is required.
 
 More details regarding the `serialize` and `deserialize` methods can be found in the [API](https://tessil.github.io/array-hash/doc/html/classtsl_1_1array__map.html).
 
 ```c++
 #include <cassert>
+#include <cstdint>
 #include <fstream>
 #include <type_traits>
 #include <tsl/array_map.h>
@@ -265,8 +266,9 @@ private:
     std::ifstream m_istream;
 };
 
+
 int main() {
-    const tsl::array_map<char32_t, int> map = {{U"one", 1}, {U"two", 2}, {U"three", 3}, {U"four", 4}};
+    const tsl::array_map<char32_t, std::int64_t> map = {{U"one", 1}, {U"two", 2}, {U"three", 3}, {U"four", 4}};
     
     
     const char* file_name = "array_map.data";
@@ -277,7 +279,7 @@ int main() {
     
     {
         deserializer dserial(file_name);
-        auto map_deserialized = tsl::array_map<char32_t, int>::deserialize(dserial);
+        auto map_deserialized = tsl::array_map<char32_t, std::int64_t>::deserialize(dserial);
         
         assert(map == map_deserialized);
     }
@@ -291,7 +293,7 @@ int main() {
          * to recalculate the hash of each key. We also know how much space each bucket needs.
          */
         const bool hash_compatible = true;
-        auto map_deserialized = tsl::array_map<char32_t, int>::deserialize(dserial, hash_compatible);
+        auto map_deserialized = tsl::array_map<char32_t, std::int64_t>::deserialize(dserial, hash_compatible);
         
         assert(map == map_deserialized);
     }

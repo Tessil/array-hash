@@ -598,14 +598,14 @@ public:
      * 
      * If the deserialized hash set type is hash compatible with the serialized set, the deserialization process can be
      * sped up by setting `hash_compatible` to true. To be hash compatible, the Hash (take care of the 32-bits vs 64 bits), 
-     * KeyEqual, GrowthPolicy, StoreNullTerminator, KeySizeT and IndexSizeT must behave the same than the one used on the 
-     * serialazed set. Otherwise the behaviour is undefined with `hash_compatible` sets to true, .
+     * KeyEqual, GrowthPolicy, StoreNullTerminator, KeySizeT and IndexSizeT must behave the same than the ones used on the 
+     * serialized set. Otherwise the behaviour is undefined with `hash_compatible` sets to true, .
      * 
      * The behaviour is undefined if the type `CharT` of the `array_set` is not the same as the
-     * types used during serialization.
+     * type used during serialization.
      * 
-     * The implementation leaves binary compatibilty (endianness, IEEE 754 for floats, ...) of the types it deserializes
-     * in the hands of the `Deserializer` function object if compatibilty is required.
+     * The implementation leaves binary compatibilty (endianness, IEEE 754 for floats, size of int, ...) of the types it 
+     * deserializes in the hands of the `Deserializer` function object if compatibilty is required.
      */
     template<class Deserializer>
     static array_set deserialize(Deserializer& deserializer, bool hash_compatible = false) {
