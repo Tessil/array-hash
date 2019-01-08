@@ -29,6 +29,7 @@
 #include <locale>
 #include <memory>
 #include <ostream>
+#include <sstream>
 #include <string>
 
 #include <boost/numeric/conversion/cast.hpp>
@@ -85,7 +86,7 @@ public:
         }
     }
     
-    std::string value() const {
+    const std::string& value() const {
         return *m_value;
     }
     
