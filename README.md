@@ -293,7 +293,8 @@ int main() {
          * to recalculate the hash of each key. We also know how much space each bucket needs.
          */
         const bool hash_compatible = true;
-        auto map_deserialized = tsl::array_map<char32_t, std::int64_t>::deserialize(dserial, hash_compatible);
+        auto map_deserialized = 
+            tsl::array_map<char32_t, std::int64_t>::deserialize(dserial, hash_compatible);
         
         assert(map == map_deserialized);
     }
