@@ -1628,10 +1628,10 @@ private:
         m_nb_elements = static_cast<IndexSizeT>(nb_elements);
         
         
-        if(bucket_count_ds > std::numeric_limits<std::size_t>::max()) {
-            throw std::runtime_error("Deserialized bucket_count is bigger than the max value of std::size_t on the current platform.");
+        if(bucket_count_ds > std::numeric_limits<size_type>::max()) {
+            throw std::runtime_error("Deserialized bucket_count is bigger than the max value of size_type on the current platform.");
         }
-        std::size_t bucket_count = static_cast<std::size_t>(bucket_count_ds);
+        size_type bucket_count = static_cast<size_type>(bucket_count_ds);
         GrowthPolicy::operator=(GrowthPolicy(bucket_count));
         
         
@@ -1645,14 +1645,14 @@ private:
             }
 
             m_buckets.reserve(bucket_count);
-            for(std::size_t i = 0; i < bucket_count; i++) {
+            for(size_type i = 0; i < bucket_count; i++) {
                 m_buckets.push_back(array_bucket::deserialize(deserializer));
                 deserialize_bucket_values(deserializer, m_buckets.back());
             }
         }
         else {
             m_buckets.resize(bucket_count);
-            for(std::size_t i = 0; i < bucket_count; i++) {
+            for(size_type i = 0; i < bucket_count; i++) {
                 // TODO use buffer to avoid reallocation on each deserialization.
                 array_bucket bucket = array_bucket::deserialize(deserializer);
                 deserialize_bucket_values(deserializer, bucket);
