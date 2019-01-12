@@ -128,6 +128,22 @@ static constexpr bool is_power_of_two(std::size_t value) {
     return value != 0 && (value & (value - 1)) == 0;
 }
 
+template<typename T, typename U>
+static T numeric_cast(U value, const char* error_message = "numeric_cast() failed.") {
+    T ret = static_cast<T>(value);
+    if(static_cast<U>(ret) != value) {
+        throw std::runtime_error(error_message);
+    }
+    
+    const bool is_same_signedness = (std::is_unsigned<T>::value && std::is_unsigned<U>::value) ||
+                                    (std::is_signed<T>::value && std::is_signed<U>::value);
+    if(!is_same_signedness && (ret < T{}) != (value < U{})) {
+        throw std::runtime_error(error_message);
+    }
+    
+    return ret;
+}
+
 
 
 /**
@@ -562,12 +578,7 @@ public:
             return bucket;
         }
         
-        
-        if(bucket_size_ds > std::numeric_limits<std::size_t>::max()) {
-            throw std::runtime_error("Deserialized bucket_size is bigger than the max value of std::size_t on the current platform.");
-        }
-
-        const std::size_t bucket_size = static_cast<std::size_t>(bucket_size_ds);
+        const std::size_t bucket_size = numeric_cast<std::size_t>(bucket_size_ds, "Deserialized bucket_size is too big.");
         bucket.m_buffer = static_cast<CharT*>(std::malloc(bucket_size*sizeof(CharT) + sizeof_in_buff<decltype(END_OF_BUCKET)>()));
         if(bucket.m_buffer == nullptr) {
             throw std::bad_alloc();
@@ -1621,17 +1632,9 @@ private:
         const float max_load_factor = deserialize_value<float>(deserializer);
         
         
+        m_nb_elements = numeric_cast<IndexSizeT>(nb_elements, "Deserialized nb_elements is too big.");
         
-        if(nb_elements > std::numeric_limits<IndexSizeT>::max()) {
-            throw std::runtime_error("Deserialized nb_elements is bigger than the max value of IndexSizeT.");
-        }
-        m_nb_elements = static_cast<IndexSizeT>(nb_elements);
-        
-        
-        if(bucket_count_ds > std::numeric_limits<size_type>::max()) {
-            throw std::runtime_error("Deserialized bucket_count is bigger than the max value of size_type on the current platform.");
-        }
-        size_type bucket_count = static_cast<size_type>(bucket_count_ds);
+        size_type bucket_count = numeric_cast<size_type>(bucket_count_ds, "Deserialized bucket_count is too big.");
         GrowthPolicy::operator=(GrowthPolicy(bucket_count));
         
         
