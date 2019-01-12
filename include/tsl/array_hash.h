@@ -864,17 +864,17 @@ public:
         }
         
         array_hash_iterator& operator++() {
-            tsl_ah_assert(m_buckets_iterator != m_array_hash->m_buckets.end());
+            tsl_ah_assert(m_buckets_iterator != m_array_hash->m_buckets_data.end());
             tsl_ah_assert(m_array_bucket_iterator != m_buckets_iterator->cend());
             
             ++m_array_bucket_iterator;
             if(m_array_bucket_iterator == m_buckets_iterator->cend()) {
                 do {
                     ++m_buckets_iterator;
-                } while(m_buckets_iterator != m_array_hash->m_buckets.end() && 
+                } while(m_buckets_iterator != m_array_hash->m_buckets_data.end() && 
                         m_buckets_iterator->empty());
                 
-                if(m_buckets_iterator != m_array_hash->m_buckets.end()) {
+                if(m_buckets_iterator != m_array_hash->m_buckets_data.end()) {
                     m_array_bucket_iterator = m_buckets_iterator->cbegin();
                 }
             }
@@ -920,10 +920,10 @@ public:
                float max_load_factor): value_container<T>(), 
                                        Hash(hash), 
                                        GrowthPolicy(bucket_count), 
-                                       m_buckets(bucket_count > max_bucket_count()?
-                                                 throw std::length_error("The map exceeds its maxmimum bucket count."):
-                                                 bucket_count), 
-                                       m_first_or_empty_bucket(m_buckets.empty()?static_empty_bucket_ptr():m_buckets.data()), 
+                                       m_buckets_data(bucket_count > max_bucket_count()?
+                                                      throw std::length_error("The map exceeds its maxmimum bucket count."):
+                                                      bucket_count), 
+                                       m_buckets(m_buckets_data.empty()?static_empty_bucket_ptr():m_buckets_data.data()), 
                                        m_nb_elements(0) 
     {
         this->max_load_factor(max_load_factor);
@@ -932,8 +932,8 @@ public:
     array_hash(const array_hash& other): value_container<T>(other),
                                          Hash(other),
                                          GrowthPolicy(other),
-                                         m_buckets(other.m_buckets),
-                                         m_first_or_empty_bucket(m_buckets.empty()?static_empty_bucket_ptr():m_buckets.data()),
+                                         m_buckets_data(other.m_buckets_data),
+                                         m_buckets(m_buckets_data.empty()?static_empty_bucket_ptr():m_buckets_data.data()),
                                          m_nb_elements(other.m_nb_elements),
                                          m_max_load_factor(other.m_max_load_factor),
                                          m_load_threshold(other.m_load_threshold) 
@@ -947,16 +947,16 @@ public:
                                   : value_container<T>(std::move(other)),
                                     Hash(std::move(other)),
                                     GrowthPolicy(std::move(other)),
-                                    m_buckets(std::move(other.m_buckets)),
-                                    m_first_or_empty_bucket(m_buckets.empty()?static_empty_bucket_ptr():m_buckets.data()),
+                                    m_buckets_data(std::move(other.m_buckets_data)),
+                                    m_buckets(m_buckets_data.empty()?static_empty_bucket_ptr():m_buckets_data.data()),
                                     m_nb_elements(other.m_nb_elements),
                                     m_max_load_factor(other.m_max_load_factor),
                                     m_load_threshold(other.m_load_threshold)
     {
         other.value_container<T>::clear();
         other.GrowthPolicy::clear();
-        other.m_buckets.clear();
-        other.m_first_or_empty_bucket = static_empty_bucket_ptr();
+        other.m_buckets_data.clear();
+        other.m_buckets = static_empty_bucket_ptr();
         other.m_nb_elements = 0;
         other.m_load_threshold = 0;
     }
@@ -967,9 +967,9 @@ public:
             Hash::operator=(other);
             GrowthPolicy::operator=(other);
             
-            m_buckets = other.m_buckets;
-            m_first_or_empty_bucket = m_buckets.empty()?static_empty_bucket_ptr():
-                                                        m_buckets.data();
+            m_buckets_data = other.m_buckets_data;
+            m_buckets = m_buckets_data.empty()?static_empty_bucket_ptr():
+                                                             m_buckets_data.data();
             m_nb_elements = other.m_nb_elements;
             m_max_load_factor = other.m_max_load_factor;
             m_load_threshold = other.m_load_threshold;
@@ -990,12 +990,12 @@ public:
      * Iterators 
      */
     iterator begin() noexcept {
-        auto begin = m_buckets.begin();
-        while(begin != m_buckets.end() && begin->empty()) {
+        auto begin = m_buckets_data.begin();
+        while(begin != m_buckets_data.end() && begin->empty()) {
             ++begin;
         }
         
-        return (begin != m_buckets.end())?iterator(begin, begin->cbegin(), this):end();
+        return (begin != m_buckets_data.end())?iterator(begin, begin->cbegin(), this):end();      
     }
     
     const_iterator begin() const noexcept {
@@ -1003,16 +1003,16 @@ public:
     }
     
     const_iterator cbegin() const noexcept {
-        auto begin = m_buckets.cbegin();
-        while(begin != m_buckets.cend() && begin->empty()) {
+        auto begin = m_buckets_data.cbegin();
+        while(begin != m_buckets_data.cend() && begin->empty()) {
             ++begin;
         }
         
-        return (begin != m_buckets.cend())?const_iterator(begin, begin->cbegin(), this):cend();
+        return (begin != m_buckets_data.cend())?const_iterator(begin, begin->cbegin(), this):cend();
     }
     
     iterator end() noexcept {
-        return iterator(m_buckets.end(), array_bucket::cend_it(), this);
+        return iterator(m_buckets_data.end(), array_bucket::cend_it(), this);
     }
     
     const_iterator end() const noexcept {
@@ -1020,7 +1020,7 @@ public:
     }
     
     const_iterator cend() const noexcept {
-        return const_iterator(m_buckets.end(), array_bucket::cend_it(), this);
+        return const_iterator(m_buckets_data.end(), array_bucket::cend_it(), this);
     }
     
     
@@ -1056,7 +1056,7 @@ public:
     void clear() noexcept {
         value_container<T>::clear();
         
-        for(auto& bucket : m_buckets) {
+        for(auto& bucket: m_buckets_data) {
             bucket.clear();
         }
         
@@ -1070,14 +1070,14 @@ public:
         const std::size_t hash = hash_key(key, key_size);
         std::size_t ibucket = bucket_for_hash(hash);
         
-        auto it_find = m_first_or_empty_bucket[ibucket].find_or_end_of_bucket(key, key_size);
+        auto it_find = m_buckets[ibucket].find_or_end_of_bucket(key, key_size);
         if(it_find.second) {
-            return std::make_pair(iterator(m_buckets.begin() + ibucket, it_find.first, this), false);
+            return std::make_pair(iterator(m_buckets_data.begin() + ibucket, it_find.first, this), false);
         }
         
         if(grow_on_high_load()) {
             ibucket = bucket_for_hash(hash);
-            it_find = m_first_or_empty_bucket[ibucket].find_or_end_of_bucket(key, key_size);
+            it_find = m_buckets[ibucket].find_or_end_of_bucket(key, key_size);
         }
         
         return emplace_impl(ibucket, it_find.first, key, key_size, std::forward<ValueArgs>(value_args)...);
@@ -1147,7 +1147,7 @@ public:
         }
         
         const std::size_t ibucket = bucket_for_hash(hash);
-        if(m_first_or_empty_bucket[ibucket].erase(key, key_size)) {
+        if(m_buckets[ibucket].erase(key, key_size)) {
             m_nb_elements--;
             return 1;
         }
@@ -1164,8 +1164,8 @@ public:
         swap(static_cast<value_container<T>&>(*this), static_cast<value_container<T>&>(other));
         swap(static_cast<Hash&>(*this), static_cast<Hash&>(other));
         swap(static_cast<GrowthPolicy&>(*this), static_cast<GrowthPolicy&>(other));
+        swap(m_buckets_data, other.m_buckets_data);
         swap(m_buckets, other.m_buckets);
-        swap(m_first_or_empty_bucket, other.m_first_or_empty_bucket);
         swap(m_nb_elements, other.m_nb_elements);
         swap(m_max_load_factor, other.m_max_load_factor);
         swap(m_load_threshold, other.m_load_threshold);
@@ -1193,7 +1193,7 @@ public:
     const U& at(const CharT* key, size_type key_size, std::size_t hash) const {
         const std::size_t ibucket = bucket_for_hash(hash);
         
-        auto it_find = m_first_or_empty_bucket[ibucket].find_or_end_of_bucket(key, key_size);
+        auto it_find = m_buckets[ibucket].find_or_end_of_bucket(key, key_size);
         if(it_find.second) {
             return this->m_values[it_find.first.value()];
         }
@@ -1209,7 +1209,7 @@ public:
         const std::size_t hash = hash_key(key, key_size);
         std::size_t ibucket = bucket_for_hash(hash);
         
-        auto it_find = m_first_or_empty_bucket[ibucket].find_or_end_of_bucket(key, key_size);
+        auto it_find = m_buckets[ibucket].find_or_end_of_bucket(key, key_size);
         if(it_find.second) {
             return this->m_values[it_find.first.value()];
         }
@@ -1232,7 +1232,7 @@ public:
     size_type count(const CharT* key, size_type key_size, std::size_t hash) const {
         const std::size_t ibucket = bucket_for_hash(hash);
         
-        auto it_find = m_first_or_empty_bucket[ibucket].find_or_end_of_bucket(key, key_size);
+        auto it_find = m_buckets[ibucket].find_or_end_of_bucket(key, key_size);
         if(it_find.second) {
             return 1;
         }
@@ -1254,9 +1254,9 @@ public:
     iterator find(const CharT* key, size_type key_size, std::size_t hash) {
         const std::size_t ibucket = bucket_for_hash(hash);
         
-        auto it_find = m_first_or_empty_bucket[ibucket].find_or_end_of_bucket(key, key_size);
+        auto it_find = m_buckets[ibucket].find_or_end_of_bucket(key, key_size);
         if(it_find.second) {
-            return iterator(m_buckets.begin() + ibucket, it_find.first, this);
+            return iterator(m_buckets_data.begin() + ibucket, it_find.first, this);
         }
         else {
             return end();
@@ -1266,9 +1266,9 @@ public:
     const_iterator find(const CharT* key, size_type key_size, std::size_t hash) const {
         const std::size_t ibucket = bucket_for_hash(hash);
         
-        auto it_find = m_first_or_empty_bucket[ibucket].find_or_end_of_bucket(key, key_size);
+        auto it_find = m_buckets[ibucket].find_or_end_of_bucket(key, key_size);
         if(it_find.second) {
-            return const_iterator(m_buckets.cbegin() + ibucket, it_find.first, this);
+            return const_iterator(m_buckets_data.cbegin() + ibucket, it_find.first, this);
         }
         else {
             return cend();
@@ -1301,11 +1301,11 @@ public:
      * Bucket interface 
      */
     size_type bucket_count() const {
-        return m_buckets.size();
+        return m_buckets_data.size();
     }
     
     size_type max_bucket_count() const { 
-        return std::min(GrowthPolicy::max_bucket_count(), m_buckets.max_size());
+        return std::min(GrowthPolicy::max_bucket_count(), m_buckets_data.max_size());
     }
     
     
@@ -1350,7 +1350,7 @@ public:
      * Other
      */
     iterator mutable_iterator(const_iterator it) noexcept {
-        auto it_bucket = m_buckets.begin() + std::distance(m_buckets.cbegin(), it.m_buckets_iterator);
+        auto it_bucket = m_buckets_data.begin() + std::distance(m_buckets_data.cbegin(), it.m_buckets_iterator);
         return iterator(it_bucket, it.m_array_bucket_iterator, this);
     }
     
@@ -1388,9 +1388,9 @@ private:
         else {
             do {
                 ++pos.m_buckets_iterator;
-            } while(pos.m_buckets_iterator != m_buckets.end() && pos.m_buckets_iterator->empty());
+            } while(pos.m_buckets_iterator != m_buckets_data.end() && pos.m_buckets_iterator->empty());
             
-            if(pos.m_buckets_iterator != m_buckets.end()) {
+            if(pos.m_buckets_iterator != m_buckets_data.end()) {
                 return iterator(pos.m_buckets_iterator, pos.m_buckets_iterator->cbegin(), this);
             }
             else {
@@ -1479,10 +1479,10 @@ private:
         this->m_values.emplace_back(std::forward<ValueArgs>(value_args)...);
         
         try {
-            auto it = m_first_or_empty_bucket[ibucket].append(end_of_bucket, key, key_size, IndexSizeT(this->m_values.size() - 1));
+            auto it = m_buckets[ibucket].append(end_of_bucket, key, key_size, IndexSizeT(this->m_values.size() - 1));
             m_nb_elements++;
             
-            return std::make_pair(iterator(m_buckets.begin() + ibucket, it, this), true);
+            return std::make_pair(iterator(m_buckets_data.begin() + ibucket, it, this), true);
         } catch(...) {
             // Rollback
             this->m_values.pop_back();
@@ -1498,10 +1498,10 @@ private:
             throw std::length_error("Can't insert value, too much values in the map.");
         }
         
-        auto it = m_first_or_empty_bucket[ibucket].append(end_of_bucket, key, key_size);
+        auto it = m_buckets[ibucket].append(end_of_bucket, key, key_size);
         m_nb_elements++;
         
-        return std::make_pair(iterator(m_buckets.begin() + ibucket, it, this), true);
+        return std::make_pair(iterator(m_buckets_data.begin() + ibucket, it, this), true);
     }
     
     void rehash_impl(size_type bucket_count) {
@@ -1551,8 +1551,8 @@ private:
         using std::swap;
         swap(static_cast<GrowthPolicy&>(*this), new_growth_policy);
         
-        m_buckets.swap(new_buckets);
-        m_first_or_empty_bucket = m_buckets.data();
+        m_buckets_data.swap(new_buckets);
+        m_buckets = m_buckets_data.data();
         
         // Call max_load_factor to change m_load_threshold
         max_load_factor(m_max_load_factor);
@@ -1588,7 +1588,7 @@ private:
         const slz_size_type version = SERIALIZATION_PROTOCOL_VERSION;
         serializer(version);
         
-        const slz_size_type bucket_count = m_buckets.size();
+        const slz_size_type bucket_count = m_buckets_data.size();
         serializer(bucket_count);
         
         const slz_size_type nb_elements = m_nb_elements;
@@ -1597,7 +1597,7 @@ private:
         const float max_load_factor = m_max_load_factor;
         serializer(max_load_factor);
         
-        for(const array_bucket& bucket: m_buckets) {
+        for(const array_bucket& bucket: m_buckets_data) {
             bucket.serialize(serializer);
             serialize_bucket_values(serializer, bucket);
         }
@@ -1618,7 +1618,7 @@ private:
 
     template<class Deserializer>
     void deserialize_impl(Deserializer& deserializer, bool hash_compatible) {
-        tsl_ah_assert(m_buckets.empty()); // Current hash table must be empty
+        tsl_ah_assert(m_buckets_data.empty()); // Current hash table must be empty
         
         const slz_size_type version = deserialize_value<slz_size_type>(deserializer);
         // For now we only have one version of the serialization protocol. 
@@ -1647,14 +1647,14 @@ private:
                 throw std::runtime_error("The GrowthPolicy is not the same even though hash_compatible is true.");
             }
 
-            m_buckets.reserve(bucket_count);
+            m_buckets_data.reserve(bucket_count);
             for(size_type i = 0; i < bucket_count; i++) {
-                m_buckets.push_back(array_bucket::deserialize(deserializer));
-                deserialize_bucket_values(deserializer, m_buckets.back());
+                m_buckets_data.push_back(array_bucket::deserialize(deserializer));
+                deserialize_bucket_values(deserializer, m_buckets_data.back());
             }
         }
         else {
-            m_buckets.resize(bucket_count);
+            m_buckets_data.resize(bucket_count);
             for(size_type i = 0; i < bucket_count; i++) {
                 // TODO use buffer to avoid reallocation on each deserialization.
                 array_bucket bucket = array_bucket::deserialize(deserializer);
@@ -1663,17 +1663,17 @@ private:
                 for(auto it_val = bucket.cbegin(); it_val != bucket.cend(); ++it_val) {
                     const std::size_t ibucket = bucket_for_hash(hash_key(it_val.key(), it_val.key_size()));
                     
-                    auto it_find = m_buckets[ibucket].find_or_end_of_bucket(it_val.key(), it_val.key_size());
+                    auto it_find = m_buckets_data[ibucket].find_or_end_of_bucket(it_val.key(), it_val.key_size());
                     if(it_find.second) {
                         throw std::runtime_error("Error on deserialization, the same key is presents multiple times.");
                     }
                     
-                    append_array_bucket_iterator_in_bucket(m_buckets[ibucket], it_find.first, it_val);
+                    append_array_bucket_iterator_in_bucket(m_buckets_data[ibucket], it_find.first, it_val);
                 }
             }
         }
         
-        m_first_or_empty_bucket = m_buckets.data();
+        m_buckets = m_buckets_data.data();
         
         
         if(load_factor() > this->max_load_factor()) {
@@ -1738,16 +1738,16 @@ private:
     }
     
 private:    
-    std::vector<array_bucket> m_buckets;
+    std::vector<array_bucket> m_buckets_data;
     
     /**
-     * Points to m_buckets.data() if !m_buckets.empty() otherwise points to static_empty_bucket_ptr.
-     * This variable is useful to avoid the cost of checking if m_buckets is empty when trying 
+     * Points to m_buckets_data.data() if !m_buckets_data.empty() otherwise points to static_empty_bucket_ptr.
+     * This variable is useful to avoid the cost of checking if m_buckets_data is empty when trying 
      * to find an element.
      * 
-     * TODO Remove m_buckets and only use a pointer+size instead of a pointer+vector to save some space in the array_hash object.
+     * TODO Remove m_buckets_data and only use a pointer+size instead of a pointer+vector to save some space in the array_hash object.
      */
-    array_bucket* m_first_or_empty_bucket;
+    array_bucket* m_buckets;
     
     IndexSizeT m_nb_elements;
     float m_max_load_factor;
