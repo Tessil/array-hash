@@ -58,60 +58,92 @@ BOOST_AUTO_TEST_CASE_TEMPLATE(test_insert, ASet, test_types) {
     
     
     const size_t nb_values = 1000;
-    ASet map;
+    ASet set;
     typename ASet::iterator it;
     bool inserted;
     
     for(size_t i = 0; i < nb_values; i++) {
         const auto key = utils::get_key<char_tt>(i);
-        std::tie(it, inserted) = map.insert(key);
+        std::tie(it, inserted) = set.insert(key);
         
-        BOOST_CHECK(map.key_eq()(it.key(), it.key_size(), key.c_str(), key.size()));
+        BOOST_CHECK(set.key_eq()(it.key(), it.key_size(), key.c_str(), key.size()));
         BOOST_CHECK(inserted);
     }
-    BOOST_CHECK_EQUAL(map.size(), nb_values);
+    BOOST_CHECK_EQUAL(set.size(), nb_values);
     
     for(size_t i = 0; i < nb_values; i++) {
         const auto key = utils::get_key<char_tt>(i);
-        std::tie(it, inserted) = map.insert(key);
+        std::tie(it, inserted) = set.insert(key);
         
-        BOOST_CHECK(map.key_eq()(it.key(), it.key_size(), key.c_str(), key.size()));
+        BOOST_CHECK(set.key_eq()(it.key(), it.key_size(), key.c_str(), key.size()));
         BOOST_CHECK(!inserted);
     }
     
     for(size_t i = 0; i < nb_values; i++) {
         const auto key = utils::get_key<char_tt>(i);
-        it = map.find(key);
+        it = set.find(key);
         
-        BOOST_CHECK(it != map.end());
-        BOOST_CHECK(map.key_eq()(it.key(), it.key_size(), key.c_str(), key.size()));
+        BOOST_CHECK(it != set.end());
+        BOOST_CHECK(set.key_eq()(it.key(), it.key_size(), key.c_str(), key.size()));
     }
 }
 
 BOOST_AUTO_TEST_CASE(test_insert_more_than_max_size) {
     tsl::array_set<char, tsl::ah::str_hash<char>, tsl::ah::str_equal<char>, true, 
-                   std::uint16_t, std::uint8_t> map;
-    for(std::size_t i=0; i < map.max_size(); i++) {
-        map.insert(utils::get_key<char>(i));
+                   std::uint16_t, std::uint8_t> set;
+    for(std::size_t i = 0; i < set.max_size(); i++) {
+        set.insert(utils::get_key<char>(i));
     }
     
-    BOOST_CHECK_EQUAL(map.size(), map.max_size());
-    BOOST_CHECK_THROW(map.insert(utils::get_key<char>(map.max_size())), 
+    BOOST_CHECK_EQUAL(set.size(), set.max_size());
+    BOOST_CHECK_THROW(set.insert(utils::get_key<char>(set.max_size())), 
                       std::length_error);
 }
 
 BOOST_AUTO_TEST_CASE(test_insert_with_too_long_string) {
     tsl::array_set<char, tsl::ah::str_hash<char>, tsl::ah::str_equal<char>, true,
-                   std::uint8_t, std::uint16_t> map;
-    for(std::size_t i=0; i < 10; i++) {
-        map.insert(utils::get_key<char>(i));
+                   std::uint8_t, std::uint16_t> set;
+    for(std::size_t i = 0; i < 10; i++) {
+        set.insert(utils::get_key<char>(i));
     }
     
-    const std::string long_string("a", map.max_key_size());
-    BOOST_CHECK(map.insert(long_string).second);
+    const std::string long_string("a", set.max_key_size());
+    BOOST_CHECK(set.insert(long_string).second);
     
-    const std::string too_long_string("a", map.max_key_size() + 1);
-    BOOST_CHECK_THROW(map.insert(too_long_string), std::length_error);
+    const std::string too_long_string("a", set.max_key_size() + 1);
+    BOOST_CHECK_THROW(set.insert(too_long_string), std::length_error);
+}
+
+/**
+ * operator== and operator!=
+ */
+BOOST_AUTO_TEST_CASE(test_compare) {
+    const tsl::array_set<char> set1 = {"aa", "ee", "dd", "cc", "bb"};
+    const tsl::array_set<char> set1_copy = {"ee", "cc", "bb", "aa", "dd"};
+    const tsl::array_set<char> set2 = {"ee", "cc", "bb", "aa", "dd", "ff"};
+    const tsl::array_set<char> set3 = {"ee", "cc", "bb", "aa"};
+    const tsl::array_set<char> set4 = {"aa", "ee", "dd", "cc", "zz"};
+    
+    BOOST_CHECK(set1 == set1_copy);
+    BOOST_CHECK(set1_copy == set1);
+    
+    BOOST_CHECK(set1 != set2);
+    BOOST_CHECK(set2 != set1);
+    
+    BOOST_CHECK(set1 != set3);
+    BOOST_CHECK(set3 != set1);
+    
+    BOOST_CHECK(set1 != set4);
+    BOOST_CHECK(set4 != set1);
+    
+    BOOST_CHECK(set2 != set3);
+    BOOST_CHECK(set3 != set2);
+    
+    BOOST_CHECK(set2 != set4);
+    BOOST_CHECK(set4 != set2);
+    
+    BOOST_CHECK(set3 != set4);
+    BOOST_CHECK(set4 != set3);
 }
 
 /**

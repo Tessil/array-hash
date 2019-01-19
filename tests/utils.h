@@ -112,7 +112,7 @@ template<class CharT>
 struct ci_str_hash {
     std::size_t operator()(const CharT* key, std::size_t key_size) const {
         std::size_t hash = 0;
-        for (unsigned int i = 0; i < key_size; ++i) {
+        for (std::size_t i = 0; i < key_size; ++i) {
             hash = std::toupper(key[i]) + (hash * 31);
         }
         
@@ -147,29 +147,29 @@ struct ci_str_equal {
 class utils {
 public:
     template<typename CharT>
-    static std::basic_string<CharT> get_key(size_t counter);
+    static std::basic_string<CharT> get_key(std::size_t counter);
     
     template<typename T>
-    static T get_value(size_t counter);
+    static T get_value(std::size_t counter);
     
     template<typename AMap>
-    static AMap get_filled_map(size_t nb_elements);
+    static AMap get_filled_hash_map(std::size_t nb_elements);
 };
 
 
 
 template<>
-inline std::basic_string<char> utils::get_key<char>(size_t counter) {
+inline std::basic_string<char> utils::get_key<char>(std::size_t counter) {
     return "Key " + std::to_string(counter);
 }
 
 template<>
-inline std::basic_string<wchar_t> utils::get_key<wchar_t>(size_t counter) {
+inline std::basic_string<wchar_t> utils::get_key<wchar_t>(std::size_t counter) {
     return L"Key " + std::to_wstring(counter);
 }
 
 template<>
-inline std::basic_string<char16_t> utils::get_key<char16_t>(size_t counter) {
+inline std::basic_string<char16_t> utils::get_key<char16_t>(std::size_t counter) {
     std::string num = std::to_string(counter);
     std::u16string key = u"Key ";
     
@@ -182,7 +182,7 @@ inline std::basic_string<char16_t> utils::get_key<char16_t>(size_t counter) {
 }
 
 template<>
-inline std::basic_string<char32_t> utils::get_key<char32_t>(size_t counter) {
+inline std::basic_string<char32_t> utils::get_key<char32_t>(std::size_t counter) {
     std::string num = std::to_string(counter);
     std::u32string key = U"Key ";
     
@@ -197,28 +197,48 @@ inline std::basic_string<char32_t> utils::get_key<char32_t>(size_t counter) {
 
 
 template<>
-inline int64_t utils::get_value<int64_t>(size_t counter) {
-    return boost::numeric_cast<int64_t>(counter*2);
+inline std::int64_t utils::get_value<std::int64_t>(std::size_t counter) {
+    return boost::numeric_cast<std::int64_t>(counter*2);
 }
 
 template<>
-inline std::string utils::get_value<std::string>(size_t counter) {
+inline std::uint64_t utils::get_value<std::uint64_t>(std::size_t counter) {
+    return static_cast<std::uint64_t>(counter*2);
+}
+
+template<>
+inline std::uint32_t utils::get_value<std::uint32_t>(std::size_t counter) {
+    return static_cast<std::uint32_t>(counter*2);
+}
+
+template<>
+inline std::uint16_t utils::get_value<std::uint16_t>(std::size_t counter) {
+    return static_cast<std::uint16_t>(counter*2);
+}
+
+template<>
+inline std::uint8_t utils::get_value<std::uint8_t>(std::size_t counter) {
+    return static_cast<std::uint8_t>(counter*2);
+}
+
+template<>
+inline std::string utils::get_value<std::string>(std::size_t counter) {
     return "Value " + std::to_string(counter);
 }
 
 template<>
-inline move_only_test utils::get_value<move_only_test>(size_t counter) {
-    return move_only_test(boost::numeric_cast<int64_t>(counter*2));
+inline move_only_test utils::get_value<move_only_test>(std::size_t counter) {
+    return move_only_test(boost::numeric_cast<std::int64_t>(counter*2));
 }
 
 
 template<typename AMap>
-inline AMap utils::get_filled_map(size_t nb_elements) {
+inline AMap utils::get_filled_hash_map(std::size_t nb_elements) {
     using char_tt = typename AMap::char_type; 
     using value_tt = typename AMap::mapped_type;
     
     AMap map(nb_elements);
-    for(size_t i = 0; i < nb_elements; i++) {
+    for(std::size_t i = 0; i < nb_elements; i++) {
         map.insert(utils::get_key<char_tt>(i), utils::get_value<value_tt>(i));
     }
     

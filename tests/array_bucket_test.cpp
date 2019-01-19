@@ -59,8 +59,9 @@ BOOST_AUTO_TEST_CASE_TEMPLATE(test_insert, ABucket, test_types) {
         auto it_find = bucket.find_or_end_of_bucket(key.data(), key.size());
         BOOST_REQUIRE(!it_find.second);
         
-        auto it_insert = bucket.append(it_find.first, key.data(), key.size(), mapped_tt(i));
+        auto it_insert = bucket.append(it_find.first, key.data(), key.size(), utils::get_value<mapped_tt>(i));
         BOOST_CHECK(key_equal()(it_insert.key(), it_insert.key_size(), key.data(), key.size()));
+        BOOST_CHECK_EQUAL(it_insert.value(), utils::get_value<mapped_tt>(i));
         
         BOOST_CHECK_EQUAL(std::distance(bucket.begin(), bucket.end()), i + 1);
         BOOST_CHECK_EQUAL(std::distance(bucket.cbegin(), bucket.cend()), i + 1);
@@ -71,12 +72,12 @@ BOOST_AUTO_TEST_CASE_TEMPLATE(test_insert, ABucket, test_types) {
     for(auto it = bucket.begin(); it != bucket.end(); ++it) {
         const auto key = utils::get_key<char_tt>(i);
         BOOST_CHECK(key_equal()(it.key(), it.key_size(), key.data(), key.size()));
-        BOOST_CHECK_EQUAL(it.value(), mapped_tt(i));
+        BOOST_CHECK_EQUAL(it.value(), utils::get_value<mapped_tt>(i));
         i++;
     }
     
     // Remove half value
-    for(std::size_t i = 0; i < nb_values; i += 2) {
+    for(i = 0; i < nb_values; i += 2) {
         const auto key = utils::get_key<char_tt>(i);
         BOOST_CHECK(bucket.erase(key.data(), key.size()));
     }
@@ -87,7 +88,7 @@ BOOST_AUTO_TEST_CASE_TEMPLATE(test_insert, ABucket, test_types) {
     for(auto it = bucket.begin(); it != bucket.end(); ++it) {
         const auto key = utils::get_key<char_tt>(i);
         BOOST_CHECK(key_equal()(it.key(), it.key_size(), key.data(), key.size()));
-        BOOST_CHECK_EQUAL(it.value(), mapped_tt(i));
+        BOOST_CHECK_EQUAL(it.value(), utils::get_value<mapped_tt>(i));
         i += 2;
     }
     BOOST_CHECK_EQUAL(std::distance(bucket.begin(), bucket.end()), nb_values/2);
@@ -96,7 +97,7 @@ BOOST_AUTO_TEST_CASE_TEMPLATE(test_insert, ABucket, test_types) {
     
     
     // Remove second half
-    for(std::size_t i = 1; i < nb_values; i += 2) {
+    for(i = 1; i < nb_values; i += 2) {
         const auto key = utils::get_key<char_tt>(i);
         BOOST_CHECK(bucket.erase(key.data(), key.size()));
     }
@@ -127,7 +128,7 @@ BOOST_AUTO_TEST_CASE_TEMPLATE(test_append_in_reserved, ABucket, test_types) {
     
     for(std::size_t i = 0; i < nb_values; i++) {
         const auto key = utils::get_key<char_tt>(i);
-        bucket.append_in_reserved_bucket_no_check(key.data(), key.size(), mapped_tt(i));
+        bucket.append_in_reserved_bucket_no_check(key.data(), key.size(), utils::get_value<mapped_tt>(i));
         
         BOOST_CHECK_EQUAL(std::distance(bucket.begin(), bucket.end()), i + 1);
     }
@@ -138,7 +139,7 @@ BOOST_AUTO_TEST_CASE_TEMPLATE(test_append_in_reserved, ABucket, test_types) {
         
         BOOST_REQUIRE(it_find.second);
         BOOST_CHECK(key_equal()(it_find.first.key(), it_find.first.key_size(), key.data(), key.size()));
-        BOOST_CHECK_EQUAL(it_find.first.value(), mapped_tt(i));
+        BOOST_CHECK_EQUAL(it_find.first.value(), utils::get_value<mapped_tt>(i));
     }
 }
 
@@ -154,14 +155,14 @@ BOOST_AUTO_TEST_CASE_TEMPLATE(test_erase_all, ABucket, test_types) {
     ABucket bucket;
     
     // insert `nb_values` values
-    const std::size_t nb_values = 1000;
+    std::size_t nb_values = 1000;
     for(std::size_t i = 0; i < nb_values; i++) {
         const auto key = utils::get_key<char_tt>(i);
         
         auto it_find = bucket.find_or_end_of_bucket(key.data(), key.size());
         BOOST_REQUIRE(!it_find.second);
         
-        auto it_insert = bucket.append(it_find.first, key.data(), key.size(), mapped_tt(i));
+        auto it_insert = bucket.append(it_find.first, key.data(), key.size(), utils::get_value<mapped_tt>(i));
         BOOST_CHECK(key_equal()(it_insert.key(), it_insert.key_size(), key.data(), key.size()));
     }    
     
@@ -169,6 +170,7 @@ BOOST_AUTO_TEST_CASE_TEMPLATE(test_erase_all, ABucket, test_types) {
     auto it_erase = bucket.cbegin();
     while(it_erase != bucket.cend()) {
         it_erase = bucket.erase(it_erase);
+        BOOST_CHECK_EQUAL(std::distance(bucket.begin(), bucket.end()), --nb_values);
     }
     
     BOOST_CHECK_EQUAL(std::distance(bucket.begin(), bucket.end()), 0);
@@ -180,7 +182,7 @@ BOOST_AUTO_TEST_CASE_TEMPLATE(test_erase_all, ABucket, test_types) {
 /**
  * iterator
  */
-BOOST_AUTO_TEST_CASE(test_iterator) {
+BOOST_AUTO_TEST_CASE(test_iterator_empty_bucket) {
     using ABucket = tsl::detail_array_hash::array_bucket<char, void, tsl::ah::str_equal<char>, std::uint16_t, true>;
     ABucket bucket;
     
