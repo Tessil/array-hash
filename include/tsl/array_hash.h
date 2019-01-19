@@ -514,7 +514,7 @@ public:
     }
     
     /**
-     * Return true if the element has been erased
+     * Return true if an element has been erased
      */
     bool erase(const CharT* key, size_type key_size) noexcept {
         if(m_buffer == nullptr) {
@@ -1511,7 +1511,7 @@ private:
         }
         
         
-        if(shoud_clear_old_erased_values(0.9f)) {
+        if(shoud_clear_old_erased_values(REHASH_CLEAR_OLD_ERASED_VALUE_THRESHOLD)) {
             clear_old_erased_values();
         }
         
@@ -1552,7 +1552,8 @@ private:
         swap(static_cast<GrowthPolicy&>(*this), new_growth_policy);
         
         m_buckets_data.swap(new_buckets);
-        m_buckets = m_buckets_data.data();
+        m_buckets = !m_buckets_data.empty()?m_buckets_data.data():
+                                            static_empty_bucket_ptr();
         
         // Call max_load_factor to change m_load_threshold
         max_load_factor(m_max_load_factor);
@@ -1727,6 +1728,7 @@ private:
     
     
     static constexpr float DEFAULT_CLEAR_OLD_ERASED_VALUE_THRESHOLD = 0.6f;
+    static constexpr float REHASH_CLEAR_OLD_ERASED_VALUE_THRESHOLD = 0.9f;
     
     
     /**
