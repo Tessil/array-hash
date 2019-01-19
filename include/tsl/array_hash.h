@@ -1716,7 +1716,7 @@ private:
     }
     
 public:    
-    static const size_type DEFAULT_INIT_BUCKET_COUNT = 16;
+    static const size_type DEFAULT_INIT_BUCKET_COUNT = 0;
     static constexpr float DEFAULT_MAX_LOAD_FACTOR = 2.0f;
     static const size_type MAX_KEY_SIZE = array_bucket::MAX_KEY_SIZE;
     
