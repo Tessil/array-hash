@@ -1313,6 +1313,10 @@ public:
      *  Hash policy 
      */
     float load_factor() const {
+        if(bucket_count() == 0) {
+            return 0;
+        }
+
         return float(m_nb_elements) / float(bucket_count());
     }
     
