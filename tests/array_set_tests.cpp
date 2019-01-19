@@ -107,10 +107,10 @@ BOOST_AUTO_TEST_CASE(test_insert_with_too_long_string) {
         set.insert(utils::get_key<char>(i));
     }
     
-    const std::string long_string("a", set.max_key_size());
+    const std::string long_string(set.max_key_size(), 'a');
     BOOST_CHECK(set.insert(long_string).second);
     
-    const std::string too_long_string("a", set.max_key_size() + 1);
+    const std::string too_long_string(set.max_key_size() + 1, 'a');
     BOOST_CHECK_THROW(set.insert(too_long_string), std::length_error);
 }
 
