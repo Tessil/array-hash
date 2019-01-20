@@ -268,7 +268,8 @@ private:
 
 
 int main() {
-    const tsl::array_map<char32_t, std::int64_t> map = {{U"one", 1}, {U"two", 2}, {U"three", 3}, {U"four", 4}};
+    const tsl::array_map<char32_t, std::int64_t> map = {{U"one", 1}, {U"two", 2}, 
+                                                        {U"three", 3}, {U"four", 4}};
     
     
     const char* file_name = "array_map.data";
@@ -295,6 +296,112 @@ int main() {
         const bool hash_compatible = true;
         auto map_deserialized = 
             tsl::array_map<char32_t, std::int64_t>::deserialize(dserial, hash_compatible);
+        
+        assert(map == map_deserialized);
+    }
+}
+```
+
+##### Serialization with Boost Serialization and compression with zlib
+
+It's possible to use a serialization library to avoid some of the boilerplate if the types to serialize are more complex.
+
+The following example uses Boost Serialization with the Boost zlib compression stream to reduce the size of the resulting serialized file.
+
+
+```c++
+#include <boost/archive/binary_iarchive.hpp>
+#include <boost/archive/binary_oarchive.hpp>
+#include <boost/iostreams/filter/zlib.hpp>
+#include <boost/iostreams/filtering_stream.hpp>
+#include <boost/serialization/split_free.hpp>
+#include <boost/serialization/utility.hpp>
+#include <cassert>
+#include <cstdint>
+#include <fstream>
+#include <tsl/array_map.h>
+
+
+template<typename Archive>
+struct serializer {
+    Archive& ar;
+    
+    template<typename T>
+    void operator()(const T& val) { ar & val; }
+    
+    template<typename CharT>
+    void operator()(const CharT* val, std::size_t val_size) {
+        ar.save_binary((void*) val, val_size*sizeof(CharT));
+    }   
+};
+
+template<typename Archive>
+struct deserializer {
+    Archive& ar;
+    
+    template<typename T>
+    T operator()() { T val; ar & val; return val; }
+    
+    template<typename CharT>
+    void operator()(CharT* val_out, std::size_t val_size) {
+        ar.load_binary((void*) val_out, val_size*sizeof(CharT));
+    }  
+};
+
+namespace boost { namespace serialization {
+template<class Archive, class CharT, class T>
+void serialize(Archive & ar, tsl::array_map<CharT, T>& map, const unsigned int version) {
+    split_free(ar, map, version); 
+}
+
+template<class Archive, class CharT, class T>
+void save(Archive & ar, const tsl::array_map<CharT, T>& map, const unsigned int version) {
+    serializer<Archive> serial{ar};
+    map.serialize(serial);
+}
+
+
+template<class Archive, class CharT, class T>
+void load(Archive & ar, tsl::array_map<CharT, T>& map, const unsigned int version) {
+    deserializer<Archive> deserial{ar};
+    map = tsl::array_map<CharT, T>::deserialize(deserial);
+}
+}}
+
+
+int main() {
+    const tsl::array_map<char32_t, std::int64_t> map = {{U"one", 1}, {U"two", 2}, 
+                                                        {U"three", 3}, {U"four", 4}};
+    
+    
+    const char* file_name = "array_map.data";
+    {
+        std::ofstream ofs;
+        ofs.exceptions(ofs.badbit | ofs.failbit);
+        ofs.open(file_name, std::ios::binary);
+        
+        boost::iostreams::filtering_ostream fo;
+        fo.push(boost::iostreams::zlib_compressor());
+        fo.push(ofs);
+        
+        boost::archive::binary_oarchive oa(fo);
+        
+        oa << map;
+    }
+    
+    {
+        std::ifstream ifs;
+        ifs.exceptions(ifs.badbit | ifs.failbit | ifs.eofbit);
+        ifs.open(file_name, std::ios::binary);
+        
+        boost::iostreams::filtering_istream fi;
+        fi.push(boost::iostreams::zlib_decompressor());
+        fi.push(ifs);
+        
+        boost::archive::binary_iarchive ia(fi);
+     
+        tsl::array_map<char32_t, std::int64_t> map_deserialized;   
+        ia >> map_deserialized;
         
         assert(map == map_deserialized);
     }
