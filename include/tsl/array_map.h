@@ -786,7 +786,7 @@ public:
      * If the deserialized hash map type is hash compatible with the serialized map, the deserialization process can be
      * sped up by setting `hash_compatible` to true. To be hash compatible, the Hash (take care of the 32-bits vs 64 bits), 
      * KeyEqual, GrowthPolicy, StoreNullTerminator, KeySizeT and IndexSizeT must behave the same than the ones used on the 
-     * serialized map. Otherwise the behaviour is undefined with `hash_compatible` sets to true, .
+     * serialized map. Otherwise the behaviour is undefined with `hash_compatible` sets to true.
      * 
      * The behaviour is undefined if the type `CharT` and `T` of the `array_map` are not the same as the
      * types used during serialization.
