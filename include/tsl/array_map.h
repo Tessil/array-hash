@@ -765,7 +765,7 @@ public:
      * Serialize the map through the `serializer` parameter.
      * 
      * The `serializer` parameter must be a function object that supports the following calls:
-     *  - `void operator()(const U& value);` where the types `std::uint64_t`, `float` and `T` must be supported for U.
+     *  - `template<typename U> void operator()(const U& value);` where the types `std::uint64_t`, `float` and `T` must be supported for U.
      *  - `void operator()(const CharT* value, std::size_t value_size);`
      * 
      * The implementation leaves binary compatibilty (endianness, IEEE 754 for floats, ...) of the types it serializes
