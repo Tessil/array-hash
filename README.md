@@ -196,6 +196,7 @@ To do so, it requires the user to provide a function object for both serializati
 ```c++
 struct serializer {
     // Must support the following types for U: std::uint64_t, float and T if a map is used.
+    template<typename U>
     void operator()(const U& value);
     void operator()(const CharT* value, std::size_t value_size);
 };
@@ -204,6 +205,7 @@ struct serializer {
 ```c++
 struct deserializer {
     // Must support the following types for U: std::uint64_t, float and T if a map is used.
+    template<typename U>
     U operator()();
     void operator()(CharT* value_out, std::size_t value_size);
 };
@@ -331,7 +333,7 @@ struct serializer {
     
     template<typename CharT>
     void operator()(const CharT* val, std::size_t val_size) {
-        ar.save_binary((void*) val, val_size*sizeof(CharT));
+        ar.save_binary(reinterpret_cast<const void*>(val), val_size*sizeof(CharT));
     }   
 };
 
@@ -344,7 +346,7 @@ struct deserializer {
     
     template<typename CharT>
     void operator()(CharT* val_out, std::size_t val_size) {
-        ar.load_binary((void*) val_out, val_size*sizeof(CharT));
+        ar.load_binary(reinterpret_cast<void*>val_out), val_size*sizeof(CharT));
     }  
 };
 
