@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.1)
 include(GNUInstallDirs)
 
 
-project(tsl-array-hash VERSION 0.6.0)
+project(tsl-array-hash VERSION 0.7.0)
 
 add_library(array_hash INTERFACE)
 # Use tsl::array_hash as target, more consistent with other libraries conventions (Boost, Qt, ...)
