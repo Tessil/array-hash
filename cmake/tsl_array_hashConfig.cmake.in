@@ -1,9 +1,0 @@
-# This module sets the following variables:
-# * tsl_array_hash_FOUND - true if tsl_array_hash found on the system
-# * tsl_array_hash_INCLUDE_DIRS - the directory containing tsl_array_hash headers
-@PACKAGE_INIT@
-
-if(NOT TARGET tsl::array_hash)
-  include("${CMAKE_CURRENT_LIST_DIR}/tsl_array_hashTargets.cmake")
-  get_target_property(tsl_array_hash_INCLUDE_DIRS tsl::array_hash INTERFACE_INCLUDE_DIRECTORIES)
-endif()

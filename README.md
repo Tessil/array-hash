@@ -108,7 +108,7 @@ add_subdirectory(third-party/array-hash)
 target_link_libraries(your_target PRIVATE tsl::array_hash)  
 ```
 
-If the project has been installed through `make install`, you can also use `find_package(tsl_array_hash REQUIRED)` instead of `add_subdirectory`.
+If the project has been installed through `make install`, you can also use `find_package(tsl-array-hash REQUIRED)` instead of `add_subdirectory`.
 
 The code should work with any C++11 standard-compliant compiler and has been tested with GCC 4.8.4, Clang 3.5.0 and Visual Studio 2015.
 

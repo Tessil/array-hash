@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.5)
+cmake_minimum_required(VERSION 3.8)
 
 project(tsl_array_hash_tests)
 
@@ -7,6 +7,8 @@ add_executable(tsl_array_hash_tests "main.cpp"
                                     "array_map_tests.cpp" 
                                     "array_set_tests.cpp" 
                                     "policy_tests.cpp")
+
+target_compile_features(tsl_array_hash_tests PRIVATE cxx_std_11)
 
 if(CMAKE_CXX_COMPILER_ID MATCHES "Clang" OR CMAKE_CXX_COMPILER_ID MATCHES "GNU")
     target_compile_options(tsl_array_hash_tests PRIVATE -Werror -Wall -Wextra -Wold-style-cast -DTSL_DEBUG -UNDEBUG)
