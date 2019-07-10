@@ -25,7 +25,7 @@ A **benchmark** of `tsl::array_map` against other hash maps can be found [here](
 - By default the maximum allowed size for a key is set to 65 535. This can be raised through the `KeySizeT` template parameter (see [API](https://tessil.github.io/array-hash/doc/html/classtsl_1_1array__map.html#details) for details).
 - By default the maximum size of the map is limited to 4 294 967 296 elements. This can be raised through the `IndexSizeT` template parameter (see [API](https://tessil.github.io/array-hash/doc/html/classtsl_1_1array__map.html#details) for details).
 
-### Differences compare to `std::unordered_map`
+### Differences compared to `std::unordered_map`
 
 `tsl::array_map` tries to have an interface similar to `std::unordered_map`, but some differences exist:
 - Iterator invalidation doesn't behave in the same way, any operation modifying the hash table invalidate them (see [API](https://tessil.github.io/array-hash/doc/html/classtsl_1_1array__map.html#details) for details).
