@@ -30,8 +30,8 @@ A **benchmark** of `tsl::array_map` against other hash maps can be found [here](
 `tsl::array_map` tries to have an interface similar to `std::unordered_map`, but some differences exist:
 - Iterator invalidation doesn't behave in the same way, any operation modifying the hash table invalidate them (see [API](https://tessil.github.io/array-hash/doc/html/classtsl_1_1array__map.html#details) for details).
 - References and pointers to keys or values in the map are invalidated in the same way as iterators to these keys-values.
-- Erase operations have an amortized runtime complexity of O(1) for `tsl::array_map`. An erase operation will delete the key immediatly but for the value part of the map, the deletion may be delayed. The destructor of the value is only called when the ratio between the size of the map and the size of the map + the number of deleted values still stored is low enough. The method `shrink_to_fit` may be called to force the deletion.
-- The key and the value are stored separatly and not in a `std::pair<const Key, T>`. Methods like `insert` or `emplace` take the key and the value separatly instead of a `std::pair`. The insert method looks like `std::pair<iterator, bool> insert(const CharT* key, const T& value)` instead of `std::pair<iterator, bool> insert(const std::pair<const Key, T>& value)` (see [API](https://tessil.github.io/array-hash/doc/html/classtsl_1_1array__map.html) for details).
+- Erase operations have an amortized runtime complexity of O(1) for `tsl::array_map`. An erase operation will delete the key immediately but for the value part of the map, the deletion may be delayed. The destructor of the value is only called when the ratio between the size of the map and the size of the map + the number of deleted values still stored is low enough. The method `shrink_to_fit` may be called to force the deletion.
+- The key and the value are stored separately and not in a `std::pair<const Key, T>`. Methods like `insert` or `emplace` take the key and the value separately instead of a `std::pair`. The insert method looks like `std::pair<iterator, bool> insert(const CharT* key, const T& value)` instead of `std::pair<iterator, bool> insert(const std::pair<const Key, T>& value)` (see [API](https://tessil.github.io/array-hash/doc/html/classtsl_1_1array__map.html) for details).
 - For iterators, `operator*()` and `operator->()` return a reference and a pointer to the value `T` instead of `std::pair<const Key, T>`. For an access to the key string, the `key()` (which returns a `const CharT*`) or `key_sv()` (which returns a `std::basic_string_view<CharT>`) method of the iterator must be called.
 - No support for some bucket related methods (like `bucket_size`, `bucket`, ...).
 
@@ -211,7 +211,7 @@ struct deserializer {
 };
 ```
 
-Note that the implementation leaves binary compatibilty (endianness, float binary representation, size of int, ...) of the types it serializes/deserializes in the hands of the provided function objects if compatibilty is required.
+Note that the implementation leaves binary compatibility (endianness, float binary representation, size of int, ...) of the types it serializes/deserializes in the hands of the provided function objects if compatibility is required.
 
 More details regarding the `serialize` and `deserialize` methods can be found in the [API](https://tessil.github.io/array-hash/doc/html/classtsl_1_1array__map.html).
 
