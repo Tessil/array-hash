@@ -721,6 +721,20 @@ class array_bucket {
                     1);
 };
 
+// Store addressable bool objects instead of std::vector<bool> proxies so that
+// the mapped-value reference and pointer types remain the same for every T.
+class bool_value {
+ public:
+  template <class... Args>
+  explicit bool_value(Args&&... args) : m_value(std::forward<Args>(args)...) {}
+
+  operator bool&() noexcept { return m_value; }
+  operator const bool&() const noexcept { return m_value; }
+
+ private:
+  bool m_value;
+};
+
 template <class T>
 class value_container {
  public:
@@ -738,7 +752,10 @@ class value_container {
   static constexpr float VECTOR_GROWTH_RATE = 1.5f;
 
   // TODO use a sparse array? or a std::deque
-  std::vector<T> m_values;
+  using stored_type =
+      typename std::conditional<std::is_same<T, bool>::value, bool_value,
+                                T>::type;
+  std::vector<stored_type> m_values;
 };
 
 template <>
@@ -1448,11 +1465,11 @@ class array_hash : private value_container<T>,
       return;
     }
 
-    std::vector<T> new_values;
+    decltype(this->m_values) new_values;
     new_values.reserve(size());
 
     for (auto it = begin(); it != end(); ++it) {
-      new_values.push_back(std::move_if_noexcept(it.value()));
+      new_values.emplace_back(std::move_if_noexcept(it.value()));
     }
 
     IndexSizeT ivalue = 0;
@@ -1645,7 +1662,7 @@ class array_hash : private value_container<T>,
   void serialize_bucket_values(Serializer& serializer,
                                const array_bucket& bucket) const {
     for (auto it = bucket.begin(); it != bucket.end(); ++it) {
-      serializer(this->m_values[it.value()]);
+      serializer(static_cast<const U&>(this->m_values[it.value()]));
     }
   }
 

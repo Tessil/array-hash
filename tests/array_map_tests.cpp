@@ -38,6 +38,7 @@ BOOST_AUTO_TEST_SUITE(test_array_map)
 
 using test_types = boost::mpl::list<
     tsl::array_map<char, int64_t>, tsl::array_map<char, std::string>,
+    tsl::array_map<char, bool>, tsl::array_pg_map<char, bool>,
     tsl::array_map<char, move_only_test>,
     tsl::array_map<wchar_t, move_only_test>,
     tsl::array_map<char16_t, move_only_test>,
@@ -1062,6 +1063,218 @@ BOOST_AUTO_TEST_CASE(test_precalculated_hash) {
                    map.hash_function()("k4", strlen("k4")));
   BOOST_CHECK_EQUAL(map.erase("k4", map.hash_function()("k2", strlen("k2"))),
                     0);
+}
+
+/**
+ * bool mapped values must provide the same references as other mapped types.
+ */
+using bool_map_types = boost::mpl::list<
+    tsl::array_map<char, bool>, tsl::array_pg_map<char, bool>,
+    tsl::array_map<char, bool, tsl::ah::str_hash<char>,
+                   tsl::ah::str_equal<char>, false>>;
+
+BOOST_AUTO_TEST_CASE_TEMPLATE(test_bool_references, AMap, bool_map_types) {
+  static_assert(std::is_same<typename AMap::iterator::reference, bool&>::value,
+                "Mutable iterators must return bool references.");
+  static_assert(std::is_same<typename AMap::const_iterator::reference,
+                             const bool&>::value,
+                "Const iterators must return const bool references.");
+  static_assert(std::is_same<decltype(std::declval<AMap&>()["key"]),
+                             bool&>::value, "operator[] must return bool&.");
+  static_assert(std::is_same<decltype(std::declval<const AMap&>().at("key")),
+                             const bool&>::value, "at must return const bool&.");
+  static_assert(std::is_same<decltype(std::declval<typename AMap::iterator>()
+                                         .operator->()), bool*>::value,
+                "Mutable iterators must return bool pointers.");
+  static_assert(std::is_same<decltype(std::declval<typename AMap::const_iterator>()
+                                         .operator->()), const bool*>::value,
+                "Const iterators must return const bool pointers.");
+
+  AMap map;
+  BOOST_CHECK_EQUAL(map["default"], false);
+  map["enabled"] = true;
+  map.insert("disabled", false);
+  const AMap& const_map = map;
+  auto it = map.find("enabled");
+  auto cit = const_map.find("enabled");
+  bool& value = it.value();
+  const bool& const_value = cit.value();
+  BOOST_CHECK(std::addressof(value) == std::addressof(map.at("enabled")));
+  BOOST_CHECK(std::addressof(value) == it.operator->());
+  BOOST_CHECK(std::addressof(const_value) == cit.operator->());
+  BOOST_CHECK(std::addressof(value) == std::addressof(const_value));
+  BOOST_CHECK(std::addressof(value) == std::addressof(const_map.at("enabled")));
+  *it = false;
+  BOOST_CHECK_EQUAL(const_value, false);
+  *it.operator->() = true;
+  BOOST_CHECK_EQUAL(const_map.at("enabled"), true);
+  map.mutable_iterator(cit).value() = false;
+  BOOST_CHECK_EQUAL(const_value, false);
+  map.at("enabled") = true;
+  BOOST_CHECK_EQUAL(*cit, true);
+  for (bool& flag : map) {
+    flag = !flag;
+  }
+  BOOST_CHECK_EQUAL(const_map.at("enabled"), false);
+  BOOST_CHECK_EQUAL(const_map.at("disabled"), true);
+  BOOST_CHECK_EQUAL(const_map.at("default"), true);
+  BOOST_CHECK_THROW(map.at("missing"), std::out_of_range);
+  BOOST_CHECK_THROW(const_map.at("missing"), std::out_of_range);
+  BOOST_CHECK_EQUAL(map.size(), 3);
+
+  const char binary_key[] = {'a', '\0', 'b'};
+  map.insert_ks(binary_key, sizeof(binary_key), true);
+  map.at_ks(binary_key, sizeof(binary_key)) = false;
+  BOOST_CHECK_EQUAL(const_map.at_ks(binary_key, sizeof(binary_key)), false);
+  auto range = map.equal_range("enabled");
+  BOOST_REQUIRE_EQUAL(std::distance(range.first, range.second), 1);
+  range.first.value() = true;
+  BOOST_CHECK_EQUAL(const_map.at("enabled"), true);
+}
+
+struct explicit_bool_value {
+  explicit operator bool() const { return true; }
+};
+
+struct throwing_bool_value {
+  explicit operator bool() const { throw std::runtime_error("bool conversion"); }
+};
+
+BOOST_AUTO_TEST_CASE_TEMPLATE(test_bool_mutations, AMap, bool_map_types) {
+  AMap map;
+  map.emplace("empty");
+  BOOST_CHECK_EQUAL(map.at("empty"), false);
+  map.emplace("explicit", explicit_bool_value{});
+  BOOST_CHECK_EQUAL(map.at("explicit"), true);
+  BOOST_CHECK_THROW(map.emplace("throws", throwing_bool_value{}),
+                    std::runtime_error);
+  BOOST_CHECK_EQUAL(map.count("throws"), 0);
+  BOOST_CHECK_EQUAL(map.size(), 2);
+  BOOST_CHECK_EQUAL(map.at("explicit"), true);
+  map.clear();
+
+  for (std::size_t i = 0; i < 200; ++i) {
+    map[utils::get_key<char>(i)] = i % 2 != 0;
+  }
+  map.reserve(1000);
+  for (std::size_t i = 0; i < 200; i += 3) {
+    BOOST_CHECK_EQUAL(map.erase(utils::get_key<char>(i)), 1);
+  }
+  map.shrink_to_fit();
+  map.rehash(512);
+  for (std::size_t i = 0; i < 200; ++i) {
+    if (i % 3 == 0) {
+      BOOST_CHECK_EQUAL(map.count(utils::get_key<char>(i)), 0);
+    } else {
+      BOOST_CHECK_EQUAL(map.at(utils::get_key<char>(i)), i % 2 != 0);
+    }
+  }
+  auto duplicate = map.insert(utils::get_key<char>(1), false);
+  BOOST_CHECK(!duplicate.second);
+  BOOST_CHECK_EQUAL(duplicate.first.value(), true);
+  auto assigned = map.insert_or_assign(utils::get_key<char>(1), false);
+  BOOST_CHECK(!assigned.second);
+  BOOST_CHECK_EQUAL(assigned.first.value(), false);
+  BOOST_CHECK(map.insert_or_assign("new", true).second);
+
+  const AMap expected(map);
+  AMap copied;
+  copied = map;
+  BOOST_CHECK(copied == expected);
+  AMap moved(std::move(map));
+  BOOST_CHECK(moved == expected);
+  BOOST_CHECK(map.empty());
+  map["reused"] = true;
+  BOOST_CHECK_EQUAL(map.at("reused"), true);
+  map = std::move(moved);
+  BOOST_CHECK(map == expected);
+  BOOST_CHECK(moved.empty());
+  moved["reused"] = false;
+  BOOST_CHECK_EQUAL(moved.at("reused"), false);
+  using std::swap;
+  swap(map, moved);
+  BOOST_CHECK(moved == expected);
+  BOOST_CHECK_EQUAL(map.size(), 1);
+  map.clear();
+  map.shrink_to_fit();
+  BOOST_CHECK(map.empty());
+  BOOST_CHECK(map.insert("after_clear", true).second);
+}
+
+// Reject any implementation detail (such as a stored bool wrapper) deduced as
+// a serializer argument, and record the exact mapped-value callback sequence.
+class bool_serializer {
+ public:
+  template <class T>
+  void operator()(const T& value) {
+    static_assert(std::is_same<T, std::uint64_t>::value ||
+                      std::is_same<T, float>::value ||
+                      std::is_same<T, bool>::value,
+                  "Only the documented serialization types are allowed.");
+    serial(value);
+    if (std::is_same<T, bool>::value) {
+      values.push_back(static_cast<bool>(value));
+    }
+  }
+
+  void operator()(const char32_t* data, std::uint64_t size) {
+    serial(data, size);
+  }
+
+  serializer serial;
+  std::vector<bool> values;
+};
+
+using bool_serialization_types = boost::mpl::list<
+    tsl::array_map<char32_t, bool>, tsl::array_pg_map<char32_t, bool>>;
+
+BOOST_AUTO_TEST_CASE_TEMPLATE(test_bool_serialization, AMap,
+                              bool_serialization_types) {
+  AMap map;
+  for (std::size_t i = 0; i < 100; ++i) {
+    map.insert(utils::get_key<char32_t>(i), i % 2 != 0);
+  }
+  // Leave some erased values awaiting compaction; they must not be serialized.
+  for (std::size_t i = 0; i < 10; ++i) {
+    map.erase(utils::get_key<char32_t>(i));
+  }
+  bool_serializer serial;
+  map.serialize(serial);
+  std::vector<bool> expected;
+  for (const bool& value : map) {
+    expected.push_back(value);
+  }
+  BOOST_CHECK(serial.values == expected);
+  BOOST_CHECK_EQUAL(serial.values.size(), map.size());
+
+  for (bool hash_compatible : {false, true}) {
+    deserializer dserial(serial.serial.str());
+    auto restored = AMap::deserialize(dserial, hash_compatible);
+    BOOST_CHECK(restored == map);
+    restored.at(utils::get_key<char32_t>(10)) = true;
+    BOOST_CHECK_EQUAL(restored.at(utils::get_key<char32_t>(10)), true);
+    restored.erase(utils::get_key<char32_t>(11));
+    restored.shrink_to_fit();
+    BOOST_CHECK_EQUAL(restored.at(utils::get_key<char32_t>(10)), true);
+  }
+
+  for (std::size_t bucket_count : {std::size_t(0), std::size_t(1)}) {
+    AMap empty(bucket_count);
+    bool_serializer empty_serial;
+    empty.serialize(empty_serial);
+    BOOST_CHECK(empty_serial.values.empty());
+    for (bool hash_compatible : {false, true}) {
+      deserializer dserial(empty_serial.serial.str());
+      auto restored = AMap::deserialize(dserial, hash_compatible);
+      BOOST_CHECK(restored.empty());
+      // Mutating a deserialized zero-bucket map is a separate existing issue,
+      // also reproducible with non-bool mapped values on the unmodified base.
+      if (restored.bucket_count() != 0) {
+        restored[U"new"] = true;
+        BOOST_CHECK_EQUAL(restored.at(U"new"), true);
+      }
+    }
+  }
 }
 
 BOOST_AUTO_TEST_SUITE_END()

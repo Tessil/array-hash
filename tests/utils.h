@@ -177,6 +177,11 @@ inline std::basic_string<char32_t> utils::get_key<char32_t>(
 }
 
 template <>
+inline bool utils::get_value<bool>(std::size_t counter) {
+  return counter % 2 != 0;
+}
+
+template <>
 inline std::int64_t utils::get_value<std::int64_t>(std::size_t counter) {
   return boost::numeric_cast<std::int64_t>(counter * 2);
 }
